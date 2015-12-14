@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [HighPin UI Test]">
+  <test name="BusinessLoginAction3(failed)">
+    <classes>
+      <class name="com.highpin.test.BusinessLoginAction1">
+        <methods>
+          <include name="closeBrowser"/>
+          <include name="openBrowser"/>
+        </methods>
+      </class> <!-- com.highpin.test.BusinessLoginAction1 -->
+      <class name="com.highpin.test.BusinessLoginAction3">
+        <methods>
+          <include name="clickLogout"/>
+          <include name="openBrowser"/>
+          <include name="submitForm"/>
+          <include name="closeBrowser"/>
+        </methods>
+      </class> <!-- com.highpin.test.BusinessLoginAction3 -->
+      <class name="com.highpin.test.BusinessLoginAction2">
+        <methods>
+          <include name="closeBrowser"/>
+          <include name="openBrowser"/>
+        </methods>
+      </class> <!-- com.highpin.test.BusinessLoginAction2 -->
+    </classes>
+  </test> <!-- BusinessLoginAction3(failed) -->
+</suite> <!-- Failed suite [HighPin UI Test] -->

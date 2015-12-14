@@ -1,0 +1,143 @@
+package com.highpin.generator.core;
+
+import com.strobel.decompiler.Decompiler;
+import com.strobel.decompiler.PlainTextOutput;
+import javassist.CannotCompileException;
+import javassist.CtClass;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Administrator on 2015/12/2.
+ */
+public class ClassDecompiler {
+    private ClassGenerator cg = null;
+    private List<CtClass> ctList = null;
+    private List<String> classPackageFullNameList = null;
+    public static Logger logger = LogManager.getLogger(ClassDecompiler.class.getName());
+
+    /**
+     * @Description: 创建测试类,并且以列表的形式获取所有测试类
+     * @throws Exception
+     */
+    public ClassDecompiler() throws Exception {
+        this.cg = new ClassGenerator();
+        this.cg.createClass();
+        this.cg.insertField();
+        this.cg.insertMethod();
+        this.ctList = this.cg.getAllClassList();
+        this.classPackageFullNameList = new ArrayList<>();
+    }
+
+    /**
+     * @Description: 将class文件写入到当前文件路径的test包中
+     */
+    public void writeClassToPackage() {
+        for (CtClass aCtList : this.ctList) {
+            try {
+                aCtList.writeFile("./src/main/java");
+            } catch (IOException | CannotCompileException e) {
+                e.printStackTrace();
+            }
+        }
+        logger.info("写入字节码文件完成");
+    }
+
+    /**
+     * @Description: 直接获取类的字节码字符串
+     */
+    public void getClassByteCode() {
+        byte [] classByteCode = null;
+        for (CtClass aCtList : this.ctList) {
+            try {
+                classByteCode = aCtList.toBytecode();
+                String classStatement = new String(classByteCode, "UTF-8");
+                System.out.println(classStatement);
+            } catch (IOException | CannotCompileException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * @Description: 获取字节码文件的类名称
+     * @return classPackageFullNameList -- 类名称
+     */
+    public List<String> getTestClassFileName() {
+        String testClassPath = "./src/main/java/com/highpin/test";
+        File pack = new File(testClassPath);
+        File [] fileList = pack.listFiles();
+        String fileClassName = null;
+        if (fileList != null) {
+            for (File testFile: fileList) {
+                fileClassName = testFile.getName();
+                // 去掉.class后缀
+                fileClassName = fileClassName.substring(0, fileClassName.lastIndexOf("."));
+                classPackageFullNameList.add("com/highpin/test/" + fileClassName);
+            }
+        }
+        logger.info("返回所有的类全名");
+        logger.info(classPackageFullNameList);
+        return classPackageFullNameList;
+    }
+
+    /**
+     * @Description: 将字节码文件反编译为Java文件
+     */
+    public void decompilerClass() {
+        String prefixPath = "./src/main/java/";
+        String javaFullPath = null;
+        String classFullPath = null;
+        FileOutputStream stream = null;
+        OutputStreamWriter writer = null;
+
+        logger.info("************************************************类反编译开始************************************************");
+        for (String classPackageFullName : this.classPackageFullNameList) {
+            javaFullPath = prefixPath + classPackageFullName + ".java";
+            classFullPath = prefixPath + classPackageFullName + ".class";
+            logger.info(javaFullPath);
+            logger.info(classFullPath);
+            try {
+                stream = new FileOutputStream(javaFullPath);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (stream != null) {
+                    writer = new OutputStreamWriter(stream, "UTF-8");
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            if (writer != null) {
+                // 进行反编译
+                Decompiler.decompile(classFullPath, new PlainTextOutput(writer));
+            }
+            try {
+                if (writer != null) {
+                    writer.flush();
+                    writer.close();
+                }
+                if (stream != null) {
+                    stream.flush();
+                    stream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        logger.info("************************************************类反编译完成************************************************");
+    }
+
+    // 测试--main方法
+    public static void main(String[] args) throws Exception {
+        ClassDecompiler cd = new ClassDecompiler();
+        cd.writeClassToPackage();
+        cd.getTestClassFileName();
+        cd.decompilerClass();
+    }
+}
