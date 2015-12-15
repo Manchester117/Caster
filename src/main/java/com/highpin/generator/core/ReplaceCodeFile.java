@@ -13,7 +13,9 @@ import java.util.regex.Pattern;
 public class ReplaceCodeFile {
     public static Logger logger = LogManager.getLogger(ReplaceCodeFile.class.getName());
 
-    // 对包中的所有代码进行转换
+    /**
+     * @Description: 对Java代码中unicode编码的中文进行转码
+     */
     public void convertUnicodeFile() {
         File file = new File("./src/main/java/com/highpin/test");
         File [] codeFileList = file.listFiles();
@@ -28,7 +30,10 @@ public class ReplaceCodeFile {
         logger.info("Java文件转码完成");
     }
 
-    // 读取文件进行字符串转换
+    /**
+     * @Description: 代码文件读取写入
+     * @param codeFile -- 代码文件对象
+     */
     public void convertUnicodeSingleCodeFile(File codeFile) {
         FileInputStream fis = null;
         FileOutputStream fos = null;
@@ -74,7 +79,11 @@ public class ReplaceCodeFile {
         }
     }
 
-    // 将Unicode编码的字符串转换为中文字符串
+    /**
+     * @Description: 转码方法
+     * @param code -- 代码字符串
+     * @return code -- 返回转码后的代码
+     */
     private String unicodeToString(String code) {
         Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
         Matcher matcher = pattern.matcher(code);

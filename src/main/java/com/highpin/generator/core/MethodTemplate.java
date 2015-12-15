@@ -332,13 +332,16 @@ public class MethodTemplate {
     }
 
     // 鼠标悬停
-    public String moveToHover(StepParameters sp) throws Exception {
+    public String moveToHold(StepParameters sp) throws Exception {
         String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
+                                            "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                             "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
                                             "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
                                             "actions.moveToElement(element).perform();" +
+                                            verifyStatement +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                             "e.printStackTrace();" +
@@ -347,6 +350,30 @@ public class MethodTemplate {
                                     "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
+                              "}";
+        return methodDefine;
+    }
+
+    // 鼠标点击
+    public String mouseClick(StepParameters sp) throws Exception {
+        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "try {" +
+                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
+                                        "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
+                                        "actions.click(element).perform();" +
+                                        verifyStatement +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
+                                    "} catch (java.lang.Exception e) {" +
+                                        "e.printStackTrace();" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
+                                    "}" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
