@@ -1,5 +1,6 @@
 package com.highpin.check;
 
+import com.highpin.generator.core.LocatorTemplate;
 import com.highpin.generator.core.MethodTemplate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +27,7 @@ public class VerifyModule {
                               "} catch (java.lang.InterruptedException e) {" +
                                     "e.printStackTrace();" +
                               "}" +
-                              "org.openqa.selenium.WebElement verifyElem = this.driver.findElement(" + MethodTemplate.chooseLocator(verifyType, verifyTarget) + ");" +
+                              "org.openqa.selenium.WebElement verifyElem = this.driver.findElement(" + LocatorTemplate.chooseLocator(verifyType, verifyTarget) + ");" +
                               "java.lang.String targetText = verifyElem.getText();" +
                               "if (targetText.contains(\"" + verifyValue + "\")) {" +
                                     "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + verifyValue + "\" + \" -- is exist\");" +
