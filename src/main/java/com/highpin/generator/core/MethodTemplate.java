@@ -72,10 +72,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         System.out.println(methodDefine);
         return methodDefine;
@@ -85,11 +87,11 @@ public class MethodTemplate {
     public String closeBrowser(StepParameters sp) {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "this.driver.quit();" +
+                                        "this.driver.close();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "this.extent.endTest(this.test);" +
                                     "this.extent.flush();" +
@@ -124,16 +126,17 @@ public class MethodTemplate {
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
-                                        "element.clear();" +
                                         "element.sendKeys(new String[]{\"" + sp.getEleData() + "\"});" +
                                         verifyStatement +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }
@@ -153,10 +156,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }
@@ -175,10 +180,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }
@@ -197,10 +204,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }
@@ -219,10 +228,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }
@@ -241,10 +252,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }
@@ -263,10 +276,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }
@@ -284,10 +299,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }
@@ -304,10 +321,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
                               "}";
         return methodDefine;
     }

@@ -35,6 +35,7 @@ public class ClassGenerator {
     private List<List<String>> methodVerifyTypeList = null;
     private List<List<String>> methodVerifyTargetList = null;
     private List<List<String>> methodVerifyValueList = null;
+    private List<List<String>> methodIsImage = null;
 
     public static Logger logger = LogManager.getLogger(ClassGenerator.class.getName());
 
@@ -57,6 +58,7 @@ public class ClassGenerator {
         this.methodVerifyTypeList = rs.getSheetField("Verify_Type");
         this.methodVerifyTargetList = rs.getSheetField("Verify_Target");
         this.methodVerifyValueList = rs.getSheetField("Verify_Value");
+        this.methodIsImage = rs.getSheetField("Is_Image");
 
         logger.info("获取测试数据结构,从数据结构中取出所有测试数据,以列表形式存储");
     }
@@ -144,6 +146,8 @@ public class ClassGenerator {
                 sp.setVerifyTarget(this.methodVerifyTargetList.get(ctIndex).get(methodIndex));
                 // 获取每个步骤的验证值
                 sp.setVerifyValue(this.methodVerifyValueList.get(ctIndex).get(methodIndex));
+                // 获取每个步骤是否截图
+                sp.setIsImage(this.methodIsImage.get(ctIndex).get(methodIndex));
 
                 // 根据元素类型判断对应的操作
                 if (sp.getMethodName().equals("openBrowser")) {
@@ -161,7 +165,7 @@ public class ClassGenerator {
                     methodStatement = this.mt.waitFor(sp);
                     this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
                     logger.info("已加入方法--" + sp.getMethodName());
-                } else if (!sp.getMethodName().equals("openBrowser") && !sp.getMethodName().equals("close")) {
+                } else if (!sp.getMethodName().equals("openBrowser") && !sp.getMethodName().equals("closeBrowser")) {
                     switch (sp.getEleType()) {
                         case "text":
                             methodStatement = this.mt.inputText(sp);
@@ -231,6 +235,7 @@ public class ClassGenerator {
         // 向类中插入方法
         CtMethod ctMethod = null;
         try {
+            logger.info(body);
             ctMethod = CtNewMethod.make(body, ctClass);
             ctClass.addMethod(ctMethod);
         } catch (CannotCompileException | NullPointerException e) {

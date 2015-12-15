@@ -118,6 +118,9 @@ public class ExcelOperator {
                         case "Verify_Value":
                             stepItem.put(title, value);
                             break;
+                        case "Is_Image":
+                            stepItem.put(title, value);
+                            break;
                         default:
                             System.out.print("无法识别Excel中的字段: " + title);
                             throw new NotFoundExcelColException("无法识别Excel中的字段: " + title);

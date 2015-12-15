@@ -17,6 +17,7 @@ public class StepParameters {
     private String verifyType;
     private String verifyTarget;
     private String verifyValue;
+    private String isImage;
 
     public String getClassName() {
         return className;
@@ -96,5 +97,13 @@ public class StepParameters {
 
     public void setVerifyValue(String verifyValue) {
         this.verifyValue = verifyValue;
+    }
+
+    public String getIsImage() {
+        return isImage;
+    }
+
+    public void setIsImage(String isImage) {
+        this.isImage = isImage;
     }
 }
