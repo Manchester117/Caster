@@ -213,7 +213,7 @@ public class ClassGenerator {
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "mouseHold":
-                            methodStatement = this.mt.moveToHold(sp);
+                            methodStatement = this.mt.mouseHold(sp);
                             this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
