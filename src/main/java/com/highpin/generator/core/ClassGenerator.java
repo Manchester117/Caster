@@ -223,7 +223,7 @@ public class ClassGenerator {
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         default:
-                            logger.info("未知的操作方法--" + sp.getMethodName());
+                            logger.error("未知的操作方法--" + sp.getMethodName());
                             // 需要加入异常处理
                             throw new NotFoundTestException("未知的操作方法: " + sp.getMethodName());
                     }

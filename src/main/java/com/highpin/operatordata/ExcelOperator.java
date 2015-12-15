@@ -122,7 +122,7 @@ public class ExcelOperator {
                             stepItem.put(title, value);
                             break;
                         default:
-                            System.out.print("无法识别Excel中的字段: " + title);
+                            logger.error("无法识别Excel中的字段: " + title);
                             throw new NotFoundExcelColException("无法识别Excel中的字段: " + title);
                     }
                 }

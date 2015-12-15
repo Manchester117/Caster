@@ -1,54 +1,11 @@
 package com.highpin.generator.core;
 
 import com.highpin.check.VerifyModule;
-import com.highpin.except.NotFoundLocatorException;
 
 /**
  * Created by Administrator on 2015/11/28.
  */
 public class MethodTemplate {
-    /**
-     * @Description: 根据定位类型和定位值返回对应的元素选择语句
-     * @param locatorType -- 元素定位类型
-     * @param locatorValue -- 元素定位值
-     * @return by -- 返回对应的定位语句
-     * @throws Exception -- 如果出现定位类型/定位值不正确则抛出NotFoundLocatorException
-     */
-    public static String chooseLocator(String locatorType, String locatorValue) throws Exception {
-        String by = null;
-        switch (locatorType) {
-            case "id":
-                by = "org.openqa.selenium.By.id(\"" + locatorValue + "\")";
-                break;
-            case "name":
-                by = "org.openqa.selenium.By.name(\"" + locatorValue + "\")";
-                break;
-            case "xpath":
-                by = "org.openqa.selenium.By.xpath(\"" + locatorValue + "\")";
-                break;
-            case "linkText":
-                by = "org.openqa.selenium.By.linkText(\"" + locatorValue + "\")";
-                break;
-            case "partialLinkText":
-                by = "org.openqa.selenium.By.partialLinkText(\"" + locatorValue + "\")";
-                break;
-            case "tagName":
-                by = "org.openqa.selenium.By.tagName(\"" + locatorValue + "\")";
-                break;
-            case "className":
-                by = "org.openqa.selenium.By.className(\"" + locatorValue + "\")";
-                break;
-            case "cssSelector":
-                by = "org.openqa.selenium.By.cssSelector(\"" + locatorValue + "\")";
-                break;
-            default:
-                // 后续加入异常处理
-                System.out.println("无法识别定位选择器");
-                throw new NotFoundLocatorException("无法识别定位选择器: " + locatorValue);
-        }
-        return by;
-    }
-
     // 初始化浏览器
     public String openBrowser(StepParameters sp) {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
@@ -118,7 +75,7 @@ public class MethodTemplate {
     public String inputText(StepParameters sp) throws Exception {
         // 获取验证语句
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         // 这里要注意的是:sendkeys的参数类型是CharSequence...,而实际传入的是String类型,所以需要将String类型参数转换为CharSequence...
         // CharSequence是可变字符序列,String是不可变字符串
         // 转换方法:使用new String[]{"xxxxx"}
@@ -145,7 +102,7 @@ public class MethodTemplate {
     public String selectOption(StepParameters sp) throws Exception {
         // 获取验证语句
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -170,7 +127,7 @@ public class MethodTemplate {
     public String radioButtonOper(StepParameters sp) throws Exception {
         // 获取验证语句
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -194,7 +151,7 @@ public class MethodTemplate {
     public String checkBoxOper(StepParameters sp) throws Exception {
         // 获取验证语句
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -218,7 +175,7 @@ public class MethodTemplate {
     public String buttonClick(StepParameters sp) throws Exception {
         // 获取验证语句
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -242,7 +199,7 @@ public class MethodTemplate {
     public String submitClick(StepParameters sp) throws Exception {
         // 获取验证语句
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -266,7 +223,7 @@ public class MethodTemplate {
     public String uploadFile(StepParameters sp) throws Exception {
         // 获取验证语句
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -333,7 +290,7 @@ public class MethodTemplate {
 
     // 鼠标悬停
     public String moveToHold(StepParameters sp) throws Exception {
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -357,7 +314,7 @@ public class MethodTemplate {
 
     // 鼠标点击
     public String mouseClick(StepParameters sp) throws Exception {
-        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
