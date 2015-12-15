@@ -330,4 +330,25 @@ public class MethodTemplate {
                               "}";
         return methodDefine;
     }
+
+    // 鼠标悬停
+    public String moveToHover(StepParameters sp) throws Exception {
+        String by = MethodTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "try {" +
+                                            "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
+                                            "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
+                                            "actions.moveToElement(element).perform();" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
+                                    "} catch (java.lang.Exception e) {" +
+                                            "e.printStackTrace();" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
+                                    "}" +
+                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"Snapshot below: \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
+                              "}";
+        return methodDefine;
+    }
 }

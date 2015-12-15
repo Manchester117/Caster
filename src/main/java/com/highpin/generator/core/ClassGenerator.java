@@ -212,6 +212,11 @@ public class ClassGenerator {
                             this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
+                        case "hover":
+                            methodStatement = this.mt.moveToHover(sp);
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            logger.info("已加入方法--" + sp.getMethodName());
+                            break;
                         default:
                             logger.info("未知的操作方法--" + sp.getMethodName());
                             // 需要加入异常处理
