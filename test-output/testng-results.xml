@@ -2,131 +2,131 @@
 <testng-results skipped="0" failed="0" total="21" passed="21">
   <reporter-output>
   </reporter-output>
-  <suite name="HighPin UI Test" duration-ms="45384" started-at="2015-12-14T09:23:49Z" finished-at="2015-12-14T09:24:34Z">
+  <suite name="HighPin UI Test" duration-ms="43109" started-at="2015-12-15T01:22:40Z" finished-at="2015-12-15T01:23:23Z">
     <groups>
     </groups>
-    <test name="BusinessLoginAction1" duration-ms="13437" started-at="2015-12-14T09:23:49Z" finished-at="2015-12-14T09:24:02Z">
+    <test name="BusinessLoginAction1" duration-ms="15287" started-at="2015-12-15T01:22:40Z" finished-at="2015-12-15T01:22:56Z">
       <class name="com.highpin.test.BusinessLoginAction1">
-        <test-method status="PASS" signature="openBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="openBrowser" is-config="true" duration-ms="2614" started-at="2015-12-14T17:23:49Z" finished-at="2015-12-14T17:23:52Z">
+        <test-method status="PASS" signature="openBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="openBrowser" is-config="true" duration-ms="2420" started-at="2015-12-15T09:22:40Z" finished-at="2015-12-15T09:22:43Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- openBrowser -->
-        <test-method status="PASS" signature="navigate()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="navigate" duration-ms="959" started-at="2015-12-14T17:23:52Z" description="跳转地址" finished-at="2015-12-14T17:23:53Z">
+        <test-method status="PASS" signature="navigate()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="navigate" duration-ms="2775" started-at="2015-12-15T09:22:43Z" description="跳转至URL" finished-at="2015-12-15T09:22:45Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- navigate -->
-        <test-method status="PASS" signature="inputUserName()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="inputUserName" duration-ms="300" started-at="2015-12-14T17:23:53Z" description="输入用户名" finished-at="2015-12-14T17:23:53Z">
+        <test-method status="PASS" signature="inputUserName()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="inputUserName" duration-ms="274" started-at="2015-12-15T09:22:45Z" description="填写用户名" finished-at="2015-12-15T09:22:46Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputUserName -->
-        <test-method status="PASS" signature="inputPassword()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="inputPassword" duration-ms="252" started-at="2015-12-14T17:23:53Z" description="输入密码" finished-at="2015-12-14T17:23:53Z">
+        <test-method status="PASS" signature="inputPassword()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="inputPassword" duration-ms="243" started-at="2015-12-15T09:22:46Z" description="填写密码" finished-at="2015-12-15T09:22:46Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputPassword -->
-        <test-method status="PASS" signature="inputPostCode()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="inputPostCode" duration-ms="231" started-at="2015-12-14T17:23:53Z" description="输入验证码" finished-at="2015-12-14T17:23:53Z">
+        <test-method status="PASS" signature="inputPostCode()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="inputPostCode" duration-ms="230" started-at="2015-12-15T09:22:46Z" description="填写验证码" finished-at="2015-12-15T09:22:46Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputPostCode -->
-        <test-method status="PASS" signature="loginAction()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="loginAction" duration-ms="1607" started-at="2015-12-14T17:23:53Z" description="执行登录" finished-at="2015-12-14T17:23:55Z">
+        <test-method status="PASS" signature="loginAction()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="loginAction" duration-ms="1858" started-at="2015-12-15T09:22:46Z" description="执行登录" finished-at="2015-12-15T09:22:48Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginAction -->
-        <test-method status="PASS" signature="waitFor()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="waitFor" duration-ms="5001" started-at="2015-12-14T17:23:55Z" description="等待5秒钟" finished-at="2015-12-14T17:24:00Z">
+        <test-method status="PASS" signature="waitFor()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="waitFor" duration-ms="5001" started-at="2015-12-15T09:22:48Z" description="等待5秒钟" finished-at="2015-12-15T09:22:53Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- waitFor -->
-        <test-method status="PASS" signature="clickLogout()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="clickLogout" duration-ms="1004" started-at="2015-12-14T17:24:00Z" description="注销用户" finished-at="2015-12-14T17:24:01Z">
+        <test-method status="PASS" signature="clickLogout()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="clickLogout" duration-ms="1134" started-at="2015-12-15T09:22:53Z" description="注销用户" finished-at="2015-12-15T09:22:54Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- clickLogout -->
-        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction1@6d6cd1e0]" name="closeBrowser" is-config="true" duration-ms="1464" started-at="2015-12-14T17:24:01Z" finished-at="2015-12-14T17:24:02Z">
+        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction1@4afd65fd]" name="closeBrowser" is-config="true" duration-ms="1344" started-at="2015-12-15T09:22:54Z" finished-at="2015-12-15T09:22:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeBrowser -->
       </class> <!-- com.highpin.test.BusinessLoginAction1 -->
     </test> <!-- BusinessLoginAction1 -->
-    <test name="BusinessLoginAction2" duration-ms="10183" started-at="2015-12-14T09:24:02Z" finished-at="2015-12-14T09:24:13Z">
+    <test name="BusinessLoginAction2" duration-ms="13286" started-at="2015-12-15T01:22:56Z" finished-at="2015-12-15T01:23:09Z">
       <class name="com.highpin.test.BusinessLoginAction2">
-        <test-method status="PASS" signature="openBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="openBrowser" is-config="true" duration-ms="1405" started-at="2015-12-14T17:24:02Z" finished-at="2015-12-14T17:24:04Z">
+        <test-method status="PASS" signature="openBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="openBrowser" is-config="true" duration-ms="1553" started-at="2015-12-15T09:22:56Z" finished-at="2015-12-15T09:22:57Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- openBrowser -->
-        <test-method status="PASS" signature="navigate()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="navigate" duration-ms="700" started-at="2015-12-14T17:24:04Z" description="跳转地址" finished-at="2015-12-14T17:24:04Z">
+        <test-method status="PASS" signature="navigate()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="navigate" duration-ms="3179" started-at="2015-12-15T09:22:57Z" description="跳转至URL" finished-at="2015-12-15T09:23:00Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- navigate -->
-        <test-method status="PASS" signature="inputUserName()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="inputUserName" duration-ms="759" started-at="2015-12-14T17:24:04Z" description="输入用户名" finished-at="2015-12-14T17:24:05Z">
+        <test-method status="PASS" signature="inputUserName()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="inputUserName" duration-ms="257" started-at="2015-12-15T09:23:00Z" description="填写用户名" finished-at="2015-12-15T09:23:01Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputUserName -->
-        <test-method status="PASS" signature="inputPassword()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="inputPassword" duration-ms="204" started-at="2015-12-14T17:24:05Z" description="输入密码" finished-at="2015-12-14T17:24:05Z">
+        <test-method status="PASS" signature="inputPassword()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="inputPassword" duration-ms="200" started-at="2015-12-15T09:23:01Z" description="填写密码" finished-at="2015-12-15T09:23:01Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputPassword -->
-        <test-method status="PASS" signature="inputPostCode()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="inputPostCode" duration-ms="230" started-at="2015-12-14T17:24:05Z" description="输入验证码" finished-at="2015-12-14T17:24:06Z">
+        <test-method status="PASS" signature="inputPostCode()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="inputPostCode" duration-ms="194" started-at="2015-12-15T09:23:01Z" description="填写验证码" finished-at="2015-12-15T09:23:01Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputPostCode -->
-        <test-method status="PASS" signature="loginAction()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="loginAction" duration-ms="527" started-at="2015-12-14T17:24:06Z" description="执行登录" finished-at="2015-12-14T17:24:06Z">
+        <test-method status="PASS" signature="loginAction()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="loginAction" duration-ms="1709" started-at="2015-12-15T09:23:01Z" description="执行登录" finished-at="2015-12-15T09:23:03Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginAction -->
-        <test-method status="PASS" signature="waitFor()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="waitFor" duration-ms="5000" started-at="2015-12-14T17:24:06Z" description="等待5秒钟" finished-at="2015-12-14T17:24:11Z">
+        <test-method status="PASS" signature="waitFor()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="waitFor" duration-ms="5001" started-at="2015-12-15T09:23:03Z" description="等待5秒钟" finished-at="2015-12-15T09:23:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- waitFor -->
-        <test-method status="PASS" signature="clickLogout()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="clickLogout" duration-ms="1187" started-at="2015-12-14T17:24:11Z" description="注销用户" finished-at="2015-12-14T17:24:12Z">
+        <test-method status="PASS" signature="clickLogout()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="clickLogout" duration-ms="1048" started-at="2015-12-15T09:23:08Z" description="注销用户" finished-at="2015-12-15T09:23:09Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- clickLogout -->
-        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction2@65600fb3]" name="closeBrowser" is-config="true" duration-ms="170" started-at="2015-12-14T17:24:12Z" finished-at="2015-12-14T17:24:13Z">
+        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction2@7e050be1]" name="closeBrowser" is-config="true" duration-ms="143" started-at="2015-12-15T09:23:09Z" finished-at="2015-12-15T09:23:09Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeBrowser -->
       </class> <!-- com.highpin.test.BusinessLoginAction2 -->
     </test> <!-- BusinessLoginAction2 -->
-    <test name="BusinessLoginAction3" duration-ms="21742" started-at="2015-12-14T09:24:13Z" finished-at="2015-12-14T09:24:34Z">
+    <test name="BusinessLoginAction3" duration-ms="14524" started-at="2015-12-15T01:23:09Z" finished-at="2015-12-15T01:23:23Z">
       <class name="com.highpin.test.BusinessLoginAction3">
-        <test-method status="PASS" signature="openBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="openBrowser" is-config="true" duration-ms="2561" started-at="2015-12-14T17:24:13Z" finished-at="2015-12-14T17:24:15Z">
+        <test-method status="PASS" signature="openBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="openBrowser" is-config="true" duration-ms="2554" started-at="2015-12-15T09:23:09Z" finished-at="2015-12-15T09:23:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- openBrowser -->
-        <test-method status="PASS" signature="navigate()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="navigate" duration-ms="593" started-at="2015-12-14T17:24:15Z" description="跳转地址" finished-at="2015-12-14T17:24:16Z">
+        <test-method status="PASS" signature="navigate()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="navigate" duration-ms="1638" started-at="2015-12-15T09:23:11Z" description="跳转至URL" finished-at="2015-12-15T09:23:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- navigate -->
-        <test-method status="PASS" signature="inputUserName()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="inputUserName" duration-ms="615" started-at="2015-12-14T17:24:16Z" description="输入用户名" finished-at="2015-12-14T17:24:16Z">
+        <test-method status="PASS" signature="inputUserName()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="inputUserName" duration-ms="457" started-at="2015-12-15T09:23:13Z" description="填写用户名" finished-at="2015-12-15T09:23:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputUserName -->
-        <test-method status="PASS" signature="inputPassword()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="inputPassword" duration-ms="486" started-at="2015-12-14T17:24:16Z" description="输入密码" finished-at="2015-12-14T17:24:17Z">
+        <test-method status="PASS" signature="inputPassword()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="inputPassword" duration-ms="319" started-at="2015-12-15T09:23:13Z" description="填写密码" finished-at="2015-12-15T09:23:14Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputPassword -->
-        <test-method status="PASS" signature="inputPostCode()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="inputPostCode" duration-ms="453" started-at="2015-12-14T17:24:17Z" description="输入验证码" finished-at="2015-12-14T17:24:17Z">
+        <test-method status="PASS" signature="inputPostCode()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="inputPostCode" duration-ms="307" started-at="2015-12-15T09:23:14Z" description="填写验证码" finished-at="2015-12-15T09:23:14Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- inputPostCode -->
-        <test-method status="PASS" signature="loginAction()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="loginAction" duration-ms="652" started-at="2015-12-14T17:24:17Z" description="执行登录" finished-at="2015-12-14T17:24:18Z">
+        <test-method status="PASS" signature="loginAction()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="loginAction" duration-ms="1678" started-at="2015-12-15T09:23:14Z" description="执行登录" finished-at="2015-12-15T09:23:16Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginAction -->
-        <test-method status="PASS" signature="waitFor()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="waitFor" duration-ms="5000" started-at="2015-12-14T17:24:18Z" description="等待5秒钟" finished-at="2015-12-14T17:24:23Z">
+        <test-method status="PASS" signature="waitFor()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="waitFor" duration-ms="5000" started-at="2015-12-15T09:23:16Z" description="等待5秒钟" finished-at="2015-12-15T09:23:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- waitFor -->
-        <test-method status="PASS" signature="clickLogout()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="clickLogout" duration-ms="10206" started-at="2015-12-14T17:24:23Z" description="注销用户" finished-at="2015-12-14T17:24:33Z">
+        <test-method status="PASS" signature="clickLogout()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="clickLogout" duration-ms="1169" started-at="2015-12-15T09:23:21Z" description="注销用户" finished-at="2015-12-15T09:23:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- clickLogout -->
-        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2d22d3b1]" name="closeBrowser" is-config="true" duration-ms="1173" started-at="2015-12-14T17:24:33Z" finished-at="2015-12-14T17:24:34Z">
+        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.highpin.test.BusinessLoginAction3@2f86f9cf]" name="closeBrowser" is-config="true" duration-ms="1401" started-at="2015-12-15T09:23:22Z" finished-at="2015-12-15T09:23:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeBrowser -->
       </class> <!-- com.highpin.test.BusinessLoginAction3 -->
     </test> <!-- BusinessLoginAction3 -->
   </suite> <!-- HighPin UI Test -->
-  <suite name="Default Suite" duration-ms="0" started-at="2015-12-14T09:24:34Z" finished-at="2015-12-14T09:24:34Z">
+  <suite name="Default Suite" duration-ms="0" started-at="2015-12-15T01:23:23Z" finished-at="2015-12-15T01:23:23Z">
     <groups>
     </groups>
   </suite> <!-- Default Suite -->

@@ -21,7 +21,12 @@ public class VerifyModule {
     public static String addVerifyContentStatement(String verifyType, String verifyTarget, String verifyValue) throws Exception{
         String verifyStatement = "";
         if (!verifyType.isEmpty() && !verifyTarget.isEmpty() && !verifyValue.isEmpty()) {
-            verifyStatement = "org.openqa.selenium.WebElement verifyElem = this.driver.findElement(" + MethodTemplate.chooseLocator(verifyType, verifyTarget) + ");" +
+            verifyStatement = "try {" +
+                                    "java.lang.Thread.sleep(1000L);" +
+                              "} catch (java.lang.InterruptedException e) {" +
+                                    "e.printStackTrace();" +
+                              "}" +
+                              "org.openqa.selenium.WebElement verifyElem = this.driver.findElement(" + MethodTemplate.chooseLocator(verifyType, verifyTarget) + ");" +
                               "java.lang.String targetText = verifyElem.getText();" +
                               "if (targetText.contains(\"" + verifyValue + "\")) {" +
                                     "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + verifyValue + "\" + \" -- is exist\");" +
