@@ -297,7 +297,7 @@ public class MethodTemplate {
                                             "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                             "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
                                             "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
-                                            "actions.clickAndHold(element).perform();" +
+                                            "actions.moveToElement(element).perform();" +
                                             verifyStatement +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
