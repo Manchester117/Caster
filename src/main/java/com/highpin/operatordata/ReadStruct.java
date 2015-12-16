@@ -30,6 +30,7 @@ public class ReadStruct {
             Map.Entry entry = (Map.Entry) step;
             classNameList.add(entry.getKey().toString());
         }
+//        System.out.println("类名列表: " + classNameList);
         logger.info("返回数据结构的类名称列表");
         return classNameList;
     }
@@ -45,18 +46,23 @@ public class ReadStruct {
         List<String> fieldList = null;
         List<List<String>> allFieldList = new ArrayList<>();
 
-        for (Object step : this.caseMap.entrySet()) {
-            Map.Entry entryStep = (Map.Entry) step;
-            testStep = (SortedMap) entryStep.getValue();
-            fieldList = new ArrayList<>();
-            for (Object item : testStep.entrySet()) {
-                Map.Entry entryItem = (Map.Entry) item;
-                testItem = (HashMap) entryItem.getValue();
-                fieldList.add(testItem.get(sheetField).toString());
+        try {
+            for (Object step : this.caseMap.entrySet()) {
+                Map.Entry entryStep = (Map.Entry) step;
+                testStep = (SortedMap) entryStep.getValue();
+                fieldList = new ArrayList<>();
+                for (Object item : testStep.entrySet()) {
+                    Map.Entry entryItem = (Map.Entry) item;
+                    testItem = (HashMap) entryItem.getValue();
+                    fieldList.add(testItem.get(sheetField).toString());
+                }
+                allFieldList.add(fieldList);
             }
-            allFieldList.add(fieldList);
+        } catch (NullPointerException e) {
+            logger.error("字段传递错误");
+            e.printStackTrace();
         }
-//        System.out.println(allFieldList);
+//        System.out.println("字段列表: " + allFieldList);
         logger.info("返回数据结构的方法名称列表");
         return allFieldList;
     }
@@ -65,6 +71,6 @@ public class ReadStruct {
         ExcelOperator eo = new ExcelOperator("case/DataEngine.xlsx");
         ReadStruct rs = new ReadStruct(eo.traverseTestSteps());
         rs.getAllClassName();
-        rs.getSheetField("Locator_Value");
+        rs.getSheetField("Action_Keyword");
     }
 }
