@@ -22,16 +22,16 @@ public class VerifyModule {
         String verifyStatement = "";
         if (!verifyType.isEmpty() && !verifyTarget.isEmpty() && !verifyValue.isEmpty()) {
             verifyStatement = "try {" +
-                                    "java.lang.Thread.sleep(1000L);" +
-                              "} catch (java.lang.InterruptedException e) {" +
-                                    "e.printStackTrace();" +
-                              "}" +
-                              "org.openqa.selenium.WebElement verifyElem = this.driver.findElement(" + LocatorTemplate.chooseLocator(verifyType, verifyTarget) + ");" +
-                              "java.lang.String targetText = verifyElem.getText();" +
-                              "if (targetText.contains(\"" + verifyValue + "\")) {" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + verifyValue + "\" + \" -- is exist\");" +
-                              "} else {" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyValue + "\" + \" -- is not exist\");" +
+                                    "java.lang.Thread.sleep(250L);" +
+                                    "org.openqa.selenium.WebElement verifyElem = this.driver.findElement(" + LocatorTemplate.chooseLocator(verifyType, verifyTarget) + ");" +
+                                    "java.lang.String targetText = verifyElem.getText();" +
+                                    "if (targetText.contains(\"" + verifyValue + "\")) {" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + verifyValue + "\" + \" -- 存在\");" +
+                                    "} else {" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyValue + "\" + \" -- 不存在\");" +
+                                    "}" +
+                              "} catch (java.lang.Exception e) {" +
+                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyTarget + "\" + \" -- 未找到: \" + e.getMessage());" +
                               "}";
             logger.info("添加测试验证");
         }
