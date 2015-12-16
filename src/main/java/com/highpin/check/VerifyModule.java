@@ -1,7 +1,6 @@
 package com.highpin.check;
 
 import com.highpin.generator.core.LocatorTemplate;
-import com.highpin.generator.core.MethodTemplate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

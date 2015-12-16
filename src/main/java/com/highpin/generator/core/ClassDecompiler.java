@@ -37,10 +37,11 @@ public class ClassDecompiler {
      * @Description: 将class文件写入到当前文件路径的test包中
      */
     public void writeClassToPackage() {
-        for (CtClass aCtList : this.ctList) {
+        for (CtClass ct : this.ctList) {
             try {
-                aCtList.writeFile("./src/main/java");
+                ct.writeFile("./src/main/java");
             } catch (IOException | CannotCompileException e) {
+                logger.error("写入字节码文件失败");
                 e.printStackTrace();
             }
         }
@@ -58,6 +59,7 @@ public class ClassDecompiler {
                 String classStatement = new String(classByteCode, "UTF-8");
                 System.out.println(classStatement);
             } catch (IOException | CannotCompileException e) {
+                logger.error("获取字节码字符串失败");
                 e.printStackTrace();
             }
         }
@@ -104,6 +106,7 @@ public class ClassDecompiler {
             try {
                 stream = new FileOutputStream(javaFullPath);
             } catch (FileNotFoundException e) {
+                logger.error("字节码文件不存在: " + javaFullPath);
                 e.printStackTrace();
             }
             try {
@@ -111,6 +114,7 @@ public class ClassDecompiler {
                     writer = new OutputStreamWriter(stream, "UTF-8");
                 }
             } catch (UnsupportedEncodingException e) {
+                logger.error("不支持的编码格式");
                 e.printStackTrace();
             }
             if (writer != null) {
@@ -127,6 +131,7 @@ public class ClassDecompiler {
                     stream.close();
                 }
             } catch (IOException e) {
+                logger.error("文件流不能正常关闭");
                 e.printStackTrace();
             }
         }

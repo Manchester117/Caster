@@ -44,7 +44,6 @@ public class LocatorTemplate {
                 by = "org.openqa.selenium.By.cssSelector(\"" + locatorValue + "\")";
                 break;
             default:
-                // 后续加入异常处理
                 logger.error("无法识别定位选择器");
                 throw new NotFoundLocatorException("无法识别定位选择器: " + locatorValue);
         }

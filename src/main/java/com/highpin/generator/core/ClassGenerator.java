@@ -68,8 +68,8 @@ public class ClassGenerator {
      */
     public void createClass() {
         this.ctList = new ArrayList<>();
-        for (String aClassNameList : this.classNameList) {
-            ctList.add(cPool.makeClass("com.highpin.test." + aClassNameList));
+        for (String ClassName : this.classNameList) {
+            ctList.add(cPool.makeClass("com.highpin.test." + ClassName));
         }
         logger.info("创建所有可运行的测试类");
     }
@@ -98,6 +98,7 @@ public class ClassGenerator {
                 ct.addField(ctFieldExtentTest);
                 logger.info("向类当中添加属性");
             } catch (CannotCompileException | NotFoundException e) {
+                logger.error("添加属性失败");
                 e.printStackTrace();
             }
         }
@@ -234,19 +235,18 @@ public class ClassGenerator {
     }
 
     /**
-     *
+     * @Description: 向类中加入方法
      * @param ctClass       --  当前类
      * @param methodName    --  当前add的方法名
-     * @param body          --  方法语句
+     * @param methodBody    --  方法语句
      * @param annotTitle    --  方法注解名称
      * @param annotValue    --  方法注解描述
      */
-    private void addMethod(CtClass ctClass, String methodName, String body, String annotTitle, String annotValue) {
-        // 向类中插入方法
+    private void addMethod(CtClass ctClass, String methodName, String methodBody, String annotTitle, String annotValue) {
         CtMethod ctMethod = null;
         try {
-            logger.info(body);
-            ctMethod = CtNewMethod.make(body, ctClass);
+            logger.info(methodBody);
+            ctMethod = CtNewMethod.make(methodBody, ctClass);
             ctClass.addMethod(ctMethod);
         } catch (CannotCompileException | NullPointerException e) {
             e.printStackTrace();
@@ -260,7 +260,7 @@ public class ClassGenerator {
     }
 
     /**
-     *
+     * @Description: 给方法加入Annotation
      * @param ctClass       -- 当前类
      * @param ctMethod      -- 当前add的方法
      * @param annotTitle    -- 当前方法的Annotation
@@ -286,7 +286,7 @@ public class ClassGenerator {
     }
 
     /**
-     * @Description: 获取一个类的所有方法
+     * @Description: 获取一个类的所有方法 -- ClassRunner类测试使用
      * @param className -- 类名称
      * @return methodNameList -- 类当中所有方法(以List结构返回)
      */
@@ -310,7 +310,7 @@ public class ClassGenerator {
     }
 
     /**
-     * @Description: 获取所有类的方法
+     * @Description: 获取所有类的方法 -- ClassRunner类测试使用
      * @return -- methodAllList 返回所有的方法(用List结构返回)
      */
     public List<List<String>> getAllClassMethodList() {
@@ -324,7 +324,7 @@ public class ClassGenerator {
     }
 
     /**
-     * 获取所有要运行的类
+     * 获取所有要运行的类 -- ClassRunner类测试使用
      * @return -- this.ctList 成员变量this.ctList
      */
     public List<CtClass> getAllClassList() {

@@ -70,7 +70,6 @@ public class XMLFileOperator {
         logger.info("创建testng的XML对象");
         // 写出XML到文件
         this.writerXML2File(filePath);
-
     }
 
     /**
