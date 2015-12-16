@@ -58,15 +58,18 @@ public class MethodTemplate {
     }
 
     // 静态等待
-    public String waitFor(StepParameters sp) {
+    public String waitFor(StepParameters sp) throws Exception {
+        // 获取验证语句
+        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
         long millis = Long.parseLong(sp.getEleData()) * 1000L;
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "java.lang.Thread.sleep(" + millis + "L);" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.InterruptedException e) {" +
                                         "e.printStackTrace();" +
                                     "}" +
+                                    verifyStatement +
                               "}";
         return methodDefine;
     }

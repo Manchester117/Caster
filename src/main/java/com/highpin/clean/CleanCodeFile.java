@@ -25,7 +25,7 @@ public class CleanCodeFile {
             }
         }
     }
-    // 删除所有代码文件
+    // 删除代码文件/报告/截图
     public static void main(String[] args) {
         CleanCodeFile ccf = new CleanCodeFile();
         ccf.cleanReportAndScreenShot();
