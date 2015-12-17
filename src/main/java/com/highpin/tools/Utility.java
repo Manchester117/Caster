@@ -96,7 +96,7 @@ public class Utility {
 
                 if (reportStr != null) {
                     reportStr = reportStr.replace("https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js",
-                            "../js/http_ajax.googleapis.com_ajax_libs_jquery_1.11.3_jquery.js");
+                            "http://libs.baidu.com/jquery/1.11.1/jquery.min.js");
 //                    System.out.println(reportStr);
                 }
 

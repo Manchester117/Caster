@@ -82,6 +82,6 @@ public class UIKRunner {
         uik.copyTargetCode();
         uik.testRunner();
         uik.replaceReport();
-//        uik.cleanCodeFile();
+        uik.cleanCodeFile();
     }
 }
