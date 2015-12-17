@@ -79,8 +79,13 @@ public class ExcelOperator {
         this.getRunTestSteps();
 
         for (XSSFSheet stepSheet: this.readyToRunTestStepList) {
-            rowNum = stepSheet.getPhysicalNumberOfRows();
-            colNum = stepSheet.getRow(0).getPhysicalNumberOfCells();
+            try {
+                rowNum = stepSheet.getPhysicalNumberOfRows();
+                colNum = stepSheet.getRow(0).getPhysicalNumberOfCells();
+            } catch (NullPointerException e) {
+                logger.error("Test_Case_Name与Sheet名不符");
+                e.printStackTrace();
+            }
             testStep = new TreeMap<>();
             for (int r = 1; r < rowNum; ++r) {
                 stepItem = new HashMap<>();

@@ -115,7 +115,7 @@ public class MethodTemplate {
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
                                         "org.openqa.selenium.support.ui.Select select = new org.openqa.selenium.support.ui.Select(element);" +
-                                        "select.selectByValue(\"" + sp.getEleData() + "\");" +
+                                        "select.selectByVisibleText(\"" + sp.getEleData() + "\");" +
                                         verifyStatement +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +

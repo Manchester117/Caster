@@ -8,6 +8,7 @@ import java.io.File;
  * Created by Administrator on 2015/12/3.
  */
 public class CleanCodeFile {
+    // 清理报告和截图
     public void cleanReportAndScreenShot() {
         String reportPath = "report";
         String screenShotPath = "screenshot";
@@ -16,6 +17,7 @@ public class CleanCodeFile {
         this.deleteFiles(screenShotPath);
     }
 
+    // 清理方法
     private void deleteFiles(String path) {
         File folder = new File(path);
         File [] fileList = folder.listFiles();
