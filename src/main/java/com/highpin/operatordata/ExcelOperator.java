@@ -43,7 +43,7 @@ public class ExcelOperator {
      * @Description: 获取可以运行的测试用例
      */
     public void getRunTestSteps() {
-        XSSFSheet excelSheet = this.excelBook.getSheet("Test Cases");
+        XSSFSheet excelSheet = this.excelBook.getSheet("Test Suite");
         XSSFCell cell = null;
         // 用getPhysicalNumberOfRows方法获取实际的Sheet行数
         int rowNum = excelSheet.getPhysicalNumberOfRows();
