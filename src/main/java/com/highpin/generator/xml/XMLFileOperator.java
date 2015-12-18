@@ -47,6 +47,7 @@ public class XMLFileOperator {
         // 创建根节点(suite)
         Element rootSuite = this.document.addElement("suite");
         rootSuite.addAttribute("name", "HighPin UI Test");
+        rootSuite.addAttribute("preserve-order", "true");
         // 此处可以再加入参数
         // 创建子节点(test)
         for (String className: this.classNameList) {
