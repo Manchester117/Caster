@@ -1,7 +1,7 @@
 package com.highpin.runner;
 
 import com.highpin.generator.core.ClassDecompiler;
-import com.highpin.generator.core.ReplaceCodeFile;
+import com.highpin.generator.core.ConvertCodeFile;
 import com.highpin.generator.xml.XMLFileOperator;
 import com.highpin.tools.Utility;
 import org.testng.TestNG;
@@ -16,7 +16,7 @@ import java.util.List;
 public class UIKRunner {
     private XMLFileOperator xfo = null;
     private ClassDecompiler cd = null;
-    private ReplaceCodeFile rcf = null;
+    private ConvertCodeFile rcf = null;
 
     public void createTestJavaClass() throws Exception {
         this.cd = new ClassDecompiler();
@@ -30,8 +30,8 @@ public class UIKRunner {
         this.xfo.createXML("testng.xml");
     }
 
-    public void replaceCode() {
-        rcf = new ReplaceCodeFile();
+    public void ConvertCode() {
+        rcf = new ConvertCodeFile();
         rcf.convertUnicodeFile();
         try {
             Thread.sleep(1000);
@@ -78,7 +78,7 @@ public class UIKRunner {
         UIKRunner uik = new UIKRunner();
         uik.createTestJavaClass();
         uik.createTestDriverXML();
-        uik.replaceCode();
+        uik.ConvertCode();
         uik.copyTargetCode();
         uik.testRunner();
         uik.replaceReport();

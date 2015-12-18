@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
  * Created by Administrator on 2015/12/15.
  */
 public class LocatorTemplate {
-    public static Logger logger = LogManager.getLogger(ReplaceCodeFile.class.getName());
+    public static Logger logger = LogManager.getLogger(LocatorTemplate.class.getName());
     /**
      * @Description: 根据定位类型和定位值返回对应的元素选择语句
      * @param locatorType -- 元素定位类型

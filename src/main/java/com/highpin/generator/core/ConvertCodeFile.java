@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 /**
  * Created by Administrator on 2015/12/4.
  */
-public class ReplaceCodeFile {
-    public static Logger logger = LogManager.getLogger(ReplaceCodeFile.class.getName());
+public class ConvertCodeFile {
+    public static Logger logger = LogManager.getLogger(ConvertCodeFile.class.getName());
 
     /**
      * @Description: 对Java代码中unicode编码的中文进行转码
@@ -110,7 +110,7 @@ public class ReplaceCodeFile {
     }
 
     public static void main(String[] args) {
-        ReplaceCodeFile rcf = new ReplaceCodeFile();
+        ConvertCodeFile rcf = new ConvertCodeFile();
         rcf.convertUnicodeFile();
     }
 }
