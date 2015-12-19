@@ -31,7 +31,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -70,7 +70,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                     "}" +
                                     verifyStatement +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -97,7 +97,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -122,7 +122,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -146,7 +146,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -170,7 +170,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -194,7 +194,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -218,7 +218,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -242,7 +242,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -265,7 +265,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -287,7 +287,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -311,7 +311,7 @@ public class MethodTemplate {
                                             "e.printStackTrace();" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
@@ -335,7 +335,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getIsImage() + "\")) {" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +

@@ -35,7 +35,7 @@ public class ClassGenerator {
     private List<List<String>> methodVerifyTypeList = null;
     private List<List<String>> methodVerifyTargetList = null;
     private List<List<String>> methodVerifyValueList = null;
-    private List<List<String>> methodIsImage = null;
+    private List<List<String>> methodScreenCaptureList = null;
 
     public static Logger logger = LogManager.getLogger(ClassGenerator.class.getName());
 
@@ -58,7 +58,7 @@ public class ClassGenerator {
         this.methodVerifyTypeList = rs.getSheetField("Verify_Type");
         this.methodVerifyTargetList = rs.getSheetField("Verify_Target");
         this.methodVerifyValueList = rs.getSheetField("Verify_Value");
-        this.methodIsImage = rs.getSheetField("Is_Image");
+        this.methodScreenCaptureList = rs.getSheetField("Screen_Capture");
 
         logger.info("获取测试数据结构,从数据结构中取出所有测试数据,以列表形式存储");
     }
@@ -148,7 +148,7 @@ public class ClassGenerator {
                 // 获取每个步骤的验证值
                 sp.setVerifyValue(this.methodVerifyValueList.get(ctIndex).get(methodIndex));
                 // 获取每个步骤是否截图
-                sp.setIsImage(this.methodIsImage.get(ctIndex).get(methodIndex));
+                sp.setScreenCapture(this.methodScreenCaptureList.get(ctIndex).get(methodIndex));
 
                 // 根据元素类型判断对应的操作
                 if (sp.getMethodName().equals("openBrowser")) {

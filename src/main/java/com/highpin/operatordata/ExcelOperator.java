@@ -123,7 +123,7 @@ public class ExcelOperator {
                         case "Verify_Value":
                             stepItem.put(title, value);
                             break;
-                        case "Is_Image":
+                        case "Screen_Capture":
                             stepItem.put(title, value);
                             break;
                         default:

@@ -17,7 +17,7 @@ public class StepParameters {
     private String verifyType;
     private String verifyTarget;
     private String verifyValue;
-    private String isImage;
+    private String screenCapture;
 
     public String getClassName() {
         return className;
@@ -99,11 +99,11 @@ public class StepParameters {
         this.verifyValue = verifyValue;
     }
 
-    public String getIsImage() {
-        return isImage;
+    public String getScreenCapture() {
+        return screenCapture;
     }
 
-    public void setIsImage(String isImage) {
-        this.isImage = isImage;
+    public void setScreenCapture(String screenCapture) {
+        this.screenCapture = screenCapture;
     }
 }
