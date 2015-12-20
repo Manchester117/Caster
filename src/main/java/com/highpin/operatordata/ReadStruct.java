@@ -70,7 +70,7 @@ public class ReadStruct {
     }
 
     public static void main(String[] args) throws Exception {
-        ExcelOperator eo = new ExcelOperator("D:\\TestCaseTemplate.xlsx");
+        ExcelOperator eo = new ExcelOperator("case/DataEngine.xlsx");
         ReadStruct rs = new ReadStruct(eo.traverseTestSteps());
         rs.getAllClassName();
         rs.getSheetField("Verify_Value");

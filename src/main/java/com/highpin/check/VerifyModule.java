@@ -46,7 +46,7 @@ public class VerifyModule {
         // 获取验证语句
         String verifyStatement = "";
         // 验证点遍历
-        for (int v = 0; v < sp.getVerifyType().size(); ++v) {
+        for (int v = 0; v < sp.getVerifyValue().size(); ++v) {
             verifyTypeString = sp.getVerifyType().get(v).toString();
             verifyTargetString = sp.getVerifyTarget().get(v).toString();
             verifyValueString = sp.getVerifyValue().get(v).toString();
