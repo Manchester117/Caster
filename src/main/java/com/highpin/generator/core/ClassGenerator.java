@@ -142,11 +142,11 @@ public class ClassGenerator {
                 sp.setEleData(this.methodDataSetList.get(ctIndex).get(methodIndex).toString());
                 // 获取每个步骤的描述
                 sp.setDescription(this.methodDescriptionList.get(ctIndex).get(methodIndex).toString());
-                // 获取每个步骤的验证类型
+                // 获取每个步骤的验证类型(注意:传递过去的类型是List<String>)
                 sp.setVerifyType(this.methodVerifyTypeList.get(ctIndex).get(methodIndex));
-                // 获取每个步骤的验证页面路径
+                // 获取每个步骤的验证页面路径(注意:传递过去的类型是List<String>)
                 sp.setVerifyTarget(this.methodVerifyTargetList.get(ctIndex).get(methodIndex));
-                // 获取每个步骤的验证值
+                // 获取每个步骤的验证值(注意:传递过去的类型是List<String>)
                 sp.setVerifyValue(this.methodVerifyValueList.get(ctIndex).get(methodIndex));
                 // 获取每个步骤是否截图
                 sp.setScreenCapture(this.methodScreenCaptureList.get(ctIndex).get(methodIndex).toString());

@@ -16,9 +16,9 @@ public class StepParameters {
     private String locValue;
     private String eleData;
     private String description;
-    private List<?> verifyType;
-    private List<?> verifyTarget;
-    private List<?> verifyValue;
+    private List<?> verifyType;     // 使用无限制的通配符
+    private List<?> verifyTarget;   // 使用无限制的通配符
+    private List<?> verifyValue;    // 使用无限制的通配符
     private String screenCapture;
 
     public String getClassName() {
