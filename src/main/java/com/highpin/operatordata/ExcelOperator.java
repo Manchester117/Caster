@@ -111,10 +111,6 @@ public class ExcelOperator {
             }
             caseMap.put(stepSheet.getSheetName(), testStep);
         }
-//        for (Object step : caseMap.entrySet()) {
-//            Map.Entry entry = (Map.Entry) step;
-//            System.out.println(entry.getKey().toString() + ": " + entry.getValue().toString());
-//        }
         logger.info("返回测试数据结构");
         return caseMap;
     }
