@@ -10,7 +10,6 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
 public class XMLFileOperator {
     private Document document;
     private List<String> classNameList = null;
-    private List<List<String>> methodNameList = null;
+    private List<List<Object>> methodNameList = null;
     public static Logger logger = LogManager.getLogger(XMLFileOperator.class.getName());
 
     /**
@@ -61,10 +60,10 @@ public class XMLFileOperator {
             testClass.addAttribute("name", "com.highpin.test." + className);
             // 向测试类中添加方法节点
             Element testMethod = testClasses.addElement("methods");
-            for (String methodName : this.methodNameList.get(sheetIndex)) {
+            for (Object methodName : this.methodNameList.get(sheetIndex)) {
                 // 添加方法
                 Element method = testMethod.addElement("include");
-                method.addAttribute("name", methodName);
+                method.addAttribute("name", methodName.toString());
             }
             sheetIndex++;
         }

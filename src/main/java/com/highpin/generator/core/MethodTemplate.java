@@ -59,8 +59,7 @@ public class MethodTemplate {
 
     // 静态等待
     public String waitFor(StepParameters sp) throws Exception {
-        // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         long millis = Long.parseLong(sp.getEleData()) * 1000L;
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -81,7 +80,7 @@ public class MethodTemplate {
     // 输入文本框操作
     public String inputText(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         // 这里要注意的是:sendkeys的参数类型是CharSequence...,而实际传入的是String类型,所以需要将String类型参数转换为CharSequence...
         // CharSequence是可变字符序列,String是不可变字符串
@@ -108,7 +107,7 @@ public class MethodTemplate {
     // 选择下拉菜单操作
     public String selectOption(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -133,7 +132,7 @@ public class MethodTemplate {
     // 单选项操作
     public String radioButtonOper(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -157,7 +156,7 @@ public class MethodTemplate {
     // 多选项操作
     public String checkBoxOper(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -181,7 +180,7 @@ public class MethodTemplate {
     // 按钮操作
     public String buttonClick(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -205,7 +204,7 @@ public class MethodTemplate {
     // 提交操作
     public String submitClick(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -229,7 +228,7 @@ public class MethodTemplate {
     // 上传文件
     public String uploadFile(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -253,7 +252,7 @@ public class MethodTemplate {
     // 对话框操作
     public String popupAlert(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -276,7 +275,7 @@ public class MethodTemplate {
     // 链接跳转
     public String linkForward(StepParameters sp) throws Exception {
         // 获取验证语句
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -297,8 +296,8 @@ public class MethodTemplate {
 
     // 鼠标悬停
     public String mouseHold(StepParameters sp) throws Exception {
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                             "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
@@ -321,8 +320,8 @@ public class MethodTemplate {
 
     // 鼠标点击
     public String mouseClick(StepParameters sp) throws Exception {
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
-        String verifyStatement = VerifyModule.addVerifyContentStatement(sp.getVerifyType(), sp.getVerifyTarget(), sp.getVerifyValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +

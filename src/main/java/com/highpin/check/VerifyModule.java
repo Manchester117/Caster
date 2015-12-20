@@ -1,6 +1,7 @@
 package com.highpin.check;
 
 import com.highpin.generator.core.LocatorTemplate;
+import com.highpin.generator.core.StepParameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +19,7 @@ public class VerifyModule {
      * @return  -- 返回验证语句
      * @throws Exception    --  如果验证类型/验证路径不正确则抛出NotFoundLocatorException
      */
-    public static String addVerifyContentStatement(String verifyType, String verifyTarget, String verifyValue) throws Exception{
+    public static String createVerifyContentStatement(String verifyType, String verifyTarget, String verifyValue) throws Exception {
         String verifyStatement = "";
         if (!verifyType.isEmpty() && !verifyTarget.isEmpty() && !verifyValue.isEmpty()) {
             verifyStatement = "try {" +
@@ -33,8 +34,25 @@ public class VerifyModule {
                               "} catch (java.lang.Exception e) {" +
                                     "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyTarget + "\" + \" -- 未找到: \" + e.getMessage());" +
                               "}";
-            logger.info("添加测试验证");
+            logger.info("添加一个测试验证");
         }
+        return verifyStatement;
+    }
+
+    public static String appendVerifyContentStatement(StepParameters sp) throws Exception {
+        String verifyTypeString = null;
+        String verifyTargetString = null;
+        String verifyValueString = null;
+        // 获取验证语句
+        String verifyStatement = "";
+        // 验证点遍历
+        for (int v = 0; v < sp.getVerifyType().size(); ++v) {
+            verifyTypeString = sp.getVerifyType().get(v).toString();
+            verifyTargetString = sp.getVerifyTarget().get(v).toString();
+            verifyValueString = sp.getVerifyValue().get(v).toString();
+            verifyStatement += VerifyModule.createVerifyContentStatement(verifyTypeString, verifyTargetString, verifyValueString);
+        }
+        logger.info("添加当前步骤的全部测试验证");
         return verifyStatement;
     }
 }

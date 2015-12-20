@@ -1,5 +1,7 @@
 package com.highpin.generator.core;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2015/12/12.
  */
@@ -14,9 +16,9 @@ public class StepParameters {
     private String locValue;
     private String eleData;
     private String description;
-    private String verifyType;
-    private String verifyTarget;
-    private String verifyValue;
+    private List<?> verifyType;
+    private List<?> verifyTarget;
+    private List<?> verifyValue;
     private String screenCapture;
 
     public String getClassName() {
@@ -75,28 +77,34 @@ public class StepParameters {
         this.description = description;
     }
 
-    public String getVerifyType() {
+    public List<?> getVerifyType() {
         return verifyType;
     }
 
-    public void setVerifyType(String verifyType) {
-        this.verifyType = verifyType;
+    public void setVerifyType(Object verifyType) {
+        if (verifyType instanceof List<?>) {
+            this.verifyType = (List<?>)verifyType;
+        }
     }
 
-    public String getVerifyTarget() {
+    public List<?> getVerifyTarget() {
         return verifyTarget;
     }
 
-    public void setVerifyTarget(String verifyTarget) {
-        this.verifyTarget = verifyTarget;
+    public void setVerifyTarget(Object verifyTarget) {
+        if (verifyTarget instanceof List<?>) {
+            this.verifyTarget = (List<?>)verifyTarget;
+        }
     }
 
-    public String getVerifyValue() {
+    public List<?> getVerifyValue() {
         return verifyValue;
     }
 
-    public void setVerifyValue(String verifyValue) {
-        this.verifyValue = verifyValue;
+    public void setVerifyValue(Object verifyValue) {
+        if (verifyValue instanceof List<?>) {
+            this.verifyValue = (List<?>)verifyValue;
+        }
     }
 
     public String getScreenCapture() {

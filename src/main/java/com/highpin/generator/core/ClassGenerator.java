@@ -25,17 +25,18 @@ public class ClassGenerator {
     private List<String> classNameList = null;
     private List<CtClass> ctList = null;
 
-    private List<List<String>> methodNameList = null;
-    private List<List<String>> methodDescriptionList = null;
-    private List<List<String>> methodElementTypeList = null;
-    private List<List<String>> methodLocatorTypeList = null;
-    private List<List<String>> methodLocatorValueList = null;
-    private List<List<String>> methodDataSetList = null;
+    private List<List<Object>> methodNameList = null;
+    private List<List<Object>> methodDescriptionList = null;
+    private List<List<Object>> methodElementTypeList = null;
+    private List<List<Object>> methodLocatorTypeList = null;
+    private List<List<Object>> methodLocatorValueList = null;
+    private List<List<Object>> methodDataSetList = null;
 
-    private List<List<String>> methodVerifyTypeList = null;
-    private List<List<String>> methodVerifyTargetList = null;
-    private List<List<String>> methodVerifyValueList = null;
-    private List<List<String>> methodScreenCaptureList = null;
+    private List<List<Object>> methodVerifyTypeList = null;
+    private List<List<Object>> methodVerifyTargetList = null;
+    private List<List<Object>> methodVerifyValueList = null;
+
+    private List<List<Object>> methodScreenCaptureList = null;
 
     public static Logger logger = LogManager.getLogger(ClassGenerator.class.getName());
 
@@ -130,17 +131,17 @@ public class ClassGenerator {
                 // 获取类名称
                 sp.setClassName(this.ctList.get(ctIndex).getName());
                 // 获取方法名称
-                sp.setMethodName(this.methodNameList.get(ctIndex).get(methodIndex));
+                sp.setMethodName(this.methodNameList.get(ctIndex).get(methodIndex).toString());
                 // 获取元素类型
-                sp.setEleType(this.methodElementTypeList.get(ctIndex).get(methodIndex));
+                sp.setEleType(this.methodElementTypeList.get(ctIndex).get(methodIndex).toString());
                 // 获取每个步骤对应的元素定位类型
-                sp.setLocType(this.methodLocatorTypeList.get(ctIndex).get(methodIndex));
+                sp.setLocType(this.methodLocatorTypeList.get(ctIndex).get(methodIndex).toString());
                 // 获取每个步骤对应的元素定位方式
-                sp.setLocValue(this.methodLocatorValueList.get(ctIndex).get(methodIndex));
+                sp.setLocValue(this.methodLocatorValueList.get(ctIndex).get(methodIndex).toString());
                 // 获取每个步骤对应的操作数据
-                sp.setEleData(this.methodDataSetList.get(ctIndex).get(methodIndex));
+                sp.setEleData(this.methodDataSetList.get(ctIndex).get(methodIndex).toString());
                 // 获取每个步骤的描述
-                sp.setDescription(this.methodDescriptionList.get(ctIndex).get(methodIndex));
+                sp.setDescription(this.methodDescriptionList.get(ctIndex).get(methodIndex).toString());
                 // 获取每个步骤的验证类型
                 sp.setVerifyType(this.methodVerifyTypeList.get(ctIndex).get(methodIndex));
                 // 获取每个步骤的验证页面路径
@@ -148,7 +149,7 @@ public class ClassGenerator {
                 // 获取每个步骤的验证值
                 sp.setVerifyValue(this.methodVerifyValueList.get(ctIndex).get(methodIndex));
                 // 获取每个步骤是否截图
-                sp.setScreenCapture(this.methodScreenCaptureList.get(ctIndex).get(methodIndex));
+                sp.setScreenCapture(this.methodScreenCaptureList.get(ctIndex).get(methodIndex).toString());
 
                 // 根据元素类型判断对应的操作
                 if (sp.getMethodName().equals("openBrowser")) {

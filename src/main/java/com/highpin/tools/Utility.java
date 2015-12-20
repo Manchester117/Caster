@@ -1,5 +1,6 @@
 package com.highpin.tools;
 
+import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -141,9 +142,20 @@ public class Utility {
         }
         boolean codeDeleteFlag = (deleteNum == codeFileNum);
         // 删除testng.xml
-        boolean deleteflag = testNGFile.delete();
-        if (codeDeleteFlag || deleteflag) {
+        boolean deleteFlag = testNGFile.delete();
+        if (codeDeleteFlag || deleteFlag) {
             System.out.println("清理完毕!");
         }
+    }
+
+    /**
+     * @Description: 将Java数据结构转为JSON...方便调试...
+     * @param obj -- 传入的Java数据结构
+     * @return json -- 返回的JSON
+     */
+    public static String dataStructConvertJSON(Object obj) {
+        Gson gson = new Gson();
+        String json = gson.toJson(obj);
+        return json;
     }
 }

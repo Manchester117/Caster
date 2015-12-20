@@ -1,5 +1,6 @@
 package com.highpin.operatordata;
 
+import com.highpin.tools.Utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.*;
@@ -30,7 +31,7 @@ public class ReadStruct {
             Map.Entry entry = (Map.Entry) step;
             classNameList.add(entry.getKey().toString());
         }
-//        System.out.println("类名列表: " + classNameList);
+        logger.info("类名列表: " + Utility.dataStructConvertJSON(classNameList));
         logger.info("返回数据结构的类名称列表");
         return classNameList;
     }
@@ -40,11 +41,11 @@ public class ReadStruct {
      * @param sheetField -- 字段名称
      * @return allFieldList -- 返回的字段值
      */
-    public List<List<String>> getSheetField(String sheetField) {
+    public List<List<Object>> getSheetField(String sheetField) {
         SortedMap testStep = null;
         HashMap testItem = null;
-        List<String> fieldList = null;
-        List<List<String>> allFieldList = new ArrayList<>();
+        List<Object> fieldList = null;
+        List<List<Object>> allFieldList = new ArrayList<>();
 
         try {
             for (Object step : this.caseMap.entrySet()) {
@@ -54,7 +55,7 @@ public class ReadStruct {
                 for (Object item : testStep.entrySet()) {
                     Map.Entry entryItem = (Map.Entry) item;
                     testItem = (HashMap) entryItem.getValue();
-                    fieldList.add(testItem.get(sheetField).toString());
+                    fieldList.add(testItem.get(sheetField));
                 }
                 allFieldList.add(fieldList);
             }
@@ -62,15 +63,16 @@ public class ReadStruct {
             logger.error("字段传递错误");
             e.printStackTrace();
         }
-//        System.out.println("字段列表: " + allFieldList);
+        logger.info("字段列表: " + Utility.dataStructConvertJSON(allFieldList));
         logger.info("返回数据结构的方法名称列表");
+        logger.info(allFieldList);
         return allFieldList;
     }
 
     public static void main(String[] args) throws Exception {
-        ExcelOperator eo = new ExcelOperator("case/DataEngine.xlsx");
+        ExcelOperator eo = new ExcelOperator("D:\\TestCaseTemplate.xlsx");
         ReadStruct rs = new ReadStruct(eo.traverseTestSteps());
         rs.getAllClassName();
-        rs.getSheetField("Action_Keyword");
+        rs.getSheetField("Verify_Value");
     }
 }

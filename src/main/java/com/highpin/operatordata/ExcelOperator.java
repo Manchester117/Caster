@@ -1,6 +1,8 @@
 package com.highpin.operatordata;
 
+import com.google.gson.Gson;
 import com.highpin.except.NotFoundExcelColException;
+import com.highpin.tools.Utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -64,21 +66,29 @@ public class ExcelOperator {
      * @return -- 返回一个SortMap的数据结构
      * @throws Exception -- 如果Excel中出现无法识别的字段则抛出NotFoundExcelColException
      */
-    public SortedMap<String, SortedMap<String, Map<String, String>>> traverseTestSteps() throws Exception {
+    public SortedMap<String, SortedMap<String, Map<String, Object>>> traverseTestSteps() throws Exception {
         int rowNum = 0;
         int colNum = 0;
         String title = null;
         String value = null;
+
+        // 验证类型列表
+        List<String> verifyTypeList = null;
+        // 验证目标列表
+        List<String> verifyTargetList = null;
+        // 验证值列表
+        List<String> verifyValueList = null;
+
         // 每个测试步骤中的子项
-        Map<String, String> stepItem = null;
+        Map<String, Object> stepItem = null;
         // 每个测试步骤
-        SortedMap<String, Map<String, String>> testStep = null;
+        SortedMap<String, Map<String, Object>> testStep = null;
         // 每条测试用例
-        SortedMap<String, SortedMap<String, Map<String, String>>> caseMap = new TreeMap<>();
+        SortedMap<String, SortedMap<String, Map<String, Object>>> caseMap = new TreeMap<>();
         // 获取可以运行的测试步骤
         this.getRunTestSteps();
 
-        for (XSSFSheet stepSheet: this.readyToRunTestStepList) {
+        for (XSSFSheet stepSheet : this.readyToRunTestStepList) {
             try {
                 rowNum = stepSheet.getPhysicalNumberOfRows();
                 colNum = stepSheet.getRow(0).getPhysicalNumberOfCells();
@@ -88,49 +98,16 @@ public class ExcelOperator {
             }
             testStep = new TreeMap<>();
             for (int r = 1; r < rowNum; ++r) {
-                stepItem = new HashMap<>();
-                for (int c = 0; c < colNum; ++c) {
-                    title = stepSheet.getRow(0).getCell(c).getStringCellValue();
-                    value = stepSheet.getRow(r).getCell(c).getStringCellValue();
-                    switch (title) {
-                        case "Test_Step_ID":
-                            testStep.put(value, stepItem);
-                            break;
-                        case "Description":
-                            stepItem.put(title, value);
-                            break;
-                        case "Action_Keyword":
-                            stepItem.put(title, value);
-                            break;
-                        case "Element_Type":
-                            stepItem.put(title, value);
-                            break;
-                        case "Locator_Type":
-                            stepItem.put(title, value);
-                            break;
-                        case "Locator_Value":
-                            stepItem.put(title, value);
-                            break;
-                        case "Data_Set":
-                            stepItem.put(title, value);
-                            break;
-                        case "Verify_Type":
-                            stepItem.put(title, value);
-                            break;
-                        case "Verify_Target":
-                            stepItem.put(title, value);
-                            break;
-                        case "Verify_Value":
-                            stepItem.put(title, value);
-                            break;
-                        case "Screen_Capture":
-                            stepItem.put(title, value);
-                            break;
-                        default:
-                            logger.error("无法识别Excel中的字段: " + title);
-                            throw new NotFoundExcelColException("无法识别Excel中的字段: " + title);
-                    }
+                // 如果第一列的Test_Step_ID不是空的.则会初始化验证列表(主要是判断是不是合并单元格),并且读取单元格中的数据
+                if (!stepSheet.getRow(r).getCell(0).getStringCellValue().isEmpty()) {
+                    verifyTypeList = new ArrayList<>();
+                    verifyTargetList = new ArrayList<>();
+                    verifyValueList = new ArrayList<>();
+                    stepItem = new HashMap<>();
+                    //此处创建基本的测试数据结构(未加入验证点)
+                    this.createTestDataStruct(colNum, r, stepSheet, testStep, stepItem);
                 }
+                this.insertVerifyData(colNum, r, stepSheet, verifyTypeList, verifyTargetList, verifyValueList, stepItem);
             }
             caseMap.put(stepSheet.getSheetName(), testStep);
         }
@@ -142,9 +119,110 @@ public class ExcelOperator {
         return caseMap;
     }
 
+    private void createTestDataStruct(int colNum, int rowNum, XSSFSheet stepSheet, SortedMap<String, Map<String, Object>> testStep, Map<String, Object> stepItem) {
+        String title = null;
+        String value = null;
+        for (int c = 0; c < colNum; ++c) {
+            title = stepSheet.getRow(0).getCell(c).getStringCellValue();
+            value = stepSheet.getRow(rowNum).getCell(c).getStringCellValue();
+            switch (title) {
+                case "Test_Step_ID":
+                    testStep.put(value, stepItem);
+                    break;
+                case "Description":
+                    stepItem.put(title, value);
+                    break;
+                case "Action_Keyword":
+                    stepItem.put(title, value);
+                    break;
+                case "Element_Type":
+                    stepItem.put(title, value);
+                    break;
+                case "Locator_Type":
+                    stepItem.put(title, value);
+                    break;
+                case "Locator_Value":
+                    stepItem.put(title, value);
+                    break;
+                case "Data_Set":
+                    stepItem.put(title, value);
+                    break;
+                case "Screen_Capture":
+                    stepItem.put(title, value);
+                    break;
+                case "Verify_Type":
+                    break;
+                case "Verify_Target":
+                    break;
+                case "Verify_Value":
+                    break;
+                default:
+                    logger.error("无法识别Excel中的字段: " + title);
+            }
+        }
+    }
+
+    private void insertVerifyData(int colNum, int rowNum, XSSFSheet stepSheet, List<String> verifyTypeList, List<String> verifyTargetList, List<String> verifyValueList, Map<String, Object> stepItem) {
+        String title = null;
+        String value = null;
+        for (int c = 0; c < colNum; ++c) {
+            title = stepSheet.getRow(0).getCell(c).getStringCellValue();
+            value = stepSheet.getRow(rowNum).getCell(c).getStringCellValue();
+            switch (title) {
+                case "Verify_Type":
+                    if (verifyTypeList != null) {
+                        verifyTypeList.add(value);
+                    } else {
+                        logger.error("Test_Step_ID为空,无法将验证类型加入列表.");
+                    }
+                    break;
+                case "Verify_Target":
+                    if (verifyTargetList != null) {
+                        verifyTargetList.add(value);
+                    } else {
+                        logger.error("Test_Step_ID为空,无法将验证目标加入列表.");
+                    }
+                    break;
+                case "Verify_Value":
+                    if (verifyValueList != null) {
+                        verifyValueList.add(value);
+                    } else {
+                        logger.error("Test_Step_ID为空,无法将验证值加入列表.");
+                    }
+                    break;
+                case "Test_Step_ID":
+                    break;
+                case "Description":
+                    break;
+                case "Action_Keyword":
+                    break;
+                case "Element_Type":
+                    break;
+                case "Locator_Type":
+                    break;
+                case "Locator_Value":
+                    break;
+                case "Data_Set":
+                    break;
+                case "Screen_Capture":
+                    break;
+                default:
+                    logger.error("无法识别Excel中的字段: " + title);
+            }
+        }
+        if (stepItem != null) {
+            stepItem.put("Verify_Type", verifyTypeList);
+            stepItem.put("Verify_Target", verifyTargetList);
+            stepItem.put("Verify_Value", verifyValueList);
+        } else {
+            logger.error("Test_Step_ID为空");
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         ExcelOperator eo = new ExcelOperator("case/DataEngine.xlsx");
-        SortedMap<String, SortedMap<String, Map<String, String>>> testDataMap = eo.traverseTestSteps();
-        System.out.println(testDataMap);
+        SortedMap<String, SortedMap<String, Map<String, Object>>> testDataMap = eo.traverseTestSteps();
+        String dataStruct = Utility.dataStructConvertJSON(testDataMap);
+        System.out.println(dataStruct);
     }
 }
