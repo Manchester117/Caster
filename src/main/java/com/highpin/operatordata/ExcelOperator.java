@@ -1,6 +1,5 @@
 package com.highpin.operatordata;
 
-import com.google.gson.Gson;
 import com.highpin.except.NotFoundExcelColException;
 import com.highpin.tools.Utility;
 import org.apache.logging.log4j.LogManager;
@@ -105,9 +104,10 @@ public class ExcelOperator {
                     verifyValueList = new ArrayList<>();
                     stepItem = new HashMap<>();
                     //此处创建基本的测试数据结构(未加入验证点)
-                    this.createTestDataStruct(colNum, r, stepSheet, testStep, stepItem);
+                    this.createTestDataStruct(stepSheet, colNum, r, testStep, stepItem);
                 }
-                this.insertVerifyData(colNum, r, stepSheet, verifyTypeList, verifyTargetList, verifyValueList, stepItem);
+                // 向数据结构中加入验证点
+                this.insertVerifyData(stepSheet, colNum, r, verifyTypeList, verifyTargetList, verifyValueList, stepItem);
             }
             caseMap.put(stepSheet.getSheetName(), testStep);
         }
@@ -115,7 +115,16 @@ public class ExcelOperator {
         return caseMap;
     }
 
-    private void createTestDataStruct(int colNum, int rowNum, XSSFSheet stepSheet, SortedMap<String, Map<String, Object>> testStep, Map<String, Object> stepItem) {
+    /**
+     * @Description: 创建基本的测试数据结构(未加验证点)
+     * @param stepSheet --  当前的Sheet
+     * @param colNum    --  Sheet页的列数
+     * @param rowNum    --  Sheet页的当前行数
+     * @param testStep  --  测试步骤map
+     * @param stepItem  --  单个测试步骤的map
+     * @throws Exception
+     */
+    private void createTestDataStruct(XSSFSheet stepSheet, int colNum, int rowNum, SortedMap<String, Map<String, Object>> testStep, Map<String, Object> stepItem) throws Exception {
         String title = null;
         String value = null;
         for (int c = 0; c < colNum; ++c) {
@@ -154,11 +163,23 @@ public class ExcelOperator {
                     break;
                 default:
                     logger.error("无法识别Excel中的字段: " + title);
+                    throw new NotFoundExcelColException("无法识别Excel中的字段: " + title);
             }
         }
     }
 
-    private void insertVerifyData(int colNum, int rowNum, XSSFSheet stepSheet, List<String> verifyTypeList, List<String> verifyTargetList, List<String> verifyValueList, Map<String, Object> stepItem) {
+    /**
+     * @Description: 向数据结构中加入验证点
+     * @param stepSheet --  当前的Sheet
+     * @param colNum    --  Sheet页的列数
+     * @param rowNum    --  Sheet页的当前行数
+     * @param verifyTypeList    --  验证类型列表
+     * @param verifyTargetList  --  验证目标列表
+     * @param verifyValueList   --  验证值列表
+     * @param stepItem  --  单个操作步骤map
+     * @throws Exception
+     */
+    private void insertVerifyData(XSSFSheet stepSheet, int colNum, int rowNum, List<String> verifyTypeList, List<String> verifyTargetList, List<String> verifyValueList, Map<String, Object> stepItem) throws Exception {
         String title = null;
         String value = null;
         for (int c = 0; c < colNum; ++c) {
@@ -204,6 +225,7 @@ public class ExcelOperator {
                     break;
                 default:
                     logger.error("无法识别Excel中的字段: " + title);
+                    throw new NotFoundExcelColException("无法识别Excel中的字段: " + title);
             }
         }
         if (stepItem != null) {
@@ -212,11 +234,12 @@ public class ExcelOperator {
             stepItem.put("Verify_Value", verifyValueList);
         } else {
             logger.error("Test_Step_ID为空");
+            throw new NotFoundExcelColException("Test_Step_ID为空");
         }
     }
 
     public static void main(String[] args) throws Exception {
-        ExcelOperator eo = new ExcelOperator("case/DataEngine.xlsx");
+        ExcelOperator eo = new ExcelOperator("case/test_dataengine_1.xlsx");
         SortedMap<String, SortedMap<String, Map<String, Object>>> testDataMap = eo.traverseTestSteps();
         String dataStruct = Utility.dataStructConvertJSON(testDataMap);
         System.out.println(dataStruct);

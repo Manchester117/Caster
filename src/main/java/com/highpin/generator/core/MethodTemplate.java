@@ -9,7 +9,7 @@ public class MethodTemplate {
     // 初始化浏览器
     public String openBrowser(StepParameters sp) {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
-                                    "String browser = \"" + sp.getEleData() + "\";" +
+                                    "String browser = \"" + sp.getDataSet() + "\";" +
                                     "this.extent = new com.relevantcodes.extentreports.ExtentReports(\"report/HighPin UIAutomation Test Report.html\", java.lang.Boolean.FALSE);" +
                                     "this.extent.addSystemInfo(\"Selenium Version\", \"2.48.2\");" +
                                     "this.extent.addSystemInfo(\"Environment\", \"QA\");" +
@@ -60,7 +60,7 @@ public class MethodTemplate {
     // 静态等待
     public String waitFor(StepParameters sp) throws Exception {
         String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
-        long millis = Long.parseLong(sp.getEleData()) * 1000L;
+        long millis = Long.parseLong(sp.getDataSet()) * 1000L;
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "java.lang.Thread.sleep(" + millis + "L);" +
@@ -89,7 +89,7 @@ public class MethodTemplate {
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
-                                        "element.sendKeys(new String[]{\"" + sp.getEleData() + "\"});" +
+                                        "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
                                         verifyStatement +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
@@ -114,7 +114,7 @@ public class MethodTemplate {
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
                                         "org.openqa.selenium.support.ui.Select select = new org.openqa.selenium.support.ui.Select(element);" +
-                                        "select.selectByVisibleText(\"" + sp.getEleData() + "\");" +
+                                        "select.selectByVisibleText(\"" + sp.getDataSet() + "\");" +
                                         verifyStatement +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
@@ -234,7 +234,7 @@ public class MethodTemplate {
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = this.driver.findElement(" + by + ");" +
-                                        "element.sendKeys(new String[]{\"" + sp.getEleData() + "\"});" +
+                                        "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
                                         verifyStatement +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
@@ -279,7 +279,7 @@ public class MethodTemplate {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
-                                        "this.driver.get(\"" + sp.getEleData() + "\");" +
+                                        "this.driver.get(\"" + sp.getDataSet() + "\");" +
                                         verifyStatement +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ClassDecompiler {
     private ClassGenerator cg = null;
-    private List<CtClass> ctList = null;
+    private List<List<CtClass>> ctList = null;
     private List<String> classPackageFullNameList = null;
     public static Logger logger = LogManager.getLogger(ClassDecompiler.class.getName());
 
@@ -28,7 +28,7 @@ public class ClassDecompiler {
         this.cg = new ClassGenerator();
         this.cg.createClass();
         this.cg.insertField();
-        this.cg.insertMethod();
+        this.cg.suiteInsertMethod();
         this.ctList = this.cg.getAllClassList();
         this.classPackageFullNameList = new ArrayList<>();
     }
@@ -37,12 +37,14 @@ public class ClassDecompiler {
      * @Description: 将class文件写入到当前文件路径的test包中
      */
     public void writeClassToPackage() {
-        for (CtClass ct : this.ctList) {
-            try {
-                ct.writeFile("./src/main/java");
-            } catch (IOException | CannotCompileException e) {
-                logger.error("写入字节码文件失败");
-                e.printStackTrace();
+        for (List<CtClass> suiteClassList : this.ctList) {
+            for (CtClass ct : suiteClassList) {
+                try {
+                    ct.writeFile("./src/main/java");
+                } catch (IOException | CannotCompileException e) {
+                    logger.error("写入字节码文件失败");
+                    e.printStackTrace();
+                }
             }
         }
         logger.info("写入字节码文件完成");
@@ -53,14 +55,16 @@ public class ClassDecompiler {
      */
     public void getClassByteCode() {
         byte [] classByteCode = null;
-        for (CtClass aCtList : this.ctList) {
-            try {
-                classByteCode = aCtList.toBytecode();
-                String classStatement = new String(classByteCode, "UTF-8");
-                System.out.println(classStatement);
-            } catch (IOException | CannotCompileException e) {
-                logger.error("获取字节码字符串失败");
-                e.printStackTrace();
+        for (List<CtClass> suiteClassList : this.ctList) {
+            for (CtClass aCtList : suiteClassList) {
+                try {
+                    classByteCode = aCtList.toBytecode();
+                    String classStatement = new String(classByteCode, "UTF-8");
+                    System.out.println(classStatement);
+                } catch (IOException | CannotCompileException e) {
+                    logger.error("获取字节码字符串失败");
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -75,11 +79,12 @@ public class ClassDecompiler {
         File [] fileList = pack.listFiles();
         String fileClassName = null;
         if (fileList != null) {
-            for (File testFile: fileList) {
-                fileClassName = testFile.getName();
-                // 去掉.class后缀
-                fileClassName = fileClassName.substring(0, fileClassName.lastIndexOf("."));
-                classPackageFullNameList.add("com/highpin/test/" + fileClassName);
+            for (File codePackage : fileList) {
+                for (String codeFile : codePackage.list()) {
+                    // 去掉.class后缀
+                    codeFile = codeFile.substring(0, codeFile.lastIndexOf("."));
+                    classPackageFullNameList.add("com/highpin/test/" + codeFile);
+                }
             }
         }
         logger.info("返回所有的类全名");

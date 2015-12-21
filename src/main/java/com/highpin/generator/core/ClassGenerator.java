@@ -1,7 +1,7 @@
 package com.highpin.generator.core;
 
 import com.highpin.except.NotFoundTestException;
-import com.highpin.operatordata.ExcelOperator;
+import com.highpin.operatordata.ReadAllTestCaseFile;
 import com.highpin.operatordata.ReadStruct;
 import javassist.*;
 import javassist.bytecode.AnnotationsAttribute;
@@ -22,21 +22,22 @@ import java.util.List;
 public class ClassGenerator {
     private ClassPool cPool = null;
     private MethodTemplate mt = null;
-    private List<String> classNameList = null;
-    private List<CtClass> ctList = null;
+    private List<List<CtClass>> ctList = null;
+    private List<String> suiteList = null;
+    private List<List<String>> classNameList = null;
 
-    private List<List<Object>> methodNameList = null;
-    private List<List<Object>> methodDescriptionList = null;
-    private List<List<Object>> methodElementTypeList = null;
-    private List<List<Object>> methodLocatorTypeList = null;
-    private List<List<Object>> methodLocatorValueList = null;
-    private List<List<Object>> methodDataSetList = null;
+    private List<List<List<Object>>> methodNameList = null;
+    private List<List<List<Object>>> methodDescriptionList = null;
+    private List<List<List<Object>>> methodElementTypeList = null;
+    private List<List<List<Object>>> methodLocatorTypeList = null;
+    private List<List<List<Object>>> methodLocatorValueList = null;
+    private List<List<List<Object>>> methodDataSetList = null;
 
-    private List<List<Object>> methodVerifyTypeList = null;
-    private List<List<Object>> methodVerifyTargetList = null;
-    private List<List<Object>> methodVerifyValueList = null;
+    private List<List<List<Object>>> methodVerifyTypeList = null;
+    private List<List<List<Object>>> methodVerifyTargetList = null;
+    private List<List<List<Object>>> methodVerifyValueList = null;
 
-    private List<List<Object>> methodScreenCaptureList = null;
+    private List<List<List<Object>>> methodScreenCaptureList = null;
 
     public static Logger logger = LogManager.getLogger(ClassGenerator.class.getName());
 
@@ -47,8 +48,10 @@ public class ClassGenerator {
     public ClassGenerator() throws Exception {
         this.cPool = ClassPool.getDefault();
         this.mt = new MethodTemplate();
-        ExcelOperator eo = new ExcelOperator("case/DataEngine.xlsx");
-        ReadStruct rs = new ReadStruct(eo.traverseTestSteps());
+        ReadAllTestCaseFile rf = new ReadAllTestCaseFile();
+        ReadStruct rs = new ReadStruct(rf.readTestSuite());
+
+        this.suiteList = rs.getTestSuiteName();
         this.classNameList = rs.getAllClassName();
         this.methodNameList = rs.getSheetField("Action_Keyword");
         this.methodDescriptionList = rs.getSheetField("Description");
@@ -68,10 +71,18 @@ public class ClassGenerator {
      * @Description: 按照类名称列表生成类
      */
     public void createClass() {
+        String suitePackage = null;
+        List<CtClass> subCtClass = null;
         this.ctList = new ArrayList<>();
-        for (String ClassName : this.classNameList) {
-            ctList.add(cPool.makeClass("com.highpin.test." + ClassName));
+        for (int i = 0; i < this.suiteList.size(); ++i) {
+            suitePackage = this.suiteList.get(i);
+            subCtClass = new ArrayList<>();
+            for (String className : this.classNameList.get(i)) {
+                subCtClass.add(cPool.makeClass("com.highpin.test." + suitePackage + "." + className));
+            }
+            this.ctList.add(subCtClass);
         }
+        System.out.println(this.ctList);
         logger.info("创建所有可运行的测试类");
     }
 
@@ -82,26 +93,34 @@ public class ClassGenerator {
         CtField ctFieldDriver = null;
         CtField ctFieldExtentReports = null;
         CtField ctFieldExtentTest = null;
-        for (CtClass ct: this.ctList) {
-            try {
-                // 加入WebDriver成员
-                ctFieldDriver = new CtField(this.cPool.getCtClass("org.openqa.selenium.WebDriver"), "driver", ct);
-                ctFieldDriver.setModifiers(Modifier.PRIVATE);
-                // 加入ExtentReports成员
-                ctFieldExtentReports = new CtField(this.cPool.getCtClass("com.relevantcodes.extentreports.ExtentReports"), "extent", ct);
-                ctFieldExtentReports.setModifiers(Modifier.PRIVATE);
-                // 加入ExtentTest成员
-                ctFieldExtentTest = new CtField(this.cPool.getCtClass("com.relevantcodes.extentreports.ExtentTest"), "test", ct);
-                ctFieldExtentTest.setModifiers(Modifier.PRIVATE);
+        for (List<CtClass> suiteCtList : this.ctList) {
+            for (CtClass ct : suiteCtList) {
+                try {
+                    // 加入WebDriver成员
+                    ctFieldDriver = new CtField(this.cPool.getCtClass("org.openqa.selenium.WebDriver"), "driver", ct);
+                    ctFieldDriver.setModifiers(Modifier.PRIVATE);
+                    // 加入ExtentReports成员
+                    ctFieldExtentReports = new CtField(this.cPool.getCtClass("com.relevantcodes.extentreports.ExtentReports"), "extent", ct);
+                    ctFieldExtentReports.setModifiers(Modifier.PRIVATE);
+                    // 加入ExtentTest成员
+                    ctFieldExtentTest = new CtField(this.cPool.getCtClass("com.relevantcodes.extentreports.ExtentTest"), "test", ct);
+                    ctFieldExtentTest.setModifiers(Modifier.PRIVATE);
 
-                ct.addField(ctFieldDriver);
-                ct.addField(ctFieldExtentReports);
-                ct.addField(ctFieldExtentTest);
-                logger.info("向类当中添加属性");
-            } catch (CannotCompileException | NotFoundException e) {
-                logger.error("添加属性失败");
-                e.printStackTrace();
+                    ct.addField(ctFieldDriver);
+                    ct.addField(ctFieldExtentReports);
+                    ct.addField(ctFieldExtentTest);
+                    logger.info("向类当中添加属性");
+                } catch (CannotCompileException | NotFoundException e) {
+                    logger.error("添加属性失败");
+                    e.printStackTrace();
+                }
             }
+        }
+    }
+
+    public void suiteInsertMethod() throws Exception {
+        for (int suiteCtIndex = 0; suiteCtIndex < this.ctList.size(); ++suiteCtIndex) {
+            this.insertMethod2Class(this.ctList.get(suiteCtIndex), suiteCtIndex);
         }
     }
 
@@ -109,7 +128,7 @@ public class ClassGenerator {
      * @Description: 向类当中加入方法
      * @throws Exception -- 如果出现错误的元素类型则抛出NotFoundTestException
      */
-    public void insertMethod() throws Exception {
+    public void insertMethod2Class(List<CtClass> suiteCtList, int suiteCtIndex) throws Exception {
         // 参数对象
         StepParameters sp = null;
         // 获取对应方法的语句
@@ -119,37 +138,49 @@ public class ClassGenerator {
         String afterTestAnnotation = "org.testng.annotations.AfterClass";
         String testAnnotation = "org.testng.annotations.Test";
 
-        for (int ctIndex = 0; ctIndex < this.ctList.size(); ++ctIndex) {
+        for (int ctIndex = 0; ctIndex < suiteCtList.size(); ++ctIndex) {
             // 创建参数对象
             sp = new StepParameters();
             // 获取类
-            CtClass ctClass = this.ctList.get(ctIndex);
+            CtClass ctClass = suiteCtList.get(ctIndex);
             // 显示测试类名称
             logger.info("类名称:" + ctClass.getName());
             logger.info("************************************************开始创建一个类************************************************");
-            for (int methodIndex = 0; methodIndex < this.methodNameList.get(ctIndex).size(); ++methodIndex) {
-                // 获取类名称
-                sp.setClassName(this.ctList.get(ctIndex).getName());
-                // 获取方法名称
-                sp.setMethodName(this.methodNameList.get(ctIndex).get(methodIndex).toString());
-                // 获取元素类型
-                sp.setEleType(this.methodElementTypeList.get(ctIndex).get(methodIndex).toString());
-                // 获取每个步骤对应的元素定位类型
-                sp.setLocType(this.methodLocatorTypeList.get(ctIndex).get(methodIndex).toString());
-                // 获取每个步骤对应的元素定位方式
-                sp.setLocValue(this.methodLocatorValueList.get(ctIndex).get(methodIndex).toString());
-                // 获取每个步骤对应的操作数据
-                sp.setEleData(this.methodDataSetList.get(ctIndex).get(methodIndex).toString());
-                // 获取每个步骤的描述
-                sp.setDescription(this.methodDescriptionList.get(ctIndex).get(methodIndex).toString());
-                // 获取每个步骤的验证类型(注意:传递过去的类型是List<String>)
-                sp.setVerifyType(this.methodVerifyTypeList.get(ctIndex).get(methodIndex));
-                // 获取每个步骤的验证页面路径(注意:传递过去的类型是List<String>)
-                sp.setVerifyTarget(this.methodVerifyTargetList.get(ctIndex).get(methodIndex));
-                // 获取每个步骤的验证值(注意:传递过去的类型是List<String>)
-                sp.setVerifyValue(this.methodVerifyValueList.get(ctIndex).get(methodIndex));
-                // 获取每个步骤是否截图
-                sp.setScreenCapture(this.methodScreenCaptureList.get(ctIndex).get(methodIndex).toString());
+            for (int methodIndex = 0; methodIndex < this.methodNameList.get(suiteCtIndex).get(ctIndex).size(); ++methodIndex) {
+                String className = suiteCtList.get(ctIndex).getName();
+                String methodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
+                String eleType = this.methodElementTypeList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
+                String locType = this.methodLocatorTypeList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
+                String locValue = this.methodLocatorValueList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
+                String dataSet = this.methodDataSetList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
+                String description = this.methodDescriptionList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
+                Object verifyType = this.methodVerifyTypeList.get(suiteCtIndex).get(ctIndex).get(methodIndex);
+                Object verifyTarget = this.methodVerifyTargetList.get(suiteCtIndex).get(ctIndex).get(methodIndex);
+                Object verifyValue = this.methodVerifyValueList.get(suiteCtIndex).get(ctIndex).get(methodIndex);
+                String screenCapture = this.methodScreenCaptureList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
+
+                // 把类名称放置在sp对象中
+                sp.setClassName(className);
+                // 把方法名称放置在sp对象中
+                sp.setMethodName(methodName);
+                // 把元素类型放置在sp对象中
+                sp.setEleType(eleType);
+                // 把每个步骤对应的元素定位类型放置在sp对象中
+                sp.setLocType(locType);
+                // 把每个步骤对应的元素定位方式放置在sp对象中
+                sp.setLocValue(locValue);
+                // 把每个步骤对应的操作数据放置在sp对象中
+                sp.setDataSet(dataSet);
+                // 把每个步骤的描述放置在sp对象中
+                sp.setDescription(description);
+                // 把每个步骤的验证类型放置在sp对象中(注意:传递过去的类型是List<String>)
+                sp.setVerifyType(verifyType);
+                // 把每个步骤的验证页面路径放置在sp对象中(注意:传递过去的类型是List<String>)
+                sp.setVerifyTarget(verifyTarget);
+                // 把每个步骤的验证值放置在sp对象中(注意:传递过去的类型是List<String>)
+                sp.setVerifyValue(verifyValue);
+                // 把每个步骤是否截图放置在sp对象中
+                sp.setScreenCapture(screenCapture);
 
                 // 根据元素类型判断对应的操作
                 if (sp.getMethodName().equals("openBrowser")) {
@@ -302,9 +333,9 @@ public class ClassGenerator {
         CtMethod [] ctMethodList = null;
         if (ct != null) {
             ctMethodList = ct.getDeclaredMethods();
-            for (CtMethod aCtMethodList : ctMethodList) {
-                System.out.println(aCtMethodList.getName());
-                methodNameList.add(aCtMethodList.getName());
+            for (CtMethod ctMethod : ctMethodList) {
+                logger.info(ctMethod.getName());
+                methodNameList.add(ctMethod.getName());
             }
         }
         return methodNameList;
@@ -316,10 +347,12 @@ public class ClassGenerator {
      */
     public List<List<String>> getAllClassMethodList() {
         List<List<String>> methodAllList = new ArrayList<>();
-        for (CtClass aCtList : this.ctList) {
-            logger.info(aCtList.getName());
-            methodAllList.add(this.getMethod(aCtList.getName()));
-            logger.info("************************************************************************************************");
+        for (List<CtClass> suiteClassList : this.ctList) {
+            for (CtClass ctClass : suiteClassList) {
+                logger.info(ctClass.getName());
+                methodAllList.add(this.getMethod(ctClass.getName()));
+                logger.info("************************************************************************************************");
+            }
         }
         return methodAllList;
     }
@@ -328,7 +361,7 @@ public class ClassGenerator {
      * 获取所有要运行的类 -- ClassRunner类测试使用
      * @return -- this.ctList 成员变量this.ctList
      */
-    public List<CtClass> getAllClassList() {
+    public List<List<CtClass>> getAllClassList() {
         return this.ctList;
     }
 
@@ -337,6 +370,6 @@ public class ClassGenerator {
         ClassGenerator cg = new ClassGenerator();
         cg.createClass();
         cg.insertField();
-        cg.insertMethod();
+        cg.suiteInsertMethod();
     }
 }

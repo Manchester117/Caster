@@ -11,20 +11,22 @@ import java.util.List;
  * Created by Administrator on 2015/12/1.
  */
 public class ClassRunner {
-    public void reflectRunClass(List<CtClass> classList, List<List<String>> methodNameList) {
-        Class clazz = null;
-        for (int i = 0; i < classList.size(); ++i) {
-            try {
-                clazz = classList.get(i).toClass();
-                this.instanceClass(clazz, methodNameList.get(i));
-
-            } catch (CannotCompileException e) {
-                e.printStackTrace();
+    public void reflectRunClass(List<List<CtClass>> suiteClassList, List<List<String>> methodNameList) {
+        Class<?> clazz = null;
+        List<CtClass> cList = null;
+        for (List<CtClass> classList : suiteClassList) {
+            for (int cListIndex = 0; cListIndex < classList.size(); ++cListIndex) {
+                try {
+                    clazz = classList.get(cListIndex).toClass();
+                    this.instanceClass(clazz, methodNameList.get(cListIndex));
+                } catch (CannotCompileException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
-    private void instanceClass(Class clazz, List<String> methodNameList) {
+    private void instanceClass(Class<?> clazz, List<String> methodNameList) {
         Object obj = null;
         try {
             obj = clazz.newInstance();
@@ -57,10 +59,10 @@ public class ClassRunner {
         ClassGenerator cg = new ClassGenerator();
         cg.createClass();
         cg.insertField();
-        cg.insertMethod();
+        cg.suiteInsertMethod();
 
         List<List<String>> methodList = cg.getAllClassMethodList();
-        List<CtClass> classList = cg.getAllClassList();
+        List<List<CtClass>> classList = cg.getAllClassList();
 
         ClassRunner cr = new ClassRunner();
         cr.reflectRunClass(classList, methodList);

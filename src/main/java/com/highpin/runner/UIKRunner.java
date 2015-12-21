@@ -27,7 +27,7 @@ public class UIKRunner {
 
     public void createTestDriverXML() throws Exception{
         this.xfo = new XMLFileOperator();
-        this.xfo.createXML("testng.xml");
+        this.xfo.createMultiXML();
     }
 
     public void ConvertCode() {

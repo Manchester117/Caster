@@ -1,6 +1,6 @@
 package com.highpin.generator.xml;
 
-import com.highpin.operatordata.ExcelOperator;
+import com.highpin.operatordata.ReadAllTestCaseFile;
 import com.highpin.operatordata.ReadStruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +19,9 @@ import java.util.List;
  */
 public class XMLFileOperator {
     private Document document;
-    private List<String> classNameList = null;
-    private List<List<Object>> methodNameList = null;
+    private List<String> allSuiteList = null;
+    private List<List<String>> allClassNameList = null;
+    private List<List<List<Object>>> allMethodNameList = null;
     public static Logger logger = LogManager.getLogger(XMLFileOperator.class.getName());
 
     /**
@@ -28,18 +29,32 @@ public class XMLFileOperator {
      * @throws Exception -- 如果遇到无法识别的字段则抛出NotFoundExcelColException
      */
     public XMLFileOperator() throws Exception {
-        ExcelOperator eo = new ExcelOperator("case/DataEngine.xlsx");
-        ReadStruct rs = new ReadStruct(eo.traverseTestSteps());
-        this.classNameList = rs.getAllClassName();
-        this.methodNameList = rs.getSheetField("Action_Keyword");
+        ReadAllTestCaseFile rf = new ReadAllTestCaseFile();
+        ReadStruct rs = new ReadStruct(rf.readTestSuite());
+
+        this.allSuiteList = rs.getTestSuiteName();
+        this.allClassNameList = rs.getAllClassName();
+        this.allMethodNameList = rs.getSheetField("Action_Keyword");
         logger.info("读取Excel获取所有关键字");
+        System.out.println(this.allSuiteList);
+        System.out.println(this.allClassNameList);
+        System.out.println(this.allMethodNameList);
+    }
+
+    public void createMultiXML() {
+        String testngFileName = null;
+        for (int i = 0; i < this.allSuiteList.size(); ++i) {
+            System.out.println(this.allSuiteList.get(i));
+            testngFileName = "testng_" + this.allSuiteList.get(i) + ".xml";
+            this.createSingleXML(testngFileName, this.allClassNameList.get(i), this.allMethodNameList.get(i));
+        }
     }
 
     /**
      * @Description: 根据数据结构创建XML对象,并调用writerXML2File方法将XML对象写入到文件中
      * @param filePath -- XML文件路径
      */
-    public void createXML(String filePath) {
+    public void createSingleXML(String filePath, List<String> classNameList, List<List<Object>> methodNameList) {
         this.document = DocumentHelper.createDocument();
         // sheet页索引
         int sheetIndex = 0;
@@ -49,7 +64,7 @@ public class XMLFileOperator {
         rootSuite.addAttribute("preserve-order", "true");
         // 此处可以再加入参数
         // 创建子节点(test)
-        for (String className: this.classNameList) {
+        for (String className: classNameList) {
             Element leafTest = rootSuite.addElement("test");
             leafTest.addAttribute("name", className);
             leafTest.addAttribute("verbose", "10");
@@ -60,7 +75,7 @@ public class XMLFileOperator {
             testClass.addAttribute("name", "com.highpin.test." + className);
             // 向测试类中添加方法节点
             Element testMethod = testClasses.addElement("methods");
-            for (Object methodName : this.methodNameList.get(sheetIndex)) {
+            for (Object methodName : methodNameList.get(sheetIndex)) {
                 // 添加方法
                 Element method = testMethod.addElement("include");
                 method.addAttribute("name", methodName.toString());
@@ -91,6 +106,6 @@ public class XMLFileOperator {
 
     public static void main(String[] args) throws Exception {
         XMLFileOperator xfo = new XMLFileOperator();
-        xfo.createXML("testng.xml");
+        xfo.createMultiXML();
     }
 }

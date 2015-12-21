@@ -14,7 +14,7 @@ public class StepParameters {
     private String eleType;
     private String locType;
     private String locValue;
-    private String eleData;
+    private String dataSet;
     private String description;
     private List<?> verifyType;     // 使用无限制的通配符
     private List<?> verifyTarget;   // 使用无限制的通配符
@@ -61,12 +61,12 @@ public class StepParameters {
         this.locValue = locValue;
     }
 
-    public String getEleData() {
-        return eleData;
+    public String getDataSet() {
+        return dataSet;
     }
 
-    public void setEleData(String eleData) {
-        this.eleData = eleData;
+    public void setDataSet(String dataSet) {
+        this.dataSet = dataSet;
     }
 
     public String getDescription() {
