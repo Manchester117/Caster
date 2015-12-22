@@ -13,7 +13,6 @@ import java.util.List;
 public class ClassRunner {
     public void reflectRunClass(List<List<CtClass>> suiteClassList, List<List<String>> methodNameList) {
         Class<?> clazz = null;
-        List<CtClass> cList = null;
         for (List<CtClass> classList : suiteClassList) {
             for (int cListIndex = 0; cListIndex < classList.size(); ++cListIndex) {
                 try {

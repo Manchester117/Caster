@@ -97,7 +97,7 @@ public class ReadStruct {
     }
 
     public static void main(String[] args) throws Exception {
-        ReadAllTestCaseFile rf = new ReadAllTestCaseFile();
+        ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
         ReadStruct rs = new ReadStruct(rf.readTestSuite());
         rs.getAllClassName();
         rs.getSheetField("Action_Keyword");

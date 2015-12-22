@@ -27,12 +27,12 @@ public class VerifyModule {
                                     "org.openqa.selenium.WebElement verifyElem = this.driver.findElement(" + LocatorTemplate.chooseLocator(verifyType, verifyTarget) + ");" +
                                     "java.lang.String targetText = verifyElem.getText();" +
                                     "if (targetText.contains(\"" + verifyValue + "\")) {" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + verifyValue + "\" + \" -- 存在\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + verifyValue + "\" + \" ---- 存在\");" +
                                     "} else {" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyValue + "\" + \" -- 不存在\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyValue + "\" + \" ---- 不存在\");" +
                                     "}" +
                               "} catch (java.lang.Exception e) {" +
-                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyTarget + "\" + \" -- 未找到: \" + e.getMessage());" +
+                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyTarget + "\" + \" ---- 未找到: \" + e.getMessage());" +
                               "}";
             logger.info("添加一个测试验证");
         }

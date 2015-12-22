@@ -8,11 +8,11 @@ import java.util.*;
 /**
  * Created by Administrator on 2015/12/21.
  */
-public class ReadAllTestCaseFile {
+public class ReadAllTestSuiteFile {
     private File testFolder = null;
     private SortedMap<String, SortedMap<String, SortedMap<String, Map<String, Object>>>> allTestDataMap = null;
 
-    public ReadAllTestCaseFile() {
+    public ReadAllTestSuiteFile() {
         this.testFolder = new File("cases");
         this.allTestDataMap = new TreeMap<>();
     }
@@ -43,7 +43,7 @@ public class ReadAllTestCaseFile {
     }
 
     public static void main(String[] args) throws Exception {
-        ReadAllTestCaseFile rf = new ReadAllTestCaseFile();
+        ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
         rf.readTestSuite();
     }
 }

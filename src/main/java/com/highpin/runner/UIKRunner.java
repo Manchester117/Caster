@@ -33,21 +33,11 @@ public class UIKRunner {
     public void ConvertCode() {
         rcf = new ConvertCodeFile();
         rcf.convertUnicodeFile();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void copyTargetCode() {
-        Utility.copyByteCode();
     }
 
     public void testRunner() {
         // 设定TestNG.xml的列表
-        List<String> suitesStrList = new ArrayList<String>();
-        suitesStrList.add("testng.xml");
+        List<String> suitesStrList = Utility.searchTestNGXML();
 
         // 将TestNG.xml文件装载到XmlSuite里
         XmlSuite suite = new XmlSuite();
@@ -79,7 +69,6 @@ public class UIKRunner {
         uik.createTestJavaClass();
         uik.createTestDriverXML();
         uik.ConvertCode();
-        uik.copyTargetCode();
         uik.testRunner();
         uik.replaceReport();
         uik.cleanCodeFile();

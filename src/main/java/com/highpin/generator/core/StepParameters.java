@@ -9,6 +9,7 @@ public class StepParameters {
     /**
      * @Description: POJO类 -- 用于封装方法参数
      */
+    private String suiteName;
     private String className;
     private String methodName;
     private String eleType;
@@ -20,6 +21,14 @@ public class StepParameters {
     private List<?> verifyTarget;   // 使用无限制的通配符
     private List<?> verifyValue;    // 使用无限制的通配符
     private String screenCapture;
+
+    public String getSuiteName() {
+        return suiteName;
+    }
+
+    public void setSuiteName(String suiteName) {
+        this.suiteName = suiteName;
+    }
 
     public String getClassName() {
         return className;

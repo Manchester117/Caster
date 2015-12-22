@@ -17,7 +17,8 @@ import java.util.List;
 public class ClassDecompiler {
     private ClassGenerator cg = null;
     private List<List<CtClass>> ctList = null;
-    private List<String> classPackageFullNameList = null;
+    private List<String> suitePackageList = null;
+    private List<List<String>> classNameList = null;
     public static Logger logger = LogManager.getLogger(ClassDecompiler.class.getName());
 
     /**
@@ -30,17 +31,18 @@ public class ClassDecompiler {
         this.cg.insertField();
         this.cg.suiteInsertMethod();
         this.ctList = this.cg.getAllClassList();
-        this.classPackageFullNameList = new ArrayList<>();
+        this.suitePackageList = new ArrayList<>();
+        this.classNameList = new ArrayList<>();
     }
 
     /**
-     * @Description: 将class文件写入到当前文件路径的test包中
+     * @Description: 将class文件写入到target的test包中
      */
     public void writeClassToPackage() {
         for (List<CtClass> suiteClassList : this.ctList) {
             for (CtClass ct : suiteClassList) {
                 try {
-                    ct.writeFile("./src/main/java");
+                    ct.writeFile("target/classes");
                 } catch (IOException | CannotCompileException e) {
                     logger.error("写入字节码文件失败");
                     e.printStackTrace();
@@ -73,71 +75,84 @@ public class ClassDecompiler {
      * @Description: 获取字节码文件的类名称
      * @return classPackageFullNameList -- 类名称
      */
-    public List<String> getTestClassFileName() {
-        String testClassPath = "./src/main/java/com/highpin/test";
+    public void getTestClassFileName() {
+        String testClassPath = "target/classes/com/highpin/test";
         File pack = new File(testClassPath);
         File [] fileList = pack.listFiles();
-        String fileClassName = null;
+        String subPackageName = null;
+        List<String> classList = null;
+
         if (fileList != null) {
             for (File codePackage : fileList) {
+                subPackageName = codePackage.getName();
+                // 获取全部子包名
+                this.suitePackageList.add(subPackageName);
+                classList = new ArrayList<>();
                 for (String codeFile : codePackage.list()) {
                     // 去掉.class后缀
                     codeFile = codeFile.substring(0, codeFile.lastIndexOf("."));
-                    classPackageFullNameList.add("com/highpin/test/" + codeFile);
+                    classList.add(codeFile);
                 }
+                this.classNameList.add(classList);
             }
         }
-        logger.info("返回所有的类全名");
-        logger.info(classPackageFullNameList);
-        return classPackageFullNameList;
+        logger.info("获取所有的类全名: " + this.classNameList);
     }
 
     /**
      * @Description: 将字节码文件反编译为Java文件
      */
     public void decompilerClass() {
-        String prefixPath = "./src/main/java/";
+        String javaPrefixPath = "src/main/java/com/highpin/test/";
+        String classPrefixPath = "target/classes/com/highpin/test/";
         String javaFullPath = null;
         String classFullPath = null;
         FileOutputStream stream = null;
         OutputStreamWriter writer = null;
 
         logger.info("************************************************类反编译开始************************************************");
-        for (String classPackageFullName : this.classPackageFullNameList) {
-            javaFullPath = prefixPath + classPackageFullName + ".java";
-            classFullPath = prefixPath + classPackageFullName + ".class";
-            logger.info(javaFullPath);
-            logger.info(classFullPath);
-            try {
-                stream = new FileOutputStream(javaFullPath);
-            } catch (FileNotFoundException e) {
-                logger.error("字节码文件不存在: " + javaFullPath);
-                e.printStackTrace();
-            }
-            try {
-                if (stream != null) {
-                    writer = new OutputStreamWriter(stream, "UTF-8");
+        for (int suiteIndex = 0; suiteIndex < this.suitePackageList.size(); ++suiteIndex) {
+            String packageName = this.suitePackageList.get(suiteIndex);
+            for (String className : this.classNameList.get(suiteIndex)) {
+                javaFullPath = javaPrefixPath + packageName + "/" + className + ".java";
+                classFullPath = classPrefixPath + packageName + "/" + className + ".class";
+                logger.info(javaFullPath);
+                logger.info(classFullPath);
+                File codePackage = new File(javaFullPath.substring(0, javaFullPath.lastIndexOf("/")));
+                if (codePackage.mkdirs()) {
+                    logger.info("Test Package创建成功");
                 }
-            } catch (UnsupportedEncodingException e) {
-                logger.error("不支持的编码格式");
-                e.printStackTrace();
-            }
-            if (writer != null) {
-                // 进行反编译
-                Decompiler.decompile(classFullPath, new PlainTextOutput(writer));
-            }
-            try {
+                try {
+                    stream = new FileOutputStream(javaFullPath);
+                } catch (FileNotFoundException e) {
+                    logger.error("Java文件不存在: " + javaFullPath);
+                    e.printStackTrace();
+                }
+                try {
+                    if (stream != null) {
+                        writer = new OutputStreamWriter(stream, "UTF-8");
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    logger.error("不支持的编码格式");
+                    e.printStackTrace();
+                }
                 if (writer != null) {
-                    writer.flush();
-                    writer.close();
+                    // 进行反编译
+                    Decompiler.decompile(classFullPath, new PlainTextOutput(writer));
                 }
-                if (stream != null) {
-                    stream.flush();
-                    stream.close();
+                try {
+                    if (writer != null) {
+                        writer.flush();
+                        writer.close();
+                    }
+                    if (stream != null) {
+                        stream.flush();
+                        stream.close();
+                    }
+                } catch (IOException e) {
+                    logger.error("文件流不能正常关闭");
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                logger.error("文件流不能正常关闭");
-                e.printStackTrace();
             }
         }
         logger.info("************************************************类反编译完成************************************************");

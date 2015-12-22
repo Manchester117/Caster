@@ -1,5 +1,6 @@
 package com.highpin.generator.core;
 
+import com.highpin.tools.Utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,12 +19,17 @@ public class ConvertCodeFile {
      */
     public void convertUnicodeFile() {
         File file = new File("./src/main/java/com/highpin/test");
-        File [] codeFileList = file.listFiles();
-        if (codeFileList != null) {
-            for (File codeFile: codeFileList) {
-                // 过滤Java文件
-                if (codeFile.getName().endsWith(".java")) {
-                    this.convertUnicodeSingleCodeFile(codeFile);
+        File [] packageList = file.listFiles();
+        if (packageList != null) {
+            for (File singlePackage : packageList) {
+                File [] codeList = singlePackage.listFiles();
+                if (codeList != null) {
+                    for (File codeFile : codeList) {
+                        // 过滤Java文件
+                        if (codeFile.getName().endsWith(".java")) {
+                            this.convertUnicodeSingleCodeFile(codeFile);
+                        }
+                    }
                 }
             }
         }
@@ -37,45 +43,18 @@ public class ConvertCodeFile {
     public void convertUnicodeSingleCodeFile(File codeFile) {
         FileInputStream fis = null;
         FileOutputStream fos = null;
-        String code = null;
+        String codeStr = null;
         byte [] buff = null;
 
         if (codeFile != null && codeFile.isFile()) {
-            try {
-                fis = new FileInputStream(codeFile);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (fis != null) {
-                    buff = new byte[fis.available()];
-                    while (fis.read(buff) != -1) {
-                        code = new String(buff);
-                    }
-                    fis.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            codeStr = Utility.fileInput(codeFile);
             // 进行字符转换
-            if (code != null) {
-                code = this.unicodeToString(code);
-                System.out.println(code);
+            if (codeStr != null) {
+                codeStr = this.unicodeToString(codeStr);
+                System.out.println(codeStr);
             }
             // 将代码写回到Java文件当中
-            try {
-                fos = new FileOutputStream(codeFile);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (fos != null && code != null) {
-                    fos.write(code.getBytes(), 0, code.getBytes().length);
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Utility.fileOutput(codeFile, codeStr);
         }
     }
 

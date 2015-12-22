@@ -7,60 +7,31 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/12/3.
  */
 public class Utility {
     /**
-     * @Description: 复制字节码文件到target当中的com.highpin.test包中
-     * @return 如果target文件夹存在以及复制成功则返回true
-     */
-    public static boolean copyByteCode() {
-        File codeDest = new File("target");
-        String codeDestPath = "target/classes/com/highpin/test";
-        boolean createFlag = false;
-        if (codeDest.exists() && codeDest.isDirectory()) {
-            File testByteFolder = new File(codeDestPath);
-            createFlag = testByteFolder.mkdirs();
-        }
-
-        File fileSources = new File("./src/main/java/com/highpin/test");
-        File [] codeFileList = fileSources.listFiles();
-        boolean moveFlag = false;
-        if (codeFileList != null) {
-            for (File codeFile: codeFileList) {
-                // 过滤Java文件
-                if (codeFile.getName().endsWith(".class")) {
-                    moveFlag = codeFile.renameTo(new File(codeDestPath + File.separator + codeFile.getName()));
-                }
-            }
-        } else {
-            moveFlag = false;
-        }
-        System.out.println("************************************************复制代码************************************************");
-        return createFlag && moveFlag;
-    }
-
-    /**
      * @Description: 屏幕截图方法
      * @param driver -- 浏览器对象
      * @param screenShotName -- 截图的文件名
      * @return destImagePath -- 截图的存放路径
      */
-    public static String captureScreenShot(WebDriver driver, String screenShotName) {
+    public static String captureScreenShot(WebDriver driver, String reportDir, String screenShotName) {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File sourceImage = ts.getScreenshotAs(OutputType.FILE);
-        String destImagePath = "screenshot/" + screenShotName + ".png";
+        String destImagePath = "reports/" + reportDir + "/" + screenShotName + ".png";
         File destImage = new File(destImagePath);
         try {
             FileUtils.copyFile(sourceImage, destImage);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(destImage.getAbsolutePath());
-        // 图片存放路径转换为相对路径
-        destImagePath = "../" + destImagePath;
+        destImagePath = screenShotName + ".png";
+//        System.out.println(destImage.getAbsolutePath());
         return destImagePath;
     }
 
@@ -68,52 +39,22 @@ public class Utility {
      * @Description: 替换报告中的JS引用
      */
     public static void replaceReportJS() {
-        File reportFolder = new File("report");
-        File [] reportList = reportFolder.listFiles();
-        FileInputStream fis = null;
-        FileOutputStream fos = null;
-        byte [] reportCodeByte = null;
+        File reportFolder = new File("reports");
+        File [] reportPackList = reportFolder.listFiles();
         String reportStr = null;
 
-        if (reportList != null) {
-            for (File report : reportList) {
-                try {
-                    fis = new FileInputStream(report);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    if (fis != null) {
-                        reportCodeByte = new byte[fis.available()];
-                        while (fis.read(reportCodeByte) != -1) {
-                            reportStr = new String(reportCodeByte);
+        if (reportPackList != null) {
+            for (File reportPack : reportPackList) {
+                File [] reportList = reportPack.listFiles();
+                if (reportList != null) {
+                    for (File singleReport : reportList) {
+                        if (singleReport.getName().endsWith(".html")) {
+                            reportStr = Utility.fileInput(singleReport);
+                            reportStr = reportStr.replace("https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js",
+                                    "http://libs.baidu.com/jquery/1.11.3/jquery.min.js");
+                            Utility.fileOutput(singleReport, reportStr);
                         }
-                        fis.close();
                     }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if (reportStr != null) {
-                    reportStr = reportStr.replace("https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js",
-                            "http://libs.baidu.com/jquery/1.11.1/jquery.min.js");
-//                    System.out.println(reportStr);
-                }
-
-                try {
-                    fos = new FileOutputStream(report);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    if (fos != null && reportStr != null) {
-                        fos.write(reportStr.getBytes(), 0, reportStr.getBytes().length);
-                        fos.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -123,29 +64,55 @@ public class Utility {
      * @Description: 清理代码--测试执行完成后进行代码删除
      */
     public static void cleanCodeFile() {
-        String testPackagePath = "./src/main/java/com/highpin/test";
-        String testNGFilePath = "./testng.xml";
+        String testPackagePath = "src/main/java/com/highpin/test";
+        String testOutputPath = "test-output";
         File testPackage = new File(testPackagePath);
-        File testNGFile = new File(testNGFilePath);
-        File [] codeFileList = testPackage.listFiles();
-        int codeFileNum = 0;
-        int deleteNum = 0;
+        File testOutput = new File(testOutputPath);
 
-        // 删除字节码&代码文件
-        if (codeFileList != null) {
-            codeFileNum = codeFileList.length;
-            for (File codeFile: codeFileList) {
-                if (codeFile.delete()) {
-                    deleteNum++;
+        Utility.deleteFiles(testPackage);
+        Utility.deleteFiles(testOutput);
+        Utility.deleteTestNGXML();
+    }
+
+    // 清理方法
+    public static boolean deleteFiles(File file) {
+        if (file.isDirectory()) {
+            String [] childrenArray = file.list();
+            for (String children : childrenArray) {
+                boolean flag = deleteFiles(new File(file, children));
+                if (!flag) {
+                    return false;
                 }
             }
         }
-        boolean codeDeleteFlag = (deleteNum == codeFileNum);
-        // 删除testng.xml
-        boolean deleteFlag = testNGFile.delete();
-        if (codeDeleteFlag || deleteFlag) {
-            System.out.println("清理完毕!");
+        return file.delete();
+    }
+
+    // 删除testng.xml文件
+    public static void deleteTestNGXML() {
+        String testNGFilePrefix = "testng_test";
+        File root = new File(".");
+        boolean flag = false;
+        for (String name : root.list()) {
+            if (name.startsWith(testNGFilePrefix)) {
+                flag = new File("./" + name).delete();
+                if (!flag) {
+                    System.out.println("删除TestNG.xml失败: " + name);
+                }
+            }
         }
+    }
+
+    public static List<String> searchTestNGXML() {
+        List<String> testNGxmlList = new ArrayList<>();
+        String testNGFilePrefix = "testng_test";
+        File root = new File(".");
+        for (String name : root.list()) {
+            if (name.startsWith(testNGFilePrefix)) {
+                testNGxmlList.add(name);
+            }
+        }
+        return testNGxmlList;
     }
 
     /**
@@ -157,5 +124,52 @@ public class Utility {
         Gson gson = new Gson();
         String json = gson.toJson(obj);
         return json;
+    }
+
+    public static String fileInput(File file) {
+        FileInputStream fis = null;
+        byte [] fileCodeByte = null;
+        String strContent = null;
+
+        try {
+            fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (fis != null) {
+                fileCodeByte = new byte[fis.available()];
+                while (fis.read(fileCodeByte) != -1) {
+                    strContent = new String(fileCodeByte);
+                }
+                fis.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return strContent;
+    }
+
+    public static void fileOutput(File file, String strContent) {
+        FileOutputStream fos = null;
+
+        try {
+            fos = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (fos != null && strContent != null) {
+                fos.write(strContent.getBytes(), 0, strContent.getBytes().length);
+                fos.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        Utility.cleanCodeFile();
     }
 }

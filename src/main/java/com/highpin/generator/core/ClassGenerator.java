@@ -1,7 +1,7 @@
 package com.highpin.generator.core;
 
 import com.highpin.except.NotFoundTestException;
-import com.highpin.operatordata.ReadAllTestCaseFile;
+import com.highpin.operatordata.ReadAllTestSuiteFile;
 import com.highpin.operatordata.ReadStruct;
 import javassist.*;
 import javassist.bytecode.AnnotationsAttribute;
@@ -48,7 +48,7 @@ public class ClassGenerator {
     public ClassGenerator() throws Exception {
         this.cPool = ClassPool.getDefault();
         this.mt = new MethodTemplate();
-        ReadAllTestCaseFile rf = new ReadAllTestCaseFile();
+        ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
         ReadStruct rs = new ReadStruct(rf.readTestSuite());
 
         this.suiteList = rs.getTestSuiteName();
@@ -71,14 +71,14 @@ public class ClassGenerator {
      * @Description: 按照类名称列表生成类
      */
     public void createClass() {
-        String suitePackage = null;
+        String suiteName = null;
         List<CtClass> subCtClass = null;
         this.ctList = new ArrayList<>();
         for (int i = 0; i < this.suiteList.size(); ++i) {
-            suitePackage = this.suiteList.get(i);
+            suiteName = this.suiteList.get(i);
             subCtClass = new ArrayList<>();
             for (String className : this.classNameList.get(i)) {
-                subCtClass.add(cPool.makeClass("com.highpin.test." + suitePackage + "." + className));
+                subCtClass.add(cPool.makeClass("com.highpin.test." + suiteName + "." + className));
             }
             this.ctList.add(subCtClass);
         }
@@ -128,7 +128,7 @@ public class ClassGenerator {
      * @Description: 向类当中加入方法
      * @throws Exception -- 如果出现错误的元素类型则抛出NotFoundTestException
      */
-    public void insertMethod2Class(List<CtClass> suiteCtList, int suiteCtIndex) throws Exception {
+    public void insertMethod2Class(List<CtClass> suiteCtClassList, int suiteCtIndex) throws Exception {
         // 参数对象
         StepParameters sp = null;
         // 获取对应方法的语句
@@ -138,16 +138,17 @@ public class ClassGenerator {
         String afterTestAnnotation = "org.testng.annotations.AfterClass";
         String testAnnotation = "org.testng.annotations.Test";
 
-        for (int ctIndex = 0; ctIndex < suiteCtList.size(); ++ctIndex) {
+        for (int ctIndex = 0; ctIndex < suiteCtClassList.size(); ++ctIndex) {
             // 创建参数对象
             sp = new StepParameters();
             // 获取类
-            CtClass ctClass = suiteCtList.get(ctIndex);
+            CtClass ctClass = suiteCtClassList.get(ctIndex);
             // 显示测试类名称
             logger.info("类名称:" + ctClass.getName());
             logger.info("************************************************开始创建一个类************************************************");
             for (int methodIndex = 0; methodIndex < this.methodNameList.get(suiteCtIndex).get(ctIndex).size(); ++methodIndex) {
-                String className = suiteCtList.get(ctIndex).getName();
+                String suiteName = this.suiteList.get(suiteCtIndex);
+                String className = ctClass.getName();   // 这里取的是类全名
                 String methodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
                 String eleType = this.methodElementTypeList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
                 String locType = this.methodLocatorTypeList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
@@ -159,6 +160,8 @@ public class ClassGenerator {
                 Object verifyValue = this.methodVerifyValueList.get(suiteCtIndex).get(ctIndex).get(methodIndex);
                 String screenCapture = this.methodScreenCaptureList.get(suiteCtIndex).get(ctIndex).get(methodIndex).toString();
 
+                // 把suite名称放置在sp对象中
+                sp.setSuiteName(suiteName);
                 // 把类名称放置在sp对象中
                 sp.setClassName(className);
                 // 把方法名称放置在sp对象中
