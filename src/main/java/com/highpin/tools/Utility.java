@@ -2,6 +2,8 @@ package com.highpin.tools;
 
 import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +16,7 @@ import java.util.List;
  * Created by Administrator on 2015/12/3.
  */
 public class Utility {
+    public static Logger logger = LogManager.getLogger(Utility.class.getName());
     /**
      * @Description: 屏幕截图方法
      * @param driver -- 浏览器对象
@@ -58,6 +61,7 @@ public class Utility {
                 }
             }
         }
+        logger.info("报告JS替换完毕");
     }
 
     /**
@@ -72,6 +76,7 @@ public class Utility {
         Utility.deleteFiles(testPackage);
         Utility.deleteFiles(testOutput);
         Utility.deleteTestNGXML();
+        logger.info("代码清理完毕");
     }
 
     // 清理方法
@@ -96,8 +101,10 @@ public class Utility {
         for (String name : root.list()) {
             if (name.startsWith(testNGFilePrefix)) {
                 flag = new File("./" + name).delete();
-                if (!flag) {
-                    System.out.println("删除TestNG.xml失败: " + name);
+                if (flag) {
+                    logger.info("删除TestNG.xml文件: " + name);
+                } else {
+                    logger.info("删除TestNG.xml文件失败: " + name);
                 }
             }
         }
