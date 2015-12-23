@@ -34,7 +34,6 @@ public class Utility {
             e.printStackTrace();
         }
         destImagePath = screenShotName + ".png";
-//        System.out.println(destImage.getAbsolutePath());
         return destImagePath;
     }
 

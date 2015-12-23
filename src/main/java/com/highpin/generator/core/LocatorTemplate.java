@@ -43,6 +43,9 @@ public class LocatorTemplate {
             case "cssSelector":
                 by = "org.openqa.selenium.By.cssSelector(\"" + locatorValue + "\")";
                 break;
+            case "js":
+                by = locatorValue;
+                break;
             default:
                 logger.error("无法识别定位选择器");
                 throw new NotFoundLocatorException("无法识别定位选择器: " + locatorValue);

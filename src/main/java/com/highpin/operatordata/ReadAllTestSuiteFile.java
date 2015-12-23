@@ -34,7 +34,6 @@ public class ReadAllTestSuiteFile {
                     testSuiteName = testSuiteName.substring(0, testSuiteName.indexOf("."));
                     // 将每个Excel生成的数据结构放置在SortedMap当中
                     this.allTestDataMap.put(testSuiteName, testMap);
-                    System.out.println(Utility.dataStructConvertJSON(testMap));
                 }
             }
             System.out.println(Utility.dataStructConvertJSON(this.allTestDataMap));

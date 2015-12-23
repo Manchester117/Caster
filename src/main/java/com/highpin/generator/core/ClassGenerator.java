@@ -82,7 +82,6 @@ public class ClassGenerator {
             }
             this.ctList.add(subCtClass);
         }
-        System.out.println(this.ctList);
         logger.info("创建所有可运行的测试类");
     }
 
@@ -245,6 +244,11 @@ public class ClassGenerator {
                             break;
                         case "alert":
                             methodStatement = this.mt.popupAlert(sp);
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            logger.info("已加入方法--" + sp.getMethodName());
+                            break;
+                        case "jsClick":
+                            methodStatement = this.mt.javaScriptClick(sp);
                             this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;

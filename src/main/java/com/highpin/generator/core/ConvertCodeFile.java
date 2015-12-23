@@ -51,7 +51,6 @@ public class ConvertCodeFile {
             // 进行字符转换
             if (codeStr != null) {
                 codeStr = this.unicodeToString(codeStr);
-                System.out.println(codeStr);
             }
             // 将代码写回到Java文件当中
             Utility.fileOutput(codeFile, codeStr);

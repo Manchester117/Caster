@@ -62,7 +62,6 @@ public class ClassDecompiler {
                 try {
                     classByteCode = aCtList.toBytecode();
                     String classStatement = new String(classByteCode, "UTF-8");
-                    System.out.println(classStatement);
                 } catch (IOException | CannotCompileException e) {
                     logger.error("获取字节码字符串失败");
                     e.printStackTrace();

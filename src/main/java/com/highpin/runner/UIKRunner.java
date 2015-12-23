@@ -10,6 +10,8 @@ import org.testng.xml.XmlSuite;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.JavascriptExecutor;
+
 /**
  * Created by Administrator on 2015/12/3.
  */

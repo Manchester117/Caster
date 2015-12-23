@@ -44,7 +44,6 @@ public class XMLFileOperator {
     public void createMultiXML() {
         String testngFileName = null;
         for (int i = 0; i < this.allSuiteList.size(); ++i) {
-            System.out.println(this.allSuiteList.get(i));
             testngFileName = "testng_" + this.allSuiteList.get(i) + ".xml";
             this.createSingleXML(testngFileName, this.allSuiteList.get(i), this.allClassNameList.get(i), this.allMethodNameList.get(i));
         }

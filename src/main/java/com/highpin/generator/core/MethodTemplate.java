@@ -294,6 +294,29 @@ public class MethodTemplate {
         return methodDefine;
     }
 
+    public String javaScriptClick(StepParameters sp) throws Exception {
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "try {" +
+                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.JavascriptExecutor jsExecutor = (org.openqa.selenium.JavascriptExecutor)this.driver;" +
+                                        "java.lang.String jsCode = \"" + by + ".click();\";" +
+                                        "jsExecutor.executeScript(jsCode, new java.lang.Object[]{\"\"});" +
+                                        verifyStatement +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
+                                    "} catch (java.lang.Exception e) {" +
+                                        "e.printStackTrace();" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
+                                    "}" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
+                              "}";
+        return methodDefine;
+    }
+
     // 鼠标悬停
     public String mouseHold(StepParameters sp) throws Exception {
         String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
