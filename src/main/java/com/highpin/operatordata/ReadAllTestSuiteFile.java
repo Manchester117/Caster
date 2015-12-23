@@ -12,11 +12,19 @@ public class ReadAllTestSuiteFile {
     private File testFolder = null;
     private SortedMap<String, SortedMap<String, SortedMap<String, Map<String, Object>>>> allTestDataMap = null;
 
+    /**
+     * @Description: 获取用例目录并且建立数据结构
+     */
     public ReadAllTestSuiteFile() {
         this.testFolder = new File("cases");
         this.allTestDataMap = new TreeMap<>();
     }
 
+    /**
+     * @Description: 将用例中的数据读取出来,放置在数据结构当中
+     * @return  allTestDataMap  --  测试数据结构
+     * @throws Exception
+     */
     public SortedMap<String, SortedMap<String, SortedMap<String, Map<String, Object>>>> readTestSuite() throws Exception {
         String testSuiteName = null;
         File [] testSuiteList = this.testFolder.listFiles();

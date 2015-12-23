@@ -39,6 +39,12 @@ public class VerifyModule {
         return verifyStatement;
     }
 
+    /**
+     * @Description: 将多个验证语句进行拼接
+     * @param sp       --       测试数据结构
+     * @return verifyStatement  --  返回拼接的验证语句
+     * @throws Exception 如果验证类型/验证路径不正确则抛出NotFoundLocatorException
+     */
     public static String appendVerifyContentStatement(StepParameters sp) throws Exception {
         String verifyTypeString = null;
         String verifyTargetString = null;

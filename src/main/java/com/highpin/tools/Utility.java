@@ -109,6 +109,10 @@ public class Utility {
         }
     }
 
+    /**
+     * @Description: 在项目目录中查找TestNG.xml
+     * @return  testNGxmlList   --  返回文件列表
+     */
     public static List<String> searchTestNGXML() {
         List<String> testNGxmlList = new ArrayList<>();
         String testNGFilePrefix = "testng_test";
@@ -132,6 +136,11 @@ public class Utility {
         return json;
     }
 
+    /**
+     * @Description: 文件输入流
+     * @param file  --  文件对象
+     * @return  -- 文件正文
+     */
     public static String fileInput(File file) {
         FileInputStream fis = null;
         byte [] fileCodeByte = null;
@@ -157,6 +166,11 @@ public class Utility {
         return strContent;
     }
 
+    /**
+     * @Description: 文件输出流
+     * @param file          --          操作的文件
+     * @param strContent    --          文件正文
+     */
     public static void fileOutput(File file, String strContent) {
         FileOutputStream fos = null;
 
