@@ -26,7 +26,7 @@ public class ReadStruct {
             Map.Entry entry = (Map.Entry) step;
             suiteNameList.add(entry.getKey().toString());
         }
-        System.out.println(Utility.dataStructConvertJSON(suiteNameList));
+        logger.info("Test Suite列表: " + Utility.dataStructConvertJSON(suiteNameList));
         return suiteNameList;
     }
 
@@ -51,7 +51,6 @@ public class ReadStruct {
             allClassNameList.add(classNameList);
         }
         logger.info("类名列表: " + Utility.dataStructConvertJSON(allClassNameList));
-        logger.info("返回数据结构的类名称列表");
         return allClassNameList;
     }
 
@@ -91,23 +90,14 @@ public class ReadStruct {
             e.printStackTrace();
         }
         logger.info("字段列表: " + Utility.dataStructConvertJSON(suiteFieldList));
-        logger.info("返回数据结构的方法名称列表");
-        logger.info(suiteFieldList);
         return suiteFieldList;
     }
 
-    public static void main(String[] args) throws Exception {
-        ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
-        ReadStruct rs = new ReadStruct(rf.readTestSuite());
-        rs.getAllClassName();
-        rs.getSheetField("Action_Keyword");
-        rs.getTestSuiteName();
-
-//        ExcelOperator eo = new ExcelOperator("cases/test_dataengine_1.xlsx");
-//        ReadStruct rs = new ReadStruct(eo.traverseTestSteps());
+//    public static void main(String[] args) throws Exception {
+//        ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
+//        ReadStruct rs = new ReadStruct(rf.readTestSuite());
 //        rs.getAllClassName();
-//        rs.getSheetField("Verify_Value");
-
-//        rs.getTestSuiteDataStruct();
-    }
+//        rs.getSheetField("Action_Keyword");
+//        rs.getTestSuiteName();
+//    }
 }

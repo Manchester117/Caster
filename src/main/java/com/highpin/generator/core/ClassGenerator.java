@@ -12,6 +12,7 @@ import javassist.bytecode.annotation.BooleanMemberValue;
 import javassist.bytecode.annotation.StringMemberValue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,8 @@ public class ClassGenerator {
      */
     public ClassGenerator() throws Exception {
         this.cPool = ClassPool.getDefault();
+        // 放置在Jenkins持续集成中必须要有事先把WebDriver加载到JVM中
+        this.cPool.insertClassPath(new ClassClassPath(WebDriver.class));
         this.mt = new MethodTemplate();
         ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
         ReadStruct rs = new ReadStruct(rf.readTestSuite());
@@ -284,7 +287,7 @@ public class ClassGenerator {
     private void addMethod(CtClass ctClass, String methodName, String methodBody, String annotTitle, String annotValue) {
         CtMethod ctMethod = null;
         try {
-            logger.info(methodBody);
+//            logger.info(methodBody);
             ctMethod = CtNewMethod.make(methodBody, ctClass);
             ctClass.addMethod(ctMethod);
         } catch (CannotCompileException | NullPointerException e) {
@@ -373,10 +376,10 @@ public class ClassGenerator {
     }
 
     // 测试--main方法
-    public static void main(String[] args) throws Exception {
-        ClassGenerator cg = new ClassGenerator();
-        cg.createClass();
-        cg.insertField();
-        cg.suiteInsertMethod();
-    }
+//    public static void main(String[] args) throws Exception {
+//        ClassGenerator cg = new ClassGenerator();
+//        cg.createClass();
+//        cg.insertField();
+//        cg.suiteInsertMethod();
+//    }
 }

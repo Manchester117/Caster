@@ -238,10 +238,10 @@ public class ExcelOperator {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        ExcelOperator eo = new ExcelOperator("case/test_dataengine_1.xlsx");
-        SortedMap<String, SortedMap<String, Map<String, Object>>> testDataMap = eo.traverseTestSteps();
-        String dataStruct = Utility.dataStructConvertJSON(testDataMap);
-        System.out.println(dataStruct);
-    }
+//    public static void main(String[] args) throws Exception {
+//        ExcelOperator eo = new ExcelOperator("case/test_dataengine_1.xlsx");
+//        SortedMap<String, SortedMap<String, Map<String, Object>>> testDataMap = eo.traverseTestSteps();
+//        String dataStruct = Utility.dataStructConvertJSON(testDataMap);
+//        System.out.println(dataStruct);
+//    }
 }

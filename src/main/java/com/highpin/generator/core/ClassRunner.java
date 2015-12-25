@@ -54,16 +54,16 @@ public class ClassRunner {
     }
 
     // 测试--main方法
-    public static void main(String[] args) throws Exception{
-        ClassGenerator cg = new ClassGenerator();
-        cg.createClass();
-        cg.insertField();
-        cg.suiteInsertMethod();
-
-        List<List<String>> methodList = cg.getAllClassMethodList();
-        List<List<CtClass>> classList = cg.getAllClassList();
-
-        ClassRunner cr = new ClassRunner();
-        cr.reflectRunClass(classList, methodList);
-    }
+//    public static void main(String[] args) throws Exception{
+//        ClassGenerator cg = new ClassGenerator();
+//        cg.createClass();
+//        cg.insertField();
+//        cg.suiteInsertMethod();
+//
+//        List<List<String>> methodList = cg.getAllClassMethodList();
+//        List<List<CtClass>> classList = cg.getAllClassList();
+//
+//        ClassRunner cr = new ClassRunner();
+//        cr.reflectRunClass(classList, methodList);
+//    }
 }

@@ -49,8 +49,8 @@ public class ReadAllTestSuiteFile {
         return this.allTestDataMap;
     }
 
-    public static void main(String[] args) throws Exception {
-        ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
-        rf.readTestSuite();
-    }
+//    public static void main(String[] args) throws Exception {
+//        ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
+//        rf.readTestSuite();
+//    }
 }

@@ -109,7 +109,7 @@ public class ClassDecompiler {
         FileOutputStream stream = null;
         OutputStreamWriter writer = null;
 
-        logger.info("************************************************类反编译开始************************************************");
+        logger.info("************类反编译开始************");
         for (int suiteIndex = 0; suiteIndex < this.suitePackageList.size(); ++suiteIndex) {
             String packageName = this.suitePackageList.get(suiteIndex);
             for (String className : this.classNameList.get(suiteIndex)) {
@@ -154,14 +154,14 @@ public class ClassDecompiler {
                 }
             }
         }
-        logger.info("************************************************类反编译完成************************************************");
+        logger.info("************类反编译完成************");
     }
 
     // 测试--main方法
-    public static void main(String[] args) throws Exception {
-        ClassDecompiler cd = new ClassDecompiler();
-        cd.writeClassToPackage();
-        cd.getTestClassFileName();
-        cd.decompilerClass();
-    }
+//    public static void main(String[] args) throws Exception {
+//        ClassDecompiler cd = new ClassDecompiler();
+//        cd.writeClassToPackage();
+//        cd.getTestClassFileName();
+//        cd.decompilerClass();
+//    }
 }

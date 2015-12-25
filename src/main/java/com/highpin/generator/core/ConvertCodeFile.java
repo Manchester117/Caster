@@ -87,8 +87,8 @@ public class ConvertCodeFile {
         }
     }
 
-    public static void main(String[] args) {
-        ConvertCodeFile rcf = new ConvertCodeFile();
-        rcf.convertUnicodeFile();
-    }
+//    public static void main(String[] args) {
+//        ConvertCodeFile rcf = new ConvertCodeFile();
+//        rcf.convertUnicodeFile();
+//    }
 }

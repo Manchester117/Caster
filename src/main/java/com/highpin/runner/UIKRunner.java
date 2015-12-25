@@ -4,6 +4,8 @@ import com.highpin.generator.core.ClassDecompiler;
 import com.highpin.generator.core.ConvertCodeFile;
 import com.highpin.generator.xml.XMLFileOperator;
 import com.highpin.tools.Utility;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.TestNG;
 import org.testng.xml.XmlSuite;
 
@@ -17,6 +19,7 @@ public class UIKRunner {
     private XMLFileOperator xfo = null;
     private ClassDecompiler cd = null;
     private ConvertCodeFile rcf = null;
+    public static Logger logger = LogManager.getLogger(UIKRunner.class.getName());
 
     public void createTestJavaClass() throws Exception {
         this.cd = new ClassDecompiler();
@@ -50,9 +53,9 @@ public class UIKRunner {
         // 执行用例
         TestNG testng = new TestNG();
         testng.setXmlSuites(suitesXmlList);
-        System.out.println("************************************************测试开始执行************************************************");
+        logger.info("**************************测试开始执行**************************");
         testng.run();
-        System.out.println("************************************************测试执行结束************************************************");
+        logger.info("**************************测试执行结束**************************");
     }
 
     public void replaceReport() {
