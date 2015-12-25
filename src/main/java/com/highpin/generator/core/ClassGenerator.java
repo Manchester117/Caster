@@ -147,7 +147,7 @@ public class ClassGenerator {
             CtClass ctClass = suiteCtClassList.get(ctIndex);
             // 显示测试类名称
             logger.info("类名称:" + ctClass.getName());
-            logger.info("************************************************开始创建一个类************************************************");
+            logger.info("**************************开始创建一个类**************************");
             for (int methodIndex = 0; methodIndex < this.methodNameList.get(suiteCtIndex).get(ctIndex).size(); ++methodIndex) {
                 String suiteName = this.suiteList.get(suiteCtIndex);
                 String className = ctClass.getName();   // 这里取的是类全名
@@ -272,7 +272,7 @@ public class ClassGenerator {
                     }
                 }
             }
-            logger.info("************************************************类已经创建完成************************************************");
+            logger.info("**************************类已经创建完成**************************");
         }
     }
 
@@ -359,9 +359,8 @@ public class ClassGenerator {
         List<List<String>> methodAllList = new ArrayList<>();
         for (List<CtClass> suiteClassList : this.ctList) {
             for (CtClass ctClass : suiteClassList) {
-                logger.info(ctClass.getName());
+                logger.info("打印类名称: " + ctClass.getName());
                 methodAllList.add(this.getMethod(ctClass.getName()));
-                logger.info("************************************************************************************************");
             }
         }
         return methodAllList;

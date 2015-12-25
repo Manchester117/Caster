@@ -17,11 +17,12 @@ import java.util.List;
  */
 public class Utility {
     public static Logger logger = LogManager.getLogger(Utility.class.getName());
+
     /**
-     * @Description: 屏幕截图方法
-     * @param driver -- 浏览器对象
+     * @param driver         -- 浏览器对象
      * @param screenShotName -- 截图的文件名
      * @return destImagePath -- 截图的存放路径
+     * @Description: 屏幕截图方法
      */
     public static String captureScreenShot(WebDriver driver, String reportDir, String screenShotName) {
         TakesScreenshot ts = (TakesScreenshot) driver;
@@ -42,12 +43,12 @@ public class Utility {
      */
     public static void replaceReportJS() {
         File reportFolder = new File("reports");
-        File [] reportPackList = reportFolder.listFiles();
+        File[] reportPackList = reportFolder.listFiles();
         String reportStr = null;
 
         if (reportPackList != null) {
             for (File reportPack : reportPackList) {
-                File [] reportList = reportPack.listFiles();
+                File[] reportList = reportPack.listFiles();
                 if (reportList != null) {
                     for (File singleReport : reportList) {
                         if (singleReport.getName().endsWith(".html")) {
@@ -81,7 +82,7 @@ public class Utility {
     // 清理方法
     public static boolean deleteFiles(File file) {
         if (file.isDirectory()) {
-            String [] childrenArray = file.list();
+            String[] childrenArray = file.list();
             for (String children : childrenArray) {
                 boolean flag = deleteFiles(new File(file, children));
                 if (!flag) {
@@ -110,8 +111,8 @@ public class Utility {
     }
 
     /**
+     * @return testNGxmlList   --  返回文件列表
      * @Description: 在项目目录中查找TestNG.xml
-     * @return  testNGxmlList   --  返回文件列表
      */
     public static List<String> searchTestNGXML() {
         List<String> testNGxmlList = new ArrayList<>();
@@ -126,9 +127,9 @@ public class Utility {
     }
 
     /**
-     * @Description: 将Java数据结构转为JSON...方便调试...
      * @param obj -- 传入的Java数据结构
      * @return json -- 返回的JSON
+     * @Description: 将Java数据结构转为JSON...方便调试...
      */
     public static String dataStructConvertJSON(Object obj) {
         Gson gson = new Gson();
@@ -137,29 +138,38 @@ public class Utility {
     }
 
     /**
-     * @Description: 文件输入流
+     * @Description: 文件输入流  --  指定字符编码
      * @param file  --  文件对象
      * @return  -- 文件正文
      */
     public static String fileInput(File file) {
+        String strCode = null;
+        String strContent = "";
         FileInputStream fis = null;
-        byte [] fileCodeByte = null;
-        String strContent = null;
-
         try {
             fis = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        try {
-            if (fis != null) {
-                fileCodeByte = new byte[fis.available()];
-                while (fis.read(fileCodeByte) != -1) {
-                    strContent = new String(fileCodeByte);
-                }
-                fis.close();
+        InputStreamReader isr = null;
+        if (fis != null) {
+            try {
+                isr = new InputStreamReader(fis, "GBK");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
-
+        }
+        BufferedReader bufReader = null;
+        if (isr != null) {
+            bufReader = new BufferedReader(isr);
+        }
+        try {
+            if (bufReader != null) {
+                while ((strCode = bufReader.readLine()) != null) {
+                    strContent += strCode;
+                }
+                bufReader.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,27 +177,91 @@ public class Utility {
     }
 
     /**
-     * @Description: 文件输出流
+     * @Description: 文件输出流  --  指定字符编码
      * @param file          --          操作的文件
      * @param strContent    --          文件正文
      */
     public static void fileOutput(File file, String strContent) {
         FileOutputStream fos = null;
-
         try {
             fos = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        OutputStreamWriter osw = null;
         try {
-            if (fos != null && strContent != null) {
-                fos.write(strContent.getBytes(), 0, strContent.getBytes().length);
-                fos.close();
+            if (fos != null) {
+                osw = new OutputStreamWriter(fos, "UTF-8");
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bufWriter = null;
+        if (osw != null) {
+            bufWriter = new BufferedWriter(osw);
+        }
+        try {
+            if (bufWriter != null) {
+                bufWriter.write(strContent);
+                bufWriter.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+//    /**
+//     * @param file  --   文件对象
+//     * @return strContent   --  文件正文
+//     * @Description: 文件输入流
+//     */
+//    public static String fileInputOriginal(File file) {
+//        FileInputStream fis = null;
+//        byte[] fileCodeByte = null;
+//        String strContent = null;
+//
+//        try {
+//            fis = new FileInputStream(file);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            if (fis != null) {
+//                fileCodeByte = new byte[fis.available()];
+//                while (fis.read(fileCodeByte) != -1) {
+//                    strContent = new String(fileCodeByte);
+//                }
+//                fis.close();
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return strContent;
+//    }
+//
+//    /**
+//     * @param file       --          操作的文件
+//     * @param strContent --          文件正文
+//     * @Description: 文件输出流
+//     */
+//    public static void fileOutputOriginal(File file, String strContent) {
+//        FileOutputStream fos = null;
+//
+//        try {
+//            fos = new FileOutputStream(file);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            if (fos != null && strContent != null) {
+//                fos.write(strContent.getBytes(), 0, strContent.getBytes().length);
+//                fos.close();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 //    public static void main(String[] args) {
 //        Utility.cleanCodeFile();
