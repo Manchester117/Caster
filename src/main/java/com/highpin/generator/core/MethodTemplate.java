@@ -33,7 +33,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -70,7 +70,7 @@ public class MethodTemplate {
                                     verifyStatement +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -97,7 +97,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -122,7 +122,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -170,7 +170,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -194,7 +194,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -218,7 +218,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -242,7 +242,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -265,7 +265,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -287,7 +287,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -310,7 +310,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -334,7 +334,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -358,7 +358,7 @@ public class MethodTemplate {
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
         return methodDefine;
