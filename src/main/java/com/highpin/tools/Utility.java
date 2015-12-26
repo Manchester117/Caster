@@ -144,7 +144,8 @@ public class Utility {
     }
 
     /**
-     * @Description: 文件输入流  --  指定字符编码  --  注意!持续集成环境使用此方法
+     * @Description: 文件输入流  --  指定字符编码  --  注意!代码转码使用字节流转字符流
+     * @Description: 持续集成环境使用,因为生成的代码文件的字符便是本地的(GBK)需要转转码(UTF-8)
      * @param file  --  文件对象
      * @return  -- 文件正文
      */
@@ -183,7 +184,8 @@ public class Utility {
     }
 
     /**
-     * @Description: 文件输出流  --  指定字符编码  --  注意!持续集成环境使用此方法
+     * @Description: 文件输出流  --  指定字符编码  --  注意!代码转码使用字节流转字符流
+     * @Description: 持续集成环境使用,因为生成的代码文件的字符便是本地的(GBK)需要转转码(UTF-8)
      * @param file          --          操作的文件
      * @param strContent    --          文件正文
      */
@@ -217,7 +219,9 @@ public class Utility {
     }
 
     /**
-     * @Description: 文件输入流  --  注意!个人开发环境使用
+     * @Description: 文件输入流  --  注意!报告替换使用字节流(持续集成环境)
+     * @Description: 在个人开发环境中,代码/报告读入写出都可用此方法,因为代码生成是在开发环境中,所以文件生成时的编码格式就是UTF-8
+     * @Description: HTML文件本身的编码是UTF-8,所以在执行报告的文件读入写出不用转码
      * @param file  --  文件对象
      * @return  -- 文件正文
      */
@@ -247,7 +251,9 @@ public class Utility {
     }
 
     /**
-     * @Description: 文件输出流  --  注意!个人开发环境使用
+     * @Description: 文件输出流  --  注意!报告替换使用字节流(持续集成环境)
+     * @Description: 在个人开发环境中,代码/报告读入写出都可用此方法,因为代码生成是在开发环境中,所以文件生成时的编码格式就是UTF-8
+     * @Description: @Description: HTML文件本身的编码是UTF-8,所以在执行报告的文件读入写出不用转码
      * @param file          --          操作的文件
      * @param strContent    --          文件正文
      */
