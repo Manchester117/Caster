@@ -79,18 +79,24 @@ public class Utility {
         logger.info("代码清理完毕");
     }
 
-    // 清理方法
-    public static boolean deleteFiles(File file) {
-        if (file.isDirectory()) {
-            String[] childrenArray = file.list();
-            for (String children : childrenArray) {
-                boolean flag = deleteFiles(new File(file, children));
-                if (!flag) {
-                    return false;
+    /**
+     * @Description: 清空文件夹中的文件,并保留根文件夹
+     * @param file  --  文件根路径
+     */
+    public static void deleteFiles(File file) {
+        File [] fileList = file.listFiles();
+        if (fileList != null) {
+            for (File delFile : fileList) {
+                if (delFile.isDirectory()) {
+                    deleteFiles(delFile);
+                }
+                if (delFile.delete()) {
+                    logger.info("已删除文件: " + delFile.getName());
                 }
             }
+        } else {
+            logger.info("待清空目标文件夹不存在!");
         }
-        return file.delete();
     }
 
     // 删除testng.xml文件
@@ -138,11 +144,11 @@ public class Utility {
     }
 
     /**
-     * @Description: 文件输入流  --  指定字符编码
+     * @Description: 文件输入流  --  指定字符编码  --  注意!持续集成环境使用此方法
      * @param file  --  文件对象
      * @return  -- 文件正文
      */
-    public static String fileInput(File file) {
+    public static String fileInputBuffered(File file) {
         String strCode = null;
         String strContent = "";
         FileInputStream fis = null;
@@ -177,11 +183,11 @@ public class Utility {
     }
 
     /**
-     * @Description: 文件输出流  --  指定字符编码
+     * @Description: 文件输出流  --  指定字符编码  --  注意!持续集成环境使用此方法
      * @param file          --          操作的文件
      * @param strContent    --          文件正文
      */
-    public static void fileOutput(File file, String strContent) {
+    public static void fileOutputBuffered(File file, String strContent) {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
@@ -210,58 +216,58 @@ public class Utility {
         }
     }
 
-//    /**
-//     * @param file  --   文件对象
-//     * @return strContent   --  文件正文
-//     * @Description: 文件输入流
-//     */
-//    public static String fileInputOriginal(File file) {
-//        FileInputStream fis = null;
-//        byte[] fileCodeByte = null;
-//        String strContent = null;
-//
-//        try {
-//            fis = new FileInputStream(file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            if (fis != null) {
-//                fileCodeByte = new byte[fis.available()];
-//                while (fis.read(fileCodeByte) != -1) {
-//                    strContent = new String(fileCodeByte);
-//                }
-//                fis.close();
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return strContent;
-//    }
-//
-//    /**
-//     * @param file       --          操作的文件
-//     * @param strContent --          文件正文
-//     * @Description: 文件输出流
-//     */
-//    public static void fileOutputOriginal(File file, String strContent) {
-//        FileOutputStream fos = null;
-//
-//        try {
-//            fos = new FileOutputStream(file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            if (fos != null && strContent != null) {
-//                fos.write(strContent.getBytes(), 0, strContent.getBytes().length);
-//                fos.close();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * @Description: 文件输入流  --  注意!个人开发环境使用
+     * @param file  --  文件对象
+     * @return  -- 文件正文
+     */
+    public static String fileInput(File file) {
+        FileInputStream fis = null;
+        byte [] fileCodeByte = null;
+        String strContent = null;
+
+        try {
+            fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (fis != null) {
+                fileCodeByte = new byte[fis.available()];
+                while (fis.read(fileCodeByte) != -1) {
+                    strContent = new String(fileCodeByte);
+                }
+                fis.close();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return strContent;
+    }
+
+    /**
+     * @Description: 文件输出流  --  注意!个人开发环境使用
+     * @param file          --          操作的文件
+     * @param strContent    --          文件正文
+     */
+    public static void fileOutput(File file, String strContent) {
+        FileOutputStream fos = null;
+
+        try {
+            fos = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (fos != null && strContent != null) {
+                fos.write(strContent.getBytes(), 0, strContent.getBytes().length);
+                fos.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 //    public static void main(String[] args) {
 //        Utility.cleanCodeFile();
