@@ -211,6 +211,7 @@ public class Utility {
         try {
             if (bufWriter != null) {
                 bufWriter.write(strContent);
+                osw.flush();
                 bufWriter.close();
             }
         } catch (IOException e) {
