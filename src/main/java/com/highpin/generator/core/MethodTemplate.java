@@ -48,10 +48,11 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
+                                    "} finally {" +
+                                        "this.extent.endTest(this.test);" +
+                                        "this.extent.flush();" +
+                                        "this.extent.close();" +
                                     "}" +
-                                    "this.extent.endTest(this.test);" +
-                                    "this.extent.flush();" +
-                                    "this.extent.close();" +
                               "}";
         return methodDefine;
     }
