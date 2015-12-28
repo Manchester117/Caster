@@ -56,7 +56,7 @@ public class ClassRunner {
     // 测试--main方法
 //    public static void main(String[] args) throws Exception{
 //        ClassGenerator cg = new ClassGenerator();
-//        cg.createClass();
+//        cg.createTestClass();
 //        cg.insertField();
 //        cg.suiteInsertMethod();
 //

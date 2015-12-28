@@ -27,7 +27,7 @@ public class ClassDecompiler {
      */
     public ClassDecompiler() throws Exception {
         this.cg = new ClassGenerator();
-        this.cg.createClass();
+        this.cg.createTestClass();
         this.cg.insertField();
         this.cg.suiteInsertMethod();
         this.ctList = this.cg.getAllClassList();

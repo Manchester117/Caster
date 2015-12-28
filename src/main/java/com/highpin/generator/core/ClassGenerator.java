@@ -71,9 +71,9 @@ public class ClassGenerator {
     }
 
     /**
-     * @Description: 按照类名称列表生成类
+     * @Description: 按照类名称列表生成测试类
      */
-    public void createClass() {
+    public void createTestClass() {
         String suiteName = null;
         List<CtClass> subCtClass = null;
         this.ctList = new ArrayList<>();
@@ -81,7 +81,7 @@ public class ClassGenerator {
             suiteName = this.suiteList.get(i);
             subCtClass = new ArrayList<>();
             for (String className : this.classNameList.get(i)) {
-                subCtClass.add(cPool.makeClass("com.highpin.test." + suiteName + "." + className));
+                subCtClass.add(this.cPool.makeClass("com.highpin.test." + suiteName + "." + className));
             }
             this.ctList.add(subCtClass);
         }
@@ -377,7 +377,7 @@ public class ClassGenerator {
     // 测试--main方法
 //    public static void main(String[] args) throws Exception {
 //        ClassGenerator cg = new ClassGenerator();
-//        cg.createClass();
+//        cg.createTestClass();
 //        cg.insertField();
 //        cg.suiteInsertMethod();
 //    }
