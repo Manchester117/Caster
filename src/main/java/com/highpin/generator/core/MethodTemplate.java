@@ -51,7 +51,7 @@ public class MethodTemplate {
                                     "} finally {" +
                                         "this.extent.endTest(this.test);" +
                                         "this.extent.flush();" +
-//                                        "this.extent.close();" +
+                                        "this.extent.close();" +
                                     "}" +
                               "}";
         return methodDefine;
