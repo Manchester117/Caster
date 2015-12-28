@@ -13,7 +13,7 @@ public class MethodTemplate {
                                     "this.extent = new com.relevantcodes.extentreports.ExtentReports(\"reports/" + sp.getSuiteName() + "/Automation Test Report-HighPin UI.html\", java.lang.Boolean.FALSE);" +
                                     "this.extent.addSystemInfo(\"Selenium Version\", \"2.48.2\");" +
                                     "this.extent.addSystemInfo(\"Environment\", \"QA\");" +
-                                    "this.test = this.extent.startTest(\"" + sp.getClassName() + "\", \"Login Flow\");" +
+                                    "this.test = this.extent.startTest(\"" + sp.getClassName() + "\", \"HighPin Automation Test\");" +
                                     "try {" +
                                         "if (browser.equals(\"Firefox\")) {" +
                                             "this.driver = new org.openqa.selenium.firefox.FirefoxDriver();" +
