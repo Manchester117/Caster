@@ -92,12 +92,16 @@ public class ClassGenerator {
      * @Description: 向类中加入属性
      */
     public void insertField() {
+        CtField ctFieldDriverService = null;
         CtField ctFieldDriver = null;
         CtField ctFieldExtentReports = null;
         CtField ctFieldExtentTest = null;
         for (List<CtClass> suiteCtList : this.ctList) {
             for (CtClass ct : suiteCtList) {
                 try {
+                    // 加入DriverService成员
+                    ctFieldDriverService = new CtField(this.cPool.getCtClass("org.openqa.selenium.remote.service.DriverService"), "service", ct);
+                    ctFieldDriverService.setModifiers(Modifier.PRIVATE);
                     // 加入WebDriver成员
                     ctFieldDriver = new CtField(this.cPool.getCtClass("org.openqa.selenium.WebDriver"), "driver", ct);
                     ctFieldDriver.setModifiers(Modifier.PRIVATE);
@@ -108,6 +112,7 @@ public class ClassGenerator {
                     ctFieldExtentTest = new CtField(this.cPool.getCtClass("com.relevantcodes.extentreports.ExtentTest"), "test", ct);
                     ctFieldExtentTest.setModifiers(Modifier.PRIVATE);
 
+                    ct.addField(ctFieldDriverService);
                     ct.addField(ctFieldDriver);
                     ct.addField(ctFieldExtentReports);
                     ct.addField(ctFieldExtentTest);

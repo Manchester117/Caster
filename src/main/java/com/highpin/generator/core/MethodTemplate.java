@@ -18,11 +18,13 @@ public class MethodTemplate {
                                         "if (browser.equals(\"Firefox\")) {" +
                                             "this.driver = new org.openqa.selenium.firefox.FirefoxDriver();" +
                                         "} else if (browser.equals(\"Chrome\")) {" +
-                                            "System.setProperty(\"webdriver.chrome.driver\", \"browserdriver/chromedriver.exe\");" +
-                                            "this.driver = new org.openqa.selenium.chrome.ChromeDriver();" +
+                                            "this.service = new org.openqa.selenium.chrome.ChromeDriverService.Builder().usingDriverExecutable(new java.io.File(\"browserdriver/chromedriver.exe\")).usingAnyFreePort().build();" +
+                                            "this.service.start();" +
+                                            "this.driver = new org.openqa.selenium.chrome.ChromeDriver((org.openqa.selenium.chrome.ChromeDriverService)this.service);" +
                                         "} else if (browser.equals(\"IE\")) {" +
-                                            "System.setProperty(\"webdriver.ie.driver\", \"browserdriver/IEDriverServer.exe\");" +
-                                            "this.driver = new org.openqa.selenium.ie.InternetExplorerDriver();" +
+                                            "this.service = new org.openqa.selenium.ie.InternetExplorerDriverService.Builder().usingDriverExecutable(new java.io.File(\"browserdriver/IEDriverServer.exe\")).usingAnyFreePort().build();" +
+                                            "this.service.start();" +
+                                            "this.driver = new org.openqa.selenium.ie.InternetExplorerDriver((org.openqa.selenium.ie.InternetExplorerDriverService)this.service);" +
                                         "}" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "this.driver.manage().window().maximize();" +
@@ -44,6 +46,7 @@ public class MethodTemplate {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.close();" +
+                                        "this.driver.quit();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
@@ -52,6 +55,9 @@ public class MethodTemplate {
                                         "this.extent.endTest(this.test);" +
                                         "this.extent.flush();" +
                                         "this.extent.close();" +
+                                        "if (this.service != null) {" +
+                                            "this.service.stop();" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
