@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/11/28.
+ * Created by Peng.Zhao on 2015/11/28.
  */
 public class ClassGenerator {
     private ClassPool cPool = null;

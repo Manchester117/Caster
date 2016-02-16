@@ -3,7 +3,7 @@ package com.highpin.generator.core;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/12/12.
+ * Created by Peng.Zhao on 2015/12/12.
  */
 public class StepParameters {
     /**

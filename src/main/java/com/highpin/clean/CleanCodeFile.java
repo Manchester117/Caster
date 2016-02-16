@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 
 /**
- * Created by Administrator on 2015/12/3.
+ * Created by Peng.Zhao on 2015/12/3.
  */
 public class CleanCodeFile {
     public static Logger logger = LogManager.getLogger(CleanCodeFile.class.getName());

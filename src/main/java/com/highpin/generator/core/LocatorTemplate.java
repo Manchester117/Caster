@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by Administrator on 2015/12/15.
+ * Created by Peng.Zhao on 2015/12/15.
  */
 public class LocatorTemplate {
     public static Logger logger = LogManager.getLogger(LocatorTemplate.class.getName());

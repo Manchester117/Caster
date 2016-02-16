@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Administrator on 2015/12/4.
+ * Created by Peng.Zhao on 2015/12/4.
  */
 public class ConvertCodeFile {
     public static Logger logger = LogManager.getLogger(ConvertCodeFile.class.getName());

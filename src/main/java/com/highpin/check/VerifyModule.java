@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by Administrator on 2015/12/6.
+ * Created by Peng.Zhao on 2015/12/6.
  */
 public class VerifyModule {
     public static Logger logger = LogManager.getLogger(VerifyModule.class.getName());

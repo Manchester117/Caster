@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.*;
 
 /**
- * Created by Administrator on 2015/12/21.
+ * Created by Peng.Zhao on 2015/12/21.
  */
 public class ReadAllTestSuiteFile {
     private File testFolder = null;

@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/12/1.
+ * Created by Peng.Zhao on 2015/12/1.
  */
 public class ClassRunner {
     public void reflectRunClass(List<List<CtClass>> suiteClassList, List<List<String>> methodNameList) {

@@ -3,7 +3,7 @@ package com.highpin.generator.core;
 import com.highpin.check.VerifyModule;
 
 /**
- * Created by Administrator on 2015/11/28.
+ * Created by Peng.Zhao on 2015/11/28.
  */
 public class MethodTemplate {
     // 初始化浏览器
