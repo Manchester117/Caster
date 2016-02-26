@@ -1,7 +1,7 @@
 package com.highpin.generator.core;
 
 import com.highpin.check.VerifyModule;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 /**
  * Created by Peng.Zhao on 2015/11/28.
  */

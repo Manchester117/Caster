@@ -23,8 +23,8 @@ public class VerifyModule {
         String verifyStatement = "";
         if (!verifyType.isEmpty() && !verifyTarget.isEmpty() && !verifyValue.isEmpty()) {
             verifyStatement = "try {" +
-                                    "java.lang.Thread.sleep(250L);" +
-                                    "org.openqa.selenium.WebElement verifyElem = this.driver.findElement(" + LocatorTemplate.chooseLocator(verifyType, verifyTarget) + ");" +
+                                    "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                    "org.openqa.selenium.WebElement verifyElem =wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + LocatorTemplate.chooseLocator(verifyType, verifyTarget) + "));" +
                                     "java.lang.String targetText = verifyElem.getText();" +
                                     "if (targetText.contains(\"" + verifyValue + "\")) {" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + verifyValue + "\" + \" ---- 文本验证:存在\");" +
