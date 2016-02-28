@@ -99,14 +99,19 @@ public class ExcelOperator {
             }
             testStep = new TreeMap<>();
             for (int r = 1; r < rowNum; ++r) {
-                // 如果第一列的Test_Step_ID不是空的.则会初始化验证列表(主要是判断是不是合并单元格),并且读取单元格中的数据
-                if (!stepSheet.getRow(r).getCell(0).getStringCellValue().isEmpty()) {
-                    verifyTypeList = new ArrayList<>();
-                    verifyTargetList = new ArrayList<>();
-                    verifyValueList = new ArrayList<>();
-                    stepItem = new HashMap<>();
-                    //此处创建基本的测试数据结构(未加入验证点)
-                    this.createTestDataStruct(stepSheet, colNum, r, testStep, stepItem);
+                try {
+                    // 如果第一列的Test_Step_ID不是空的.则会初始化验证列表(主要是判断是不是合并单元格),并且读取单元格中的数据
+                    if (!stepSheet.getRow(r).getCell(0).getStringCellValue().isEmpty()) {
+                        verifyTypeList = new ArrayList<>();
+                        verifyTargetList = new ArrayList<>();
+                        verifyValueList = new ArrayList<>();
+                        stepItem = new HashMap<>();
+                        //此处创建基本的测试数据结构(未加入验证点)
+                        this.createTestDataStruct(stepSheet, colNum, r, testStep, stepItem);
+                    }
+                } catch (NullPointerException e) {
+                    logger.info("读取Excel数据出现错误!Excel中存在用例范围外的数据.");
+                    e.getMessage();
                 }
                 // 向数据结构中加入验证点
                 this.insertVerifyData(stepSheet, colNum, r, verifyTypeList, verifyTargetList, verifyValueList, stepItem);
