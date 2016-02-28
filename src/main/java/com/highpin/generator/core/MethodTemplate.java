@@ -2,17 +2,23 @@ package com.highpin.generator.core;
 
 import com.highpin.check.VerifyModule;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Peng.Zhao on 2015/11/28.
  */
 public class MethodTemplate {
+    // 获取运行时间,用于命名报告文件夹
+    private String test_time = new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(new Date());
 
     // 初始化浏览器
     public String openBrowser(StepParameters sp) {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "String browser = \"" + sp.getDataSet() + "\";" +
-                                    "this.extent = new com.relevantcodes.extentreports.ExtentReports(\"reports/" + sp.getSuiteName() + "/Automation Test Report-HighPin UI.html\", java.lang.Boolean.FALSE);" +
-                                    "this.extent.addSystemInfo(\"Selenium Version\", \"2.48.2\");" +
+                                    // 创建报告文件夹,并以时间进行区分
+                                    "this.extent = new com.relevantcodes.extentreports.ExtentReports(\"reports/" + sp.getSuiteName() + "_" + this.test_time + "/Automation Test Report-HighPin UI.html\", java.lang.Boolean.FALSE);" +
+                                    "this.extent.addSystemInfo(\"Selenium Version\", \"2.51.0\");" +
                                     "this.extent.addSystemInfo(\"Environment\", \"QA\");" +
                                     "this.test = this.extent.startTest(\"" + sp.getClassName() + "\", \"HighPin Automation Test\");" +
                                     "try {" +
@@ -35,7 +41,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -77,7 +83,7 @@ public class MethodTemplate {
                                     "}" +
                                     verifyStatement +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -94,7 +100,7 @@ public class MethodTemplate {
         // 转换方法:使用new String[]{"xxxxx"}
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
@@ -105,7 +111,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -119,7 +125,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.support.ui.Select select = new org.openqa.selenium.support.ui.Select(element);" +
@@ -131,7 +137,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -145,7 +151,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
@@ -156,7 +162,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -170,7 +176,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
@@ -181,7 +187,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -195,7 +201,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
@@ -206,7 +212,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -220,7 +226,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.submit();" +
@@ -231,7 +237,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -245,7 +251,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
@@ -256,7 +262,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -279,7 +285,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -301,7 +307,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -324,7 +330,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -337,7 +343,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
@@ -349,7 +355,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -362,7 +368,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
 //                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
@@ -374,7 +380,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
