@@ -1,14 +1,16 @@
 package com.highpin.operatordata;
 
 import com.highpin.except.NotFoundExcelColException;
-import com.highpin.tools.Utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -130,6 +132,8 @@ public class ExcelOperator {
         for (int c = 0; c < colNum; ++c) {
             title = stepSheet.getRow(0).getCell(c).getStringCellValue();
             value = stepSheet.getRow(rowNum).getCell(c).getStringCellValue();
+            // 去掉收字段值得首尾空格,避免方法无法执行.
+            value = value.trim();
             switch (title) {
                 case "Test_Step_ID":
                     testStep.put(value, stepItem);
