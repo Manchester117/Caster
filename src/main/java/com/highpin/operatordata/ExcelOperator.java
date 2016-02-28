@@ -110,7 +110,7 @@ public class ExcelOperator {
                         this.createTestDataStruct(stepSheet, colNum, r, testStep, stepItem);
                     }
                 } catch (NullPointerException e) {
-                    logger.info("读取Excel数据出现错误!Excel中存在用例范围外的数据.");
+                    logger.error("读取Excel数据出现错误!Excel中存在用例范围外的数据.");
                     e.getMessage();
                 }
                 // 向数据结构中加入验证点
