@@ -100,8 +100,7 @@ public class MethodTemplate {
         // 转换方法:使用new String[]{"xxxxx"}
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
                                         verifyStatement +
@@ -125,8 +124,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.support.ui.Select select = new org.openqa.selenium.support.ui.Select(element);" +
                                         "select.selectByVisibleText(\"" + sp.getDataSet() + "\");" +
@@ -151,8 +149,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
                                         verifyStatement +
@@ -176,8 +173,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
                                         verifyStatement +
@@ -201,8 +197,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
                                         verifyStatement +
@@ -227,7 +222,6 @@ public class MethodTemplate {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.submit();" +
                                         verifyStatement +
@@ -252,7 +246,6 @@ public class MethodTemplate {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
                                         verifyStatement +
@@ -343,8 +336,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
                                         "actions.moveToElement(element).perform();" +
@@ -368,8 +360,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-//                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
                                         "actions.click(element).perform();" +
