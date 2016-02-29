@@ -137,7 +137,7 @@ public class ExcelOperator {
         for (int c = 0; c < colNum; ++c) {
             title = stepSheet.getRow(0).getCell(c).getStringCellValue();
             value = stepSheet.getRow(rowNum).getCell(c).getStringCellValue();
-            // 去掉收字段值得首尾空格,避免方法无法执行.
+            // 去掉收字段值得首尾空格,避免无法动态生成方法.
             value = value.trim();
             switch (title) {
                 case "Test_Step_ID":
