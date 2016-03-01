@@ -35,10 +35,10 @@ public class MethodTemplate {
                                         "}" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "this.driver.manage().window().maximize();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\" + \":  \" + e.getMessage());" +
                                     "}" +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                         "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
