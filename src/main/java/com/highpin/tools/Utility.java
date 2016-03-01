@@ -76,7 +76,7 @@ public class Utility {
         Utility.deleteFiles(testPackage);
         Utility.deleteFiles(testOutput);
         Utility.deleteTestNGXML();
-        logger.info("代码清理完毕");
+        logger.info("**************************代码清理完毕**************************");
     }
 
     /**
