@@ -136,9 +136,14 @@ public class ExcelOperator {
         String value = null;
         for (int c = 0; c < colNum; ++c) {
             title = stepSheet.getRow(0).getCell(c).getStringCellValue();
-            value = stepSheet.getRow(rowNum).getCell(c).getStringCellValue();
-            // 去掉收字段值得首尾空格,避免无法动态生成方法.
-            value = value.trim();
+            try {
+                value = stepSheet.getRow(rowNum).getCell(c).getStringCellValue();
+                // 去掉收字段值得首尾空格,避免无法动态生成方法.
+                value = value.trim();
+            } catch (IllegalStateException e) {
+                logger.error("从单元格获取的内容必须是字符类型");
+                e.getMessage();
+            }
             switch (title) {
                 case "Test_Step_ID":
                     testStep.put(value, stepItem);

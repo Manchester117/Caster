@@ -260,6 +260,11 @@ public class ClassGenerator {
                             this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
+                        case "javaScript":
+                            methodStatement = this.mt.javaScriptPerform(sp);
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            logger.info("已加入方法--" + sp.getMethodName());
+                            break;
                         case "mouseHold":
                             methodStatement = this.mt.mouseHold(sp);
                             this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());

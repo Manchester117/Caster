@@ -23,9 +23,16 @@ public class VerifyModule {
         String verifyStatement = "";
         if (!verifyType.isEmpty() && !verifyTarget.isEmpty() && !verifyValue.isEmpty()) {
             verifyStatement = "try {" +
-                                    "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
-                                    "org.openqa.selenium.WebElement verifyElem =wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + LocatorTemplate.chooseLocator(verifyType, verifyTarget) + "));" +
-                                    "java.lang.String targetText = verifyElem.getText();" +
+                                    "java.lang.String targetText = null;" +
+//                                    "if (\"" + verifyType + "\".equals(\"javaScript\")) {" +
+                                    "org.openqa.selenium.JavascriptExecutor jsExecutor = (org.openqa.selenium.JavascriptExecutor)this.driver;" +
+                                    "java.lang.String jsCode = \"" + verifyTarget + ";\";" +
+                                    "targetText = (String)jsExecutor.executeScript(jsCode, new java.lang.Object[]{\"\"});" +
+//                                    "} else {" +
+//                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+//                                        "org.openqa.selenium.WebElement verifyElem = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + LocatorTemplate.chooseLocator(verifyType, verifyTarget) + "));" +
+//                                        "targetText = verifyElem.getText();" +
+//                                    "}" +
                                     "if (targetText.contains(\"" + verifyValue + "\")) {" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + verifyValue + "\" + \" ---- 文本验证:存在\");" +
                                     "} else {" +
@@ -35,6 +42,7 @@ public class VerifyModule {
                                     "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyTarget + "\" + \" ---- 未找到: \" + e.getMessage());" +
                               "}";
             logger.info("添加一个测试验证");
+            logger.info(verifyStatement);
         }
         return verifyStatement;
     }

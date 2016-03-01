@@ -307,6 +307,7 @@ public class MethodTemplate {
         return methodDefine;
     }
 
+    // 用JS实现点击
     public String javaScriptClick(StepParameters sp) throws Exception {
         String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
@@ -327,6 +328,30 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
+        return methodDefine;
+    }
+
+    // 直接执行JS
+    public String javaScriptPerform(StepParameters sp) throws Exception {
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
+        String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "try {" +
+                                        "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
+                                        "org.openqa.selenium.JavascriptExecutor jsExecutor = (org.openqa.selenium.JavascriptExecutor)this.driver;" +
+                                        "java.lang.String jsCode = \"" + by + ";\";" +
+                                        "jsExecutor.executeScript(jsCode, new java.lang.Object[]{\"\"});" +
+                                        verifyStatement +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\");" +
+                                    "} catch (java.lang.Exception e) {" +
+                                        "e.printStackTrace();" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
+                                    "}" +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
+                             "}";
         return methodDefine;
     }
 
