@@ -36,7 +36,7 @@ public class VerifyModule {
                               "} catch (java.lang.Exception e) {" +
                                     "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + verifyTarget + "\" + \" ---- 未找到: \" + e.getMessage());" +
                               "}";
-            logger.info(verifyStatement);
+//            logger.info(verifyStatement);
         }
         return verifyStatement;
     }
