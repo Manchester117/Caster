@@ -502,4 +502,34 @@ public class MethodTemplate {
                               "}";
         return methodDefine;
     }
+
+    public String switchTo(StepParameters sp) throws Exception {
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "try {" +
+                                        "for (java.lang.String windowHandle: this.driver.getWindowHandles()) {" +
+                                            "this.driver.switchTo().window(windowHandle);" +
+                                        "}" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
+                                    "} catch (java.lang.Exception e) {" +
+                                        "e.printStackTrace();" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
+                                        "org.testng.Assert.fail(\"切换TAB异常导致流程中断\");" +
+                                    "}" +
+                              "}";
+        return methodDefine;
+    }
+
+    public String closeTab(StepParameters sp) throws Exception {
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "try {" +
+                                        "this.driver.close();" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
+                                    "} catch (java.lang.Exception e) {" +
+                                        "e.printStackTrace();" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
+                                        "org.testng.Assert.fail(\"关闭浏览器窗口异常导致流程中断\");" +
+                                    "}" +
+                              "}";
+        return methodDefine;
+    }
 }
