@@ -48,6 +48,15 @@ public class LocatorTemplate {
             case "javaScript":
                 by = locatorValue;
                 break;
+            case "ie":
+                by = "java.lang.Runtime.getRuntime().exec(\"execute/UpLoadFile.exe 选择要加载的文件 " + locatorValue + "\").waitFor();";
+                break;
+            case "firefox":
+                by = "java.lang.Runtime.getRuntime().exec(\"execute/UpLoadFile.exe 文件上传 " + locatorValue + "\").waitFor();";
+                break;
+            case "chrome":
+                by = "java.lang.Runtime.getRuntime().exec(\"execute/UpLoadFile.exe 打开 " + locatorValue + "\").waitFor();";
+                break;
             default:
                 logger.error("无法识别定位选择器");
                 throw new NotFoundLocatorException("无法识别定位选择器: " + locatorValue);

@@ -8,6 +8,7 @@ import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ClassFile;
 import javassist.bytecode.ConstPool;
 import javassist.bytecode.annotation.Annotation;
+import javassist.bytecode.annotation.ArrayMemberValue;
 import javassist.bytecode.annotation.BooleanMemberValue;
 import javassist.bytecode.annotation.StringMemberValue;
 import org.apache.logging.log4j.LogManager;
@@ -205,74 +206,97 @@ public class ClassGenerator {
                     logger.info("已加入方法--" + sp.getMethodName());
                     // 插入等待方法--根据测试用例中的方法名前缀是否存在wait来判断
                 } else if (sp.getMethodName().startsWith("wait")) {
+                    String dependsMethodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex - 1).toString();
                     methodStatement = this.mt.waitFor(sp);
-                    this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                    this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
+                    logger.info("已加入方法--" + sp.getMethodName());
+                } else if (sp.getMethodName().startsWith("forward")) {
+                    String dependsMethodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex - 1).toString();
+                    methodStatement = this.mt.forward(sp);
+                    this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
+                    logger.info("已加入方法--" + sp.getMethodName());
+                } else if (sp.getMethodName().startsWith("back")) {
+                    String dependsMethodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex - 1).toString();
+                    methodStatement = this.mt.back(sp);
+                    this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
+                    logger.info("已加入方法--" + sp.getMethodName());
+                } else if (sp.getMethodName().startsWith("refresh")) {
+                    String dependsMethodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex - 1).toString();
+                    methodStatement = this.mt.refresh(sp);
+                    this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                     logger.info("已加入方法--" + sp.getMethodName());
                 } else if (!sp.getMethodName().equals("openBrowser") && !sp.getMethodName().equals("closeBrowser")) {
+                    // 当前操作方法必须依赖上一个操作方法(dependsOnMethod),所以必须获取上一个方法的名称.
+                    String dependsMethodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex - 1).toString();
                     switch (sp.getEleType()) {
                         case "text":
                             methodStatement = this.mt.inputText(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "link":
                             methodStatement = this.mt.linkForward(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "button":
                             methodStatement = this.mt.buttonClick(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "submit":
                             methodStatement = this.mt.submitClick(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "select":
                             methodStatement = this.mt.selectOption(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已插入方法--" + sp.getMethodName());
                             break;
                         case "file":
                             methodStatement = this.mt.uploadFile(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "radioButton":
                             methodStatement = this.mt.radioButtonOper(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "checkBox":
                             methodStatement = this.mt.checkBoxOper(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "alert":
                             methodStatement = this.mt.popupAlert(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "jsClick":
                             methodStatement = this.mt.javaScriptClick(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "javaScript":
                             methodStatement = this.mt.javaScriptPerform(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
+                            logger.info("已加入方法--" + sp.getMethodName());
+                            break;
+                        case "upload":
+                            methodStatement = this.mt.uploadFile(sp);
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "mouseHold":
                             methodStatement = this.mt.mouseHold(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         case "mouseClick":
                             methodStatement = this.mt.mouseClick(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, sp.getDescription());
+                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已加入方法--" + sp.getMethodName());
                             break;
                         default:
@@ -282,6 +306,7 @@ public class ClassGenerator {
                     }
                 }
             }
+            System.out.println(methodNameList);
             logger.info("**************************类已经创建完成**************************");
         }
     }
@@ -297,17 +322,21 @@ public class ClassGenerator {
     private void addMethod(CtClass ctClass, String methodName, String methodBody, String annotTitle, String annotValue) {
         CtMethod ctMethod = null;
         try {
-//            logger.info(methodBody);
+            // 调试方法使用
+            // logger.info(methodBody);
             ctMethod = CtNewMethod.make(methodBody, ctClass);
             ctClass.addMethod(ctMethod);
         } catch (CannotCompileException | NullPointerException e) {
             e.printStackTrace();
         }
 
+        // 给测试方法添加注解
         if (methodName.equals("openBrowser") || methodName.equals("closeBrowser")) {
             this.addAnnotation(ctClass, ctMethod, annotTitle, "alwaysRun", true);
+        } else if (methodName.equals("navigate")) {
+            this.addAnnotation(ctClass, ctMethod, annotTitle, "enabled", true);
         } else {
-            this.addAnnotation(ctClass, ctMethod, annotTitle, "description", annotValue);
+            this.addAnnotation(ctClass, ctMethod, annotTitle, "dependsOnMethods", annotValue);
         }
     }
 
@@ -326,12 +355,15 @@ public class ClassGenerator {
         String methodName = ctMethod.getName();
         AnnotationsAttribute attr = new AnnotationsAttribute(cPool, AnnotationsAttribute.visibleTag);
         Annotation annotation = new Annotation(annotTitle, cPool);
-        if (methodName.equals("openBrowser") || methodName.equals("closeBrowser")) {
+        if (methodName.equals("openBrowser") || methodName.equals("closeBrowser") || methodName.equals("navigate")) {
             // 如果Annotation的属性值是boolean类型
-            annotation.addMemberValue(annotKey, new BooleanMemberValue((boolean)annotValue, cPool));
+            annotation.addMemberValue(annotKey, new BooleanMemberValue((boolean) annotValue, cPool));
         } else {
-            // 如果Annotation的属性值是String类型
-            annotation.addMemberValue(annotKey, new StringMemberValue((String)annotValue, cPool));
+            // dependsOnMethod注解值必须是数组,所以使用ArrayMemberValue
+            ArrayMemberValue arrMemberValue = new ArrayMemberValue(cPool);
+            StringMemberValue [] strMemberValues = new StringMemberValue[]{new StringMemberValue(annotValue.toString(), cPool)};
+            arrMemberValue.setValue(strMemberValues);
+            annotation.addMemberValue(annotKey, arrMemberValue);
         }
         attr.addAnnotation(annotation);
         ctMethod.getMethodInfo().addAttribute(attr);
@@ -385,10 +417,11 @@ public class ClassGenerator {
     }
 
     // 测试--main方法
-//    public static void main(String[] args) throws Exception {
-//        ClassGenerator cg = new ClassGenerator();
-//        cg.createTestClass();
-//        cg.insertField();
-//        cg.suiteInsertMethod();
-//    }
+    public static void main(String[] args) throws Exception {
+        ClassGenerator cg = new ClassGenerator();
+        cg.createTestClass();
+        cg.insertField();
+        cg.suiteInsertMethod();
+//        cg.getAllClassMethodList();
+    }
 }

@@ -39,10 +39,11 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -80,11 +81,12 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.InterruptedException e) {" +
                                         "e.printStackTrace();" +
-                                    "}" +
-                                    verifyStatement +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                    "} finally {" +
+                                        verifyStatement +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -100,7 +102,7 @@ public class MethodTemplate {
         // 转换方法:使用new String[]{"xxxxx"}
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 15L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
                                         verifyStatement +
@@ -108,10 +110,15 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        // 如果流程出现异常使用Assert.fail()中断测试
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -124,7 +131,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 15L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.support.ui.Select select = new org.openqa.selenium.support.ui.Select(element);" +
                                         "select.selectByVisibleText(\"" + sp.getDataSet() + "\");" +
@@ -133,10 +140,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -149,7 +160,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 15L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
                                         verifyStatement +
@@ -157,10 +168,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -173,7 +188,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 15L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
                                         verifyStatement +
@@ -181,10 +196,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -197,7 +216,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 15L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "element.click();" +
                                         verifyStatement +
@@ -205,10 +224,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -229,10 +252,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -243,20 +270,23 @@ public class MethodTemplate {
         // 获取验证语句
         String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
+//        java.lang.Runtime.getRuntime().exec("execute/UpLoadFile.exe 文件上传 " + sp.getDataSet()).waitFor();
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 60L);" +
-                                        "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
-                                        "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
+                                        by +
                                         verifyStatement +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -276,10 +306,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -298,10 +332,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -322,10 +360,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -346,10 +388,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                              "}";
         return methodDefine;
@@ -361,7 +407,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 15L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
                                         "actions.moveToElement(element).perform();" +
@@ -370,10 +416,14 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                    "}" +
-                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
-                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
@@ -385,7 +435,7 @@ public class MethodTemplate {
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 30L);" +
+                                        "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 15L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
                                         "org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(this.driver);" +
                                         "actions.click(element).perform();" +
@@ -394,9 +444,58 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
+                                        "if (e.getMessage().contains(\"Timed out\")) {" +
+                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
+                                        "}" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
+                              "}";
+        return methodDefine;
+    }
+
+    // 浏览器前进
+    public String forward(StepParameters sp) throws Exception {
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "this.driver.navigate().forward();" +
+                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
+                                    verifyStatement +
                                     "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName() + "." + sp.getMethodName() + "\");" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
+                              "}";
+        return methodDefine;
+    }
+
+    // 浏览器后退
+    public String back(StepParameters sp) throws Exception {
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "this.driver.navigate().back();" +
+                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
+                                    verifyStatement +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                        "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                    "}" +
+                              "}";
+        return methodDefine;
+    }
+
+    // 浏览器页面刷新
+    public String refresh(StepParameters sp) throws Exception {
+        String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
+        String methodDefine = "public void " + sp.getMethodName() + "() {" +
+                                    "this.driver.navigate().refresh();" +
+                                    "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
+                                    verifyStatement +
+                                    "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
