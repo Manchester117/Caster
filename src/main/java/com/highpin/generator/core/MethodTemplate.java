@@ -104,6 +104,7 @@ public class MethodTemplate {
                                     "try {" +
                                         "org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(this.driver, 15L);" +
                                         "org.openqa.selenium.WebElement element = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated(" + by + "));" +
+                                        "element.clear();" +
                                         "element.sendKeys(new String[]{\"" + sp.getDataSet() + "\"});" +
                                         verifyStatement +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\");" +
