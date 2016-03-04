@@ -488,7 +488,7 @@ public class MethodTemplate {
         return methodDefine;
     }
 
-    // 浏览器页面刷新
+    // 当前页面刷新
     public String refresh(StepParameters sp) throws Exception {
         String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
@@ -503,6 +503,7 @@ public class MethodTemplate {
         return methodDefine;
     }
 
+    // 切换浏览器Tab
     public String switchTo(StepParameters sp) throws Exception {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -514,11 +515,17 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                         "org.testng.Assert.fail(\"切换TAB异常导致流程中断\");" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
     }
 
+    // 关闭当前浏览器Tab
     public String closeTab(StepParameters sp) throws Exception {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
@@ -528,6 +535,11 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
                                         "org.testng.Assert.fail(\"关闭浏览器窗口异常导致流程中断\");" +
+                                    "} finally {" +
+                                        "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
+                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
+                                        "}" +
                                     "}" +
                               "}";
         return methodDefine;
