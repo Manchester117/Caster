@@ -112,9 +112,7 @@ public class MethodTemplate {
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\" + \":  \" + e.getMessage());" +
                                         // 如果流程出现异常使用Assert.fail()中断测试
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -141,9 +139,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -169,9 +165,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -197,9 +191,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -225,9 +217,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -253,9 +243,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -280,9 +268,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -307,9 +293,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -333,9 +317,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -361,9 +343,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -389,9 +369,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -417,9 +395,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
@@ -445,9 +421,7 @@ public class MethodTemplate {
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getLocValue() + "\" + \":  \" + e.getMessage());" +
-                                        "if (e.getMessage().contains(\"Timed out\")) {" +
-                                            "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
-                                        "}" +
+                                        "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
                                             "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +

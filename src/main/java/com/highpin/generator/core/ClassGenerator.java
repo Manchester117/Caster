@@ -254,11 +254,6 @@ public class ClassGenerator {
                             this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                             logger.info("已插入方法--" + sp.getMethodName());
                             break;
-                        case "file":
-                            methodStatement = this.mt.uploadFile(sp);
-                            this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
-                            logger.info("已加入方法--" + sp.getMethodName());
-                            break;
                         case "radioButton":
                             methodStatement = this.mt.radioButtonOper(sp);
                             this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
