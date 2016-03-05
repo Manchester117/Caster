@@ -1,6 +1,8 @@
 package com.highpin.generator.core;
 
 import com.highpin.check.VerifyModule;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Date;
 public class MethodTemplate {
     // 获取运行时间,用于命名报告文件夹
     private String test_time = new SimpleDateFormat("yyyy_MM_dd_HH_mm").format(new Date());
+
+    public static Logger logger = LogManager.getLogger(MethodTemplate.class.getName());
 
     // 初始化浏览器
     public String openBrowser(StepParameters sp) {
@@ -481,8 +485,10 @@ public class MethodTemplate {
     public String switchTo(StepParameters sp) throws Exception {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "for (java.lang.String windowHandle: this.driver.getWindowHandles()) {" +
-                                            "this.driver.switchTo().window(windowHandle);" +
+                                        "java.lang.String [] handles = new java.lang.String[this.driver.getWindowHandles().size()];" +
+                                        "this.driver.getWindowHandles().toArray(handles);" +
+                                        "for (int index = 0; index < handles.length; ++index) {" +
+                                            "this.driver.switchTo().window(handles[index]);" +
                                         "}" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
@@ -496,6 +502,7 @@ public class MethodTemplate {
                                         "}" +
                                     "}" +
                               "}";
+//        logger.info(methodDefine);
         return methodDefine;
     }
 
@@ -516,6 +523,7 @@ public class MethodTemplate {
                                         "}" +
                                     "}" +
                               "}";
+//        logger.info(methodDefine);
         return methodDefine;
     }
 }

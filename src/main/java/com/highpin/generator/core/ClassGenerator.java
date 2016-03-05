@@ -225,7 +225,17 @@ public class ClassGenerator {
                     methodStatement = this.mt.refresh(sp);
                     this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
                     logger.info("已加入方法--" + sp.getMethodName());
-                } else if (!sp.getMethodName().equals("openBrowser") && !sp.getMethodName().equals("closeBrowser")) {
+                } else if (sp.getMethodName().startsWith("switchTo")) {
+                    String dependsMethodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex - 1).toString();
+                    methodStatement = this.mt.switchTo(sp);
+                    this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
+                    logger.info("已加入方法--" + sp.getMethodName());
+                } else if (sp.getMethodName().startsWith("closeTab")) {
+                    String dependsMethodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex - 1).toString();
+                    methodStatement = this.mt.closeTab(sp);
+                    this.addMethod(ctClass, sp.getMethodName(), methodStatement, testAnnotation, dependsMethodName);
+                    logger.info("已加入方法--" + sp.getMethodName());
+                } else {
                     // 当前操作方法必须依赖上一个操作方法(dependsOnMethod),所以必须获取上一个方法的名称.
                     String dependsMethodName = this.methodNameList.get(suiteCtIndex).get(ctIndex).get(methodIndex - 1).toString();
                     switch (sp.getEleType()) {
@@ -301,7 +311,7 @@ public class ClassGenerator {
                     }
                 }
             }
-            System.out.println(methodNameList);
+//            System.out.println(methodNameList);
             logger.info("**************************类已经创建完成**************************");
         }
     }
@@ -318,7 +328,7 @@ public class ClassGenerator {
         CtMethod ctMethod = null;
         try {
             // 调试方法使用
-            // logger.info(methodBody);
+//            logger.info(methodBody);
             ctMethod = CtNewMethod.make(methodBody, ctClass);
             ctClass.addMethod(ctMethod);
         } catch (CannotCompileException | NullPointerException e) {
