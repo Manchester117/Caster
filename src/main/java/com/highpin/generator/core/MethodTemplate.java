@@ -29,9 +29,11 @@ public class MethodTemplate {
                                         "if (browser.equals(\"Firefox\")) {" +
                                             "this.driver = new org.openqa.selenium.firefox.FirefoxDriver();" +
                                         "} else if (browser.equals(\"Chrome\")) {" +
+                                            "org.openqa.selenium.chrome.ChromeOptions options = new org.openqa.selenium.chrome.ChromeOptions();\n" +
+                                            "options.addArguments(new String[]{\"user-data-dir=C:/Users/Administrator/AppData/Local/Google/Chrome\"});" +
                                             "this.service = (org.openqa.selenium.remote.service.DriverService)new org.openqa.selenium.chrome.ChromeDriverService.Builder().usingDriverExecutable(new java.io.File(\"browserdriver/chromedriver.exe\")).usingAnyFreePort().build();" +
                                             "this.service.start();" +
-                                            "this.driver = new org.openqa.selenium.chrome.ChromeDriver((org.openqa.selenium.chrome.ChromeDriverService)this.service);" +
+                                            "this.driver = new org.openqa.selenium.chrome.ChromeDriver((org.openqa.selenium.chrome.ChromeDriverService)this.service, options);" +
                                         "} else if (browser.equals(\"IE\")) {" +
                                             "this.service = (org.openqa.selenium.remote.service.DriverService)new org.openqa.selenium.ie.InternetExplorerDriverService.Builder().usingDriverExecutable(new java.io.File(\"browserdriver/IEDriverServer.exe\")).usingAnyFreePort().build();" +
                                             "this.service.start();" +
@@ -57,7 +59,7 @@ public class MethodTemplate {
     public String closeBrowser(StepParameters sp) {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-                                        "this.driver.close();" +
+//                                        "this.driver.close();" +
                                         "this.driver.quit();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
