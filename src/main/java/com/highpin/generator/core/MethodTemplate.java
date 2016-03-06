@@ -29,11 +29,12 @@ public class MethodTemplate {
                                         "if (browser.equals(\"Firefox\")) {" +
                                             "this.driver = new org.openqa.selenium.firefox.FirefoxDriver();" +
                                         "} else if (browser.equals(\"Chrome\")) {" +
-                                            "org.openqa.selenium.chrome.ChromeOptions options = new org.openqa.selenium.chrome.ChromeOptions();\n" +
-                                            "options.addArguments(new String[]{\"user-data-dir=C:/Users/Administrator/AppData/Local/Google/Chrome\"});" +
+//                                            "org.openqa.selenium.chrome.ChromeOptions options = new org.openqa.selenium.chrome.ChromeOptions();\n" +
+//                                            "options.addArguments(new String[]{\"user-data-dir=C:/Users/Administrator/AppData/Local/Google/Chrome/Default\"});" +
                                             "this.service = (org.openqa.selenium.remote.service.DriverService)new org.openqa.selenium.chrome.ChromeDriverService.Builder().usingDriverExecutable(new java.io.File(\"browserdriver/chromedriver.exe\")).usingAnyFreePort().build();" +
                                             "this.service.start();" +
-                                            "this.driver = new org.openqa.selenium.chrome.ChromeDriver((org.openqa.selenium.chrome.ChromeDriverService)this.service, options);" +
+                                            "this.driver = new org.openqa.selenium.chrome.ChromeDriver((org.openqa.selenium.chrome.ChromeDriverService)this.service);" +
+                                            "this.driver.manage().deleteAllCookies();" +
                                         "} else if (browser.equals(\"IE\")) {" +
                                             "this.service = (org.openqa.selenium.remote.service.DriverService)new org.openqa.selenium.ie.InternetExplorerDriverService.Builder().usingDriverExecutable(new java.io.File(\"browserdriver/IEDriverServer.exe\")).usingAnyFreePort().build();" +
                                             "this.service.start();" +
@@ -513,6 +514,12 @@ public class MethodTemplate {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         "this.driver.close();" +
+                                        // 关闭新tab页后必须要重新获取浏览器Tab句柄,否则会出现driver丢失
+                                        "java.lang.String [] handles = new java.lang.String[this.driver.getWindowHandles().size()];" +
+                                        "this.driver.getWindowHandles().toArray(handles);" +
+                                        "for (int index = 0; index < handles.length; ++index) {" +
+                                            "this.driver.switchTo().window(handles[index]);" +
+                                        "}" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
                                         "e.printStackTrace();" +
