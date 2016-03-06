@@ -28,17 +28,19 @@ public class MethodTemplate {
                                     "try {" +
                                         "if (browser.equals(\"Firefox\")) {" +
                                             "this.driver = new org.openqa.selenium.firefox.FirefoxDriver();" +
+//                                           "this.driver.manage().deleteAllCookies();" +
                                         "} else if (browser.equals(\"Chrome\")) {" +
 //                                            "org.openqa.selenium.chrome.ChromeOptions options = new org.openqa.selenium.chrome.ChromeOptions();\n" +
 //                                            "options.addArguments(new String[]{\"user-data-dir=C:/Users/Administrator/AppData/Local/Google/Chrome/Default\"});" +
                                             "this.service = (org.openqa.selenium.remote.service.DriverService)new org.openqa.selenium.chrome.ChromeDriverService.Builder().usingDriverExecutable(new java.io.File(\"browserdriver/chromedriver.exe\")).usingAnyFreePort().build();" +
                                             "this.service.start();" +
                                             "this.driver = new org.openqa.selenium.chrome.ChromeDriver((org.openqa.selenium.chrome.ChromeDriverService)this.service);" +
-                                            "this.driver.manage().deleteAllCookies();" +
+//                                          "this.driver.manage().deleteAllCookies();" +
                                         "} else if (browser.equals(\"IE\")) {" +
                                             "this.service = (org.openqa.selenium.remote.service.DriverService)new org.openqa.selenium.ie.InternetExplorerDriverService.Builder().usingDriverExecutable(new java.io.File(\"browserdriver/IEDriverServer.exe\")).usingAnyFreePort().build();" +
                                             "this.service.start();" +
                                             "this.driver = new org.openqa.selenium.ie.InternetExplorerDriver((org.openqa.selenium.ie.InternetExplorerDriverService)this.service);" +
+//                                          "this.driver.manage().deleteAllCookies();" +
                                         "}" +
                                         "this.driver.manage().timeouts().implicitlyWait(10L, java.util.concurrent.TimeUnit.SECONDS);" +
                                         "this.driver.manage().window().maximize();" +
