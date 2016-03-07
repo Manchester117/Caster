@@ -62,7 +62,7 @@ public class MethodTemplate {
     public String closeBrowser(StepParameters sp) {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
-//                                        "this.driver.close();" +
+//                                      "this.driver.close();" +
                                         "this.driver.quit();" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.PASS, \"" + sp.getDescription() + "\");" +
                                     "} catch (java.lang.Exception e) {" +
@@ -268,7 +268,6 @@ public class MethodTemplate {
         // 获取验证语句
         String verifyStatement = VerifyModule.appendVerifyContentStatement(sp);
         String by = LocatorTemplate.chooseLocator(sp.getLocType(), sp.getLocValue());
-//        java.lang.Runtime.getRuntime().exec("execute/UpLoadFile.exe 文件上传 " + sp.getDataSet()).waitFor();
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "try {" +
                                         by +
@@ -507,7 +506,7 @@ public class MethodTemplate {
                                         "}" +
                                     "}" +
                               "}";
-//        logger.info(methodDefine);
+//      logger.info(methodDefine);
         return methodDefine;
     }
 
@@ -534,7 +533,7 @@ public class MethodTemplate {
                                         "}" +
                                     "}" +
                               "}";
-//        logger.info(methodDefine);
+//      logger.info(methodDefine);
         return methodDefine;
     }
 }
