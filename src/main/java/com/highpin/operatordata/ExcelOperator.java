@@ -35,6 +35,8 @@ public class ExcelOperator {
         if (is != null) {
             try {
                 this.excelBook = new XSSFWorkbook(is);
+                // 关闭文件输入流
+                is.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

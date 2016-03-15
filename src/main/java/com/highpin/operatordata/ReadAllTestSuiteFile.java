@@ -33,6 +33,7 @@ public class ReadAllTestSuiteFile {
         if (testSuiteList != null && testSuiteList.length > 0) {
             for (File file : testSuiteList) {
                 testSuiteName = file.getName();
+                // 只读取前缀为test_和后缀为.xlsx的文件
                 if (testSuiteName.startsWith("test_") && testSuiteName.endsWith(".xlsx")) {
                     // 实例化Excel数据读取
                     ExcelOperator eo = new ExcelOperator("cases/" + testSuiteName);
