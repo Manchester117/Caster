@@ -33,7 +33,7 @@ public class ReadAllTestSuiteFile {
         if (testSuiteList != null && testSuiteList.length > 0) {
             for (File file : testSuiteList) {
                 testSuiteName = file.getName();
-                if (testSuiteName.startsWith("test_")) {
+                if (testSuiteName.startsWith("test_") && testSuiteName.endsWith(".xlsx")) {
                     // 实例化Excel数据读取
                     ExcelOperator eo = new ExcelOperator("cases/" + testSuiteName);
                     // 获取单个Excel数据结构
