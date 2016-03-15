@@ -57,7 +57,7 @@ public class ExcelOperator {
 
         for (int r = 1; r < rowNum; ++r) {
             cell = excelSheet.getRow(r).getCell(0);
-            if ("Yes".equals(excelSheet.getRow(r).getCell(2).getStringCellValue())) {
+            if ("Yes".equalsIgnoreCase(excelSheet.getRow(r).getCell(2).getStringCellValue())) {
                 this.readyToRunTestStepList.add(this.excelBook.getSheet(cell.getStringCellValue()));
             }
         }
