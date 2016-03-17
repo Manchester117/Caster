@@ -49,7 +49,7 @@ public class ClassGenerator {
      */
     public ClassGenerator() throws Exception {
         this.cPool = ClassPool.getDefault();
-        // 放置在Jenkins持续集成中必须要有事先把WebDriver加载到JVM中
+        // 放置在Jenkins持续集成中必须要事先把WebDriver加载到JVM中
         this.cPool.insertClassPath(new ClassClassPath(WebDriver.class));
         this.mt = new MethodTemplate();
         ReadAllTestSuiteFile rf = new ReadAllTestSuiteFile();
