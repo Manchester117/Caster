@@ -30,7 +30,7 @@ public class ReadStruct {
             Map.Entry entry = (Map.Entry) step;
             suiteNameList.add(entry.getKey().toString());
         }
-        logger.info("Test Suite列表: " + Utility.dataStructConvertJSON(suiteNameList));
+        logger.info("文件列表: " + Utility.dataStructConvertJSON(suiteNameList));
         return suiteNameList;
     }
 
