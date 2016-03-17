@@ -20,6 +20,10 @@ public class ReadStruct {
         this.suiteMap = suiteMap;
     }
 
+    /**
+     * @Description: 从数据结构中获取所有的Excel文件名称
+     * @return suiteNameList -- 返回以List形式存放的文件名称
+     */
     public List<String> getTestSuiteName() {
         List<String> suiteNameList = new ArrayList<>();
         for (Object step : this.suiteMap.entrySet()) {
@@ -31,7 +35,7 @@ public class ReadStruct {
     }
 
     /**
-     * @Description: 从数据结构中获取素有的类名称
+     * @Description: 从数据结构中获取所有的类名称
      * @return classNameList -- 返回以List形式存放的类名称
      */
     public List<List<String>> getAllClassName() {
