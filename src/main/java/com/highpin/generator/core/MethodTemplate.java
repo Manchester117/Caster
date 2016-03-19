@@ -21,7 +21,7 @@ public class MethodTemplate {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "String browser = \"" + sp.getDataSet() + "\";" +
                                     // 创建报告文件夹,并以时间进行区分
-                                    "this.extent = new com.relevantcodes.extentreports.ExtentReports(\"reports/" + sp.getSuiteName() + "_" + this.test_time + "/Automation Test Report-HighPin UI.html\", java.lang.Boolean.FALSE);" +
+                                    "this.extent = new com.relevantcodes.extentreports.ExtentReports(\"reports/" + sp.getSuiteName() + "_" + this.test_time + "/Automation Test Report-HighPin-UIK.html\", java.lang.Boolean.FALSE);" +
                                     "this.extent.addSystemInfo(\"Selenium Version\", \"2.51.0\");" +
                                     "this.extent.addSystemInfo(\"Environment\", \"QA\");" +
                                     "this.test = this.extent.startTest(\"" + sp.getClassName() + "\", \"HighPin Automation Test\");" +
