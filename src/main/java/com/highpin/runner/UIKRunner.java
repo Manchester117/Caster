@@ -33,7 +33,7 @@ public class UIKRunner {
         this.xfo.createMultiXML();
     }
 
-    public void ConvertCode() {
+    public void convertCode() {
         rcf = new ConvertCodeFile();
         rcf.convertUnicodeFile();
     }
@@ -71,7 +71,7 @@ public class UIKRunner {
         UIKRunner uik = new UIKRunner();
         uik.createTestJavaClass();
         uik.createTestDriverXML();
-        uik.ConvertCode();
+        uik.convertCode();
         uik.testRunner();
         uik.replaceReport();
         uik.cleanCodeFile();
