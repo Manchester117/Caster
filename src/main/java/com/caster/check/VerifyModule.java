@@ -1,6 +1,6 @@
-package com.highpin.check;
+package com.caster.check;
 
-import com.highpin.generator.core.StepParameters;
+import com.caster.generator.core.StepParameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

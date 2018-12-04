@@ -1,4 +1,4 @@
-package com.highpin.generator.core;
+package com.caster.generator.core;
 
 import com.strobel.decompiler.Decompiler;
 import com.strobel.decompiler.PlainTextOutput;
@@ -75,7 +75,7 @@ public class ClassDecompiler {
      * @return classPackageFullNameList -- 类名称
      */
     public void getTestClassFileName() {
-        String testClassPath = "target/classes/com/highpin/test";
+        String testClassPath = "target/classes/com/caster/test";
         File pack = new File(testClassPath);
         File [] fileList = pack.listFiles();
         String subPackageName = null;
@@ -102,8 +102,8 @@ public class ClassDecompiler {
      * @Description: 将字节码文件反编译为Java文件
      */
     public void decompilerClass() {
-        String javaPrefixPath = "src/main/java/com/highpin/test/";
-        String classPrefixPath = "target/classes/com/highpin/test/";
+        String javaPrefixPath = "src/main/java/com/caster/test/";
+        String classPrefixPath = "target/classes/com/caster/test/";
         String javaFullPath = null;
         String classFullPath = null;
         FileOutputStream stream = null;

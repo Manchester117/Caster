@@ -1,8 +1,8 @@
-package com.highpin.generator.core;
+package com.caster.generator.core;
 
-import com.highpin.except.NotFoundTestException;
-import com.highpin.operatordata.ReadAllTestSuiteFile;
-import com.highpin.operatordata.ReadStruct;
+import com.caster.except.NotFoundTestException;
+import com.caster.operatordata.ReadAllTestSuiteFile;
+import com.caster.operatordata.ReadStruct;
 import javassist.*;
 import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ClassFile;
@@ -82,7 +82,7 @@ public class ClassGenerator {
             suiteName = this.suiteList.get(i);
             subCtClass = new ArrayList<>();
             for (String className : this.classNameList.get(i)) {
-                subCtClass.add(this.cPool.makeClass("com.highpin.test." + suiteName + "." + className));
+                subCtClass.add(this.cPool.makeClass("com.caster.test." + suiteName + "." + className));
             }
             this.ctList.add(subCtClass);
         }

@@ -1,7 +1,7 @@
-package com.highpin.generator.xml;
+package com.caster.generator.xml;
 
-import com.highpin.operatordata.ReadAllTestSuiteFile;
-import com.highpin.operatordata.ReadStruct;
+import com.caster.operatordata.ReadAllTestSuiteFile;
+import com.caster.operatordata.ReadStruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dom4j.Document;
@@ -59,7 +59,7 @@ public class XMLFileOperator {
         int sheetIndex = 0;
         // 创建根节点(suite)
         Element rootSuite = this.document.addElement("suite");
-        rootSuite.addAttribute("name", "HighPin UI Test");
+        rootSuite.addAttribute("name", "Caster UI Test");
         rootSuite.addAttribute("preserve-order", "true");
         // 此处可以再加入参数
         // 创建子节点(test)
@@ -71,7 +71,7 @@ public class XMLFileOperator {
             // 创建所有测试类
             Element testClasses = leafTest.addElement("classes");
             Element testClass = testClasses.addElement("class");
-            testClass.addAttribute("name", "com.highpin.test." + suiteName + "." + className);
+            testClass.addAttribute("name", "com.caster.test." + suiteName + "." + className);
             // 向测试类中添加方法节点
             Element testMethod = testClasses.addElement("methods");
             for (Object methodName : methodNameList.get(sheetIndex)) {
@@ -101,10 +101,5 @@ public class XMLFileOperator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        XMLFileOperator xfo = new XMLFileOperator();
-        xfo.createMultiXML();
     }
 }

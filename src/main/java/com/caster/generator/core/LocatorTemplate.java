@@ -1,10 +1,8 @@
-package com.highpin.generator.core;
+package com.caster.generator.core;
 
-import com.highpin.except.NotFoundLocatorException;
+import com.caster.except.NotFoundLocatorException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by Peng.Zhao on 2015/12/15.

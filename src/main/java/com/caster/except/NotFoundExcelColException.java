@@ -1,4 +1,4 @@
-package com.highpin.except;
+package com.caster.except;
 
 /**
  * Created by Peng.Zhao on 2015/12/10.

@@ -1,6 +1,6 @@
-package com.highpin.generator.core;
+package com.caster.generator.core;
 
-import com.highpin.tools.Utility;
+import com.caster.tools.Utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +18,7 @@ public class ConvertCodeFile {
      * @Description: 对Java代码中unicode编码的中文进行转码
      */
     public void convertUnicodeFile() {
-        File file = new File("./src/main/java/com/highpin/test");
+        File file = new File("./src/main/java/com/caster/test");
         File [] packageList = file.listFiles();
         if (packageList != null) {
             for (File singlePackage : packageList) {

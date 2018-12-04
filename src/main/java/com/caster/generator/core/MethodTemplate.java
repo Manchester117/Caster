@@ -1,6 +1,6 @@
-package com.highpin.generator.core;
+package com.caster.generator.core;
 
-import com.highpin.check.VerifyModule;
+import com.caster.check.VerifyModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,10 +21,10 @@ public class MethodTemplate {
         String methodDefine = "public void " + sp.getMethodName() + "() {" +
                                     "String browser = \"" + sp.getDataSet() + "\";" +
                                     // 创建报告文件夹,并以时间进行区分
-                                    "this.extent = new com.relevantcodes.extentreports.ExtentReports(\"reports/" + sp.getSuiteName() + "_" + this.test_time + "/Automation Test Report-HighPin-UIK.html\", java.lang.Boolean.FALSE);" +
-                                    "this.extent.addSystemInfo(\"Selenium Version\", \"2.51.0\");" +
+                                    "this.extent = new com.relevantcodes.extentreports.ExtentReports(\"reports/" + sp.getSuiteName() + "_" + this.test_time + "/Automation Test Report-Caster.html\", java.lang.Boolean.FALSE);" +
+                                    "this.extent.addSystemInfo(\"Selenium Version\", \"2.53.1\");" +
                                     "this.extent.addSystemInfo(\"Environment\", \"QA\");" +
-                                    "this.test = this.extent.startTest(\"" + sp.getClassName() + "\", \"HighPin Automation Test\");" +
+                                    "this.test = this.extent.startTest(\"" + sp.getClassName() + "\", \"Caster Automation Test\");" +
                                     "try {" +
                                         "if (browser.equals(\"Firefox\")) {" +
                                             "this.driver = new org.openqa.selenium.firefox.FirefoxDriver();" +
@@ -50,7 +50,7 @@ public class MethodTemplate {
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.FAIL, \"" + sp.getDescription() + " --->> " + sp.getDataSet() + "\" + \":  \" + e.getMessage());" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -93,7 +93,7 @@ public class MethodTemplate {
                                     "} finally {" +
                                         verifyStatement +
                                         "if (\"Yes\".equals(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -124,7 +124,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -151,7 +151,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -177,7 +177,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图--" + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -203,7 +203,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -229,7 +229,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -255,7 +255,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -279,7 +279,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -304,7 +304,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -328,7 +328,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -354,7 +354,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -380,7 +380,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -406,7 +406,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -432,7 +432,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"元素查找超时导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -448,7 +448,7 @@ public class MethodTemplate {
                                     "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
                                     verifyStatement +
                                     "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                        "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -463,7 +463,7 @@ public class MethodTemplate {
                                     "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
                                     verifyStatement +
                                     "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                        "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -478,7 +478,7 @@ public class MethodTemplate {
                                     "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"" + sp.getDescription() + "\");" +
                                     verifyStatement +
                                     "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                        "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                        "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                         "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                     "}" +
                               "}";
@@ -501,7 +501,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"切换TAB异常导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +
@@ -528,7 +528,7 @@ public class MethodTemplate {
                                         "org.testng.Assert.fail(\"关闭浏览器窗口异常导致流程中断\");" +
                                     "} finally {" +
                                         "if (\"Yes\".equalsIgnoreCase(\"" + sp.getScreenCapture() + "\")) {" +
-                                            "java.lang.String imgPath = com.highpin.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
+                                            "java.lang.String imgPath = com.caster.tools.Utility.captureScreenShot(this.driver, \"" + sp.getSuiteName() + "_" + this.test_time + "\", \"" + sp.getClassName().substring(17, sp.getClassName().length()) + "_" + sp.getDescription() + "\");" +
                                             "this.test.log(com.relevantcodes.extentreports.LogStatus.INFO, \"截图 -- " + sp.getDescription() + ": \" + this.test.addScreenCapture(imgPath));" +
                                         "}" +
                                     "}" +

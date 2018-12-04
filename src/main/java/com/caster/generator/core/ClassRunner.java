@@ -1,4 +1,4 @@
-package com.highpin.generator.core;
+package com.caster.generator.core;
 
 import javassist.CannotCompileException;
 import javassist.CtClass;

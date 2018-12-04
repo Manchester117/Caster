@@ -1,9 +1,9 @@
-package com.highpin.runner;
+package com.caster.runner;
 
-import com.highpin.generator.core.ClassDecompiler;
-import com.highpin.generator.core.ConvertCodeFile;
-import com.highpin.generator.xml.XMLFileOperator;
-import com.highpin.tools.Utility;
+import com.caster.generator.core.ClassDecompiler;
+import com.caster.generator.core.ConvertCodeFile;
+import com.caster.generator.xml.XMLFileOperator;
+import com.caster.tools.Utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.TestNG;

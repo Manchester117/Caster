@@ -1,7 +1,7 @@
-package com.highpin.operatordata;
+package com.caster.operatordata;
 
-import com.highpin.except.NotFoundExcelColException;
-import com.highpin.tools.Utility;
+import com.caster.except.NotFoundExcelColException;
+import com.caster.tools.Utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -255,10 +255,10 @@ public class ExcelOperator {
         }
     }
 
-//    public static void main(String[] args) throws Exception {
-//        ExcelOperator eo = new ExcelOperator("cases/test_Business_PublishJobAndRadishOrder.xlsx");
-//        SortedMap<String, SortedMap<String, Map<String, Object>>> testDataMap = eo.traverseTestSteps();
-//        String dataStruct = Utility.dataStructConvertJSON(testDataMap);
-//        System.out.println(dataStruct);
-//    }
+    public static void main(String[] args) throws Exception {
+        ExcelOperator eo = new ExcelOperator("cases/test_Business_PublishJobAndRadishOrder.xlsx");
+        SortedMap<String, SortedMap<String, Map<String, Object>>> testDataMap = eo.traverseTestSteps();
+        String data = Utility.dataStructConvertJSON(testDataMap);
+        System.out.println(data);
+    }
 }

@@ -1,4 +1,4 @@
-package com.highpin.tools;
+package com.caster.tools;
 
 import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
@@ -68,7 +68,7 @@ public class Utility {
      * @Description: 清理代码--测试执行完成后进行代码删除
      */
     public static void cleanCodeFile() {
-        String testPackagePath = "src/main/java/com/highpin/test";
+        String testPackagePath = "src/main/java/com/caster/test";
         String testOutputPath = "test-output";
         File testPackage = new File(testPackagePath);
         File testOutput = new File(testOutputPath);
