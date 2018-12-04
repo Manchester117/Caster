@@ -1,1 +1,1 @@
-# HighPin_UIK
+# UIVerifyKit
