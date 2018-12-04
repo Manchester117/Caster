@@ -2,6 +2,8 @@ package com.caster.generator.xml;
 
 import com.caster.operatordata.ReadAllTestSuiteFile;
 import com.caster.operatordata.ReadStruct;
+import com.caster.tools.Utility;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dom4j.Document;
@@ -10,6 +12,7 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -42,10 +45,17 @@ public class XMLFileOperator {
     }
 
     public void createMultiXML() {
-        String testngFileName = null;
-        for (int i = 0; i < this.allSuiteList.size(); ++i) {
-            testngFileName = "testng_" + this.allSuiteList.get(i) + ".xml";
-            this.createSingleXML(testngFileName, this.allSuiteList.get(i), this.allClassNameList.get(i), this.allMethodNameList.get(i));
+        // 创建testSuiteXML文件
+        String xmlFolderPath = null;
+        try {
+            xmlFolderPath = Utility.createXMLFolder().getCanonicalPath();
+            String testngFileName = null;
+            for (int i = 0; i < this.allSuiteList.size(); ++i) {
+                testngFileName = StringUtils.join(xmlFolderPath, File.separator, "testng_", this.allSuiteList.get(i), ".xml");
+                this.createSingleXML(testngFileName, this.allSuiteList.get(i), this.allClassNameList.get(i), this.allMethodNameList.get(i));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

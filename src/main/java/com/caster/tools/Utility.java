@@ -2,6 +2,7 @@ package com.caster.tools;
 
 import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Peng.Zhao on 2015/12/3.
@@ -65,6 +67,18 @@ public class Utility {
     }
 
     /**
+     * @Description: 创建存放TestSuiteXML的文件夹
+     */
+    public static File createXMLFolder() {
+        // 创建存放TestSuiteXML的文件夹(当前项目文件下的xml文件夹)
+        File xmlFolder = new File("xml");
+        if (!xmlFolder.exists())
+            xmlFolder.mkdirs();
+        logger.info("**************************TestSuiteXml文件夹创建完毕**************************");
+        return xmlFolder;
+    }
+
+    /**
      * @Description: 清理代码--测试执行完成后进行代码删除
      */
     public static void cleanCodeFile() {
@@ -102,11 +116,12 @@ public class Utility {
     // 删除testng.xml文件
     public static void deleteTestNGXML() {
         String testNGFilePrefix = "testng_test";
-        File root = new File(".");
+//        File root = new File(".");
+        File root = new File("xml");
         boolean flag = false;
-        for (String name : root.list()) {
+        for (String name : Objects.requireNonNull(root.list())) {
             if (name.startsWith(testNGFilePrefix)) {
-                flag = new File("./" + name).delete();
+                flag = new File("xml/" + name).delete();
                 if (flag) {
                     logger.info("删除TestNG.xml文件: " + name);
                 } else {
@@ -123,10 +138,11 @@ public class Utility {
     public static List<String> searchTestNGXML() {
         List<String> testNGxmlList = new ArrayList<>();
         String testNGFilePrefix = "testng_test";
-        File root = new File(".");
-        for (String name : root.list()) {
+//        File root = new File(".");
+        File root = new File("xml");
+        for (String name : Objects.requireNonNull(root.list())) {
             if (name.startsWith(testNGFilePrefix)) {
-                testNGxmlList.add(name);
+                testNGxmlList.add(StringUtils.join("xml/", name));
             }
         }
         return testNGxmlList;
